@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
 			hashedPassword: DataTypes.STRING,
 			provider: DataTypes.STRING,
 			salt: DataTypes.STRING,
-			ldapUserId: DataTypes.INTEGER
+			ldapUserId: DataTypes.STRING
 		},
 		{
 			tableName:'user',

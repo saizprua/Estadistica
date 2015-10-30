@@ -40,7 +40,6 @@
     "passport": "~0.2.2",
     "passport-facebook": "1.0.3",
     "passport-google": "latest",
-    "passport-ldapauth": "^0.3.1",
     "passport-local": "1.0.0",
     "passport-twitter": "1.0.2",
     "proxyquire": "^1.6.0",

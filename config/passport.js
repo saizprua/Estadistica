@@ -55,7 +55,7 @@ passport.use(new LDAPStrategy(
           if(user) return done(null, user);
 
           db.User.create({
-            ldapUserId: profile.sAMAccountType,
+            ldapUserId: profile.sAMAccountName,
             name: profile.name,
             username: profile.sAMAccountName,
             email : profile.userPrincipalName,

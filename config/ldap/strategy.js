@@ -7,6 +7,8 @@ var util = require('util');
 var ldap = require('ldapjs');
 var passport = require('passport');
 var config = require('../config');
+var extend = require('util')._extend;
+
 
 /**
  * `Strategy` constructor.
@@ -88,7 +90,7 @@ Strategy.prototype.authenticate = function(req) {
       return self.fail(403);
     }
 
-    var search = self._options.search;
+    var search = extend({},self._options.search);
         search.filter = search.filter.replace('$uid$', req.body.username);
 
 

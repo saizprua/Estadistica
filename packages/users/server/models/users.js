@@ -24,14 +24,10 @@ module.exports = function(sequelize, DataTypes) {
 			hashedPassword: DataTypes.STRING,
 			provider: DataTypes.STRING,
 			salt: DataTypes.STRING,
-			facebookUserId: DataTypes.INTEGER,
-			twitterUserId: DataTypes.INTEGER,
-			twitterKey: DataTypes.STRING,
-			twitterSecret: DataTypes.STRING,
-			github: DataTypes.STRING,
-			openId: DataTypes.STRING
+			ldapUserId: DataTypes.INTEGER
 		},
 		{
+			tableName:'user',
 			instanceMethods: {
 				makeSalt: function() {
 					return crypto.randomBytes(16).toString('base64');
@@ -47,9 +43,9 @@ module.exports = function(sequelize, DataTypes) {
 					return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
 				}
 			},
-			associate: function(models) {
-				User.hasMany(models.Article);
-			}
+			// associate: function(models) {
+			//
+			// }
 		}
 	);
 

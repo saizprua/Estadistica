@@ -10,24 +10,22 @@ module.exports = {
     app: {
         name: 'MEAN - A Modern Stack - Production'
     },
-    facebook: {
-        clientID: 'APP_ID',
-        clientSecret: 'APP_SECRET',
-        callbackURL: 'http://localhost:3000/auth/facebook/callback'
-    },
-    twitter: {
-        clientID: 'CONSUMER_KEY',
-        clientSecret: 'CONSUMER_SECRET',
-        callbackURL: 'http://localhost:3000/auth/twitter/callback'
-    },
-    github: {
-        clientID: 'APP_ID',
-        clientSecret: 'APP_SECRET',
-        callbackURL: 'http://localhost:3000/auth/github/callback'
-    },
-    google: {
-        clientID: 'APP_ID',
-        clientSecret: 'APP_SECRET',
-        callbackURL: 'http://localhost:3000/auth/google/callback'
+    ldap: {
+        server: {
+            url: 'ldap://zeus.innovacion.net:389'
+        },
+        authMode: 0,
+        debug: false,
+        authOnly: true,
+        usernameField: 'username',
+        passwordField: 'password',
+        base: 'ou=Secretaria de Innovacion, dc=innovacion, dc=net',
+        search: {
+            filter: '(sAMAccountName=$uid$)',
+            scope: 'sub',
+            sizeLimit: 1
+
+        },
+        searchAttributes: ['displayName']
     }
 };

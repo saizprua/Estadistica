@@ -1,7 +1,7 @@
   <div ng-controller="HeaderController as hdctr">
           <div class="inner">
               <div class="logo pull-left">
-                  <a class="navbar-brand" ui-sref="home">MEAN</a>
+                  <a class="navbar-brand" ui-sref="home">Estadisticas</a>
                   <ul class="navbar-nav nav" ng-show="hdctr.global.authenticated">
                     <li data-ng-repeat="item in hdctr.menu" ng-show="hdctr.global.user" >
                         <a ui-sref="{{item.link}}">{{item.title}}</a>
@@ -10,9 +10,9 @@
               </div>
               <div class="right pull-right">
                   <ul  class="navbar-nav nav" data-ng-hide="hdctr.global.authenticated">
-                      <li><a ui-sref='auth.register'>Join</a></li>
+                      <!-- <li><a ui-sref='auth.register'>Join</a></li> -->
                       <li class="divider-vertical"></li>
-                      <li><a ui-sref='auth.login'>Log In</a></li>
+                      <li><a ui-sref='auth.login'>Iniciar Sesion</a></li>
                   </ul>
 
                   <ul class="navbar-nav nav" data-ng-show="hdctr.global.authenticated">

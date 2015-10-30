@@ -27,6 +27,19 @@ app.route('/api/login')
            failureFlash: true
        }), users.login);
 
+ app.post('/auth/ldap',
+       passport.authenticate('ldap', {
+         successRedirect: '/',
+         failureRedirect: '/auth/login/'
+       })
+     );
+
+app.route('/api/login/ldap')
+.post(passport.authenticate('ldap', {failureFlash: true}), function(req,res) {
+  res.json('ok');
+  }
+);
+
 app.route('/api/loggedin')
       .get(function(req, res) {
           res.send(req.isAuthenticated() ? req.user : '0');

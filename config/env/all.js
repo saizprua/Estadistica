@@ -3,6 +3,7 @@ var path = require('path'),
 
 module.exports = {
 	root: rootPath,
+  prefix: 'INNOVACION',
 	port: process.env.PORT || 3000,
     forceSequelizeSync: process.env.FORCE_DB_SYNC==='true',
     enableSequelizeLog: true,

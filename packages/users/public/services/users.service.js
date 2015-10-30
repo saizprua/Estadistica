@@ -82,8 +82,8 @@ angular
 
             function login(user) {
                 // this is an ugly hack due to mean-admin needs
-                $http.post('/api/login', {
-                        email: user.email,
+                $http.post('/api/login/ldap', {
+                        username: user.username,
                         password: user.password
                     })
                     .success(function(res) {

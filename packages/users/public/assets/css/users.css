@@ -1,8 +1,8 @@
 .login-title{
-  font-size: 60px;
+  font-size: 30px;
   /*color: #b7b7b7;*/
   font-weight: 400;
-  letter-spacing: -5px;
+  /*letter-spacing: -5px;*/
   margin-bottom: 0;
 }
 .login-session{

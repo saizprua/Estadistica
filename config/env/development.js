@@ -13,11 +13,12 @@ module.exports = {
 
     ldap: {
         server: {
-            url: 'ldap://zeus.innovacion.net:389'
+            url: 'ldap://zeus.innovacion.net:389',
+            reconnect: true
         },
         authMode: 0,
         debug: false,
-        authOnly: true,
+        authOnly: false,
         usernameField: 'username',
         passwordField: 'password',
         base: 'ou=Secretaria de Innovacion, dc=innovacion, dc=net',

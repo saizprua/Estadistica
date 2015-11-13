@@ -32,7 +32,7 @@
     "forever": "latest",
     "glob": "^5.0.14",
     "jade": "latest",
-    "ldapjs": "^1.0.0",
+    "ldapjs": "https://github.com/mcavage/node-ldapjs.git",
     "lodash": "latest",
     "method-override": "latest",
     "morgan": "latest",

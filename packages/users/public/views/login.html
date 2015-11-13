@@ -1,15 +1,21 @@
 <div class="middle-box text-center loginscreen  animated fadeInDown">
-    <div>
+    <div class="login-interface">
+      <div class="well well-sm">
         <div>
-            <h2 class="text-info login-title">AIG-EST</h2>
+            <h5 class="text-info login-title">AIG-EST</h5>
         </div>
-        <p>Sistema de estadisticas AIG
+        <p>Sistema de Gestión de Estadística
         </p>
+        <p>
+          NODO DE TRANSPARENCIA
+        </p>
+      </div>
+
         <div class="alert alert-danger animated fadeIn" ng-show="lgctr.meanuser.loginError">
             {{lgctr.meanuser.loginError}}
         </div>
 
-        <p class="text-info login-session">Iniciar Sesion</p>
+        <p class="text-info login-session">Iniciar Sesión</p>
         <form class="m-t" role="form" ng-submit="lgctr.login()">
             <div class="form-group">
                 <input  ng-model="lgctr.user.username"  type="text" class="form-control" placeholder="Usuario"  required>
@@ -17,7 +23,7 @@
             <div class="form-group">
                 <input  ng-model="lgctr.user.password" type="password" class="form-control" placeholder="Contraseña" required>
             </div>
-            <button type="submit" class="btn btn-success btn-block full-width m-b">Iniciar</button>
+            <button type="submit" class="btn btn-primary btn-block full-width m-b">Iniciar</button>
 
             <!-- <a ui-sref="auth.register"><small>Forget password?</small></a> -->
 

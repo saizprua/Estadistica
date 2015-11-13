@@ -4,9 +4,9 @@
   angular.module('mean.users')
          .controller('LoginCtrl', LoginCtrl);
 
-      LoginCtrl.$inject = ['$rootScope', '$http', '$location','MeanUser'];
+      LoginCtrl.$inject = ['$rootScope', '$http', '$location','MeanUser','$scope'];
 
-      function LoginCtrl($rootScope, $http, $location,MeanUser){
+      function LoginCtrl($rootScope, $http, $location,MeanUser, $scope){
 
             //declare internal variables
             var vm = this;
@@ -22,6 +22,12 @@
             function login(){
               vm.meanuser.login(vm.user);
             }
+
+            $scope.$watch('lgctr.user',function(){
+                MeanUser.loginError = false;
+            },true);
+
+
 
       }
 

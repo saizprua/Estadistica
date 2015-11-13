@@ -1,5 +1,5 @@
 .login-title{
-  font-size: 80px;
+  font-size: 60px;
   /*color: #b7b7b7;*/
   font-weight: 400;
   letter-spacing: -5px;
@@ -30,4 +30,11 @@
 }
 .center{
   text-align: center;
+}
+
+.login-interface{
+  border: 1px solid #ddd;
+  border-radius:  3px;
+  padding: 5px;
+
 }

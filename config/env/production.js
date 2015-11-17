@@ -12,8 +12,7 @@ module.exports = {
     },
     ldap: {
         server: {
-            url: 'ldap://zeus.innovacion.net:389',
-            reconnect: true
+            url: 'ldap://zeus.innovacion.net:389'
         },
         authMode: 0,
         debug: false,

@@ -7,6 +7,13 @@ module.exports = {
         host:'localhost',
         port:3306
     },
+    db_inn: {
+        name: 'gerencia_innovacion',
+        password: 'PWticket2009',
+        username: 'jsena',
+        host:'10.252.75.114',
+        port:3306
+    },
     app: {
         name: 'M*EAN Stack - Development'
     },
@@ -14,7 +21,8 @@ module.exports = {
     ldap: {
         server: {
             url: 'ldap://zeus.innovacion.net:389',
-            reconnect: true
+            connectTimeout: Infinity,
+            idleTimeout: Infinity
         },
         authMode: 0,
         debug: false,

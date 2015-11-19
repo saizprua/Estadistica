@@ -7,13 +7,15 @@ angular.module('mean', [
   /*3rd-party modules*/
   'ui.router',
   'ui.bootstrap',
+  'angles',
+  'chart.js',
 
   /*feature areas*/
   'mean.system',
-  'mean.articles',
-  'mean.users'
+  'mean.users',
+  'mean.ses'
 ]);
 
 angular.module('mean.system', []);
-angular.module('mean.articles', []);
 angular.module('mean.users',[]);
+angular.module('mean.ses',[]);

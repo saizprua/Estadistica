@@ -62,7 +62,6 @@ function Strategy(options, verify) {
   passport.Strategy.call(this);
 
   this.name = 'ldap';
-  this.client = ldap.createClient(options.server);
   this._verify = verify;
   this._options = options;
 }
@@ -78,16 +77,22 @@ util.inherits(Strategy, passport.Strategy);
  * @param {Object} req
  * @api protected
  */
+
 Strategy.prototype.authenticate = function(req) {
+
   var self = this;
+
 
   if (!req.body.username || !req.body.password) {
     return self.fail(401);
   }
 
+  //crete client ldap
+  self.client = ldap.createClient(self._options.server);
+
   self.client.bind(config.prefix + '\\' + req.body.username, req.body.password, function(err) {
     if (err) {
-      return self.fail(403);
+      return self._fail(403);
     }
 
     var search = extend({},self._options.search);
@@ -96,7 +101,7 @@ Strategy.prototype.authenticate = function(req) {
 
     self.client.search(self._options.base, search, function(err, res) {
       if (err) {
-        return self.fail(403);
+        return self._fail(403);
       }
 
       res.on('searchEntry', function(entry) {
@@ -106,21 +111,31 @@ Strategy.prototype.authenticate = function(req) {
 
       res.on('end', function() {
 
-        if(!self._profile) return self.fail(403);
+        if(!self._profile) {
+          return self._fail(403);
+        }
 
         self._verify(self._profile, function(err, user) {
           if (err) {
+            self.client.destroy();
             return self.error(err);
           }
           if (!user) {
-            return self.fail(self._challenge());
+              return self._fail(self._challenge());
           }
+          self.client.destroy();
           self.success(user);
         });
 
       });
     });
   });
+
+  self._fail = function (error) {
+    self.client.destroy();
+    return self.fail(error);
+  };
+
 };
 
 /**

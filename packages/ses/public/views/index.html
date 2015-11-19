@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Solicitudes Aprobadas - Año {{vm.year || "actual"}}
+
+          <select class="form-control input-sm input-right"
+              ng-options="year for year in vm.years track by year"
+              ng-model="vm.year"
+              ng-change="vm.getDataAll()"
+              >
+        </select>
+        </div>
+        <div class="panel-body">
+
+          <table class="table fnt-11" >
+            <tbody>
+                <tr ng-repeat="row in vm.data.data">
+                  <td>
+                  <b>{{$index + 1}}</b>
+                  </td>
+                  <td>
+                    <span  class="label-chart" style="background-color:{{vm.data.colors[$index]}}"></span>
+                  </td>
+                  <td>
+                      {{row.entidad.nombre_entidad}}
+                  </td>
+                  <td>
+                    {{row.monto | currency : "B/. " : 2}}
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="chart-container " >
+                    <canvas  id="base" class="chart-base" chart-type="'Pie'"
+                       chart-data="vm.data.values" chart-labels="vm.data.labels"  chart-colours="vm.data.colors">
+                    </canvas>
+                  </div>
+                </div>
+              </div>
+        </div>
+  </div>
+  </div>
+  <div class="col-md-6">
+
+       <div>
+       </div>
+  </div>
+
+</div>

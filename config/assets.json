@@ -2,13 +2,17 @@
     "core": {
         "css": {
             "bower_components/build/css/dist.min.css": [
-                "bower_components/bootstrap/dist/css/bootstrap.min.css"
+                "bower_components/bootswatch/flatly/bootstrap.min.css",
+                "bower_components/angular-chart.js/dist/angular-chart.css"
             ]
         },
         "js": {
             "bower_components/build/js/dist.min.js": [
                 "bower_components/angular/angular.min.js",
                 "bower_components/angular-cookies/angular-cookies.js",
+                "bower_components/Chart.js/Chart.min.js",
+                "bower_components/angles/angles.js",
+                "bower_components/angular-chart.js/angular-chart.js",
                 "bower_components/angular-resource/angular-resource.js",
                 "bower_components/angular-mocks/angular-mocks.js",
                 "bower_components/angular-ui-router/release/angular-ui-router.min.js",

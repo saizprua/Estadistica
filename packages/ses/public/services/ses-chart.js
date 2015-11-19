@@ -27,7 +27,11 @@
 
       function generateData(data,config) {
         config = angular.extend({value:'monto', label:'entidad.nombre_entidad'});
-        var result = {values:[], labels:[], colors: colors, data:data};
+        var result = {values:[], labels:[], montos:[], colors: colors, data:data, sum:0};
+
+        result.sum = data.reduce(function(p, c) {
+            return (p.monto ? p.monto : p) + c.monto;
+        });
 
         data.forEach(function (item) {
               var objData = {};
@@ -49,8 +53,11 @@
                   }
                 }
               }
-               result.values.push(objData.value);
-               result.labels.push(objData.label);
+
+               result.values.push( ((objData.value / result.sum)*100).toFixed(2) );
+               result.montos.push( objData.value.toFixed(2) );
+               result.labels.push( objData.label );
+
 
         });
 

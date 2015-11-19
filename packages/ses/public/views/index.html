@@ -12,7 +12,7 @@
         </div>
         <div class="panel-body">
 
-          <table class="table fnt-11" >
+          <table class="table table-bordered fnt-11" >
             <tbody>
                 <tr ng-repeat="row in vm.data.data">
                   <td>
@@ -28,13 +28,17 @@
                     {{row.monto | currency : "B/. " : 2}}
                   </td>
                 </tr>
+                <tr class="active">
+                  <td colspan="3" style="text-align: right"> <b>TOTAL: </b></td>
+                  <td >  <b>{{vm.data.sum | currency : "B/. " : 2}}</b></td>
+                </tr>
             </tbody>
         </table>
         <div class="panel panel-default">
                 <div class="panel-body">
                   <div class="chart-container " >
                     <canvas  id="base" class="chart-base" chart-type="'Pie'"
-                       chart-data="vm.data.values" chart-labels="vm.data.labels"  chart-colours="vm.data.colors">
+                       chart-data="vm.data.values" chart-labels="vm.data.labels" chart-options="vm.config"  chart-colours="vm.data.colors">
                     </canvas>
                   </div>
                 </div>

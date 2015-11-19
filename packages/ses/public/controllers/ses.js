@@ -10,16 +10,20 @@
       var vm = this;
           vm.data = [];
           vm.years = [];
+          vm.config = {
+            segmentStrokeWidth : 3,
+            tooltipTemplate: '<%= value + "%" %>'
+          };
           vm.getDataAll = getDataAll;
 
       init();
-
-
 
       function init() {
         getDataAll();
         createYearData();
       }
+
+
 
       function createYearData(){
           var minYear = 2013;

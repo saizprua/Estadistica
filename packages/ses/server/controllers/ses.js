@@ -32,7 +32,7 @@ db.solicitud.findAll({
 .then(function (solicitudes) {
   // res.json(solicitudes);
   var result = [];
-  var otros  = {monto:0,entidad:{nombre_entidad:'Otros'}};
+  var otros  = {monto:0,entidad:{nombre_entidad:'OTROS'}};
 
   solicitudes.forEach(function (item, idx) {
 

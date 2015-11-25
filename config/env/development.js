@@ -3,8 +3,8 @@ module.exports = {
     db: {
         name: 'estadistica',
         password: '1234',
-        username: 'gene',
-        host:'localhost',
+        username: 'innovacion',
+        host:'10.252.76.239',
         port:3306
     },
     db_inn: {
@@ -15,7 +15,7 @@ module.exports = {
         port:3306
     },
     app: {
-        name: 'M*EAN Stack - Development'
+        name: 'Dev-Estadisticas'
     },
 
     ldap: {

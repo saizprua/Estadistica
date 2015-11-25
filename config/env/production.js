@@ -15,7 +15,7 @@ module.exports = {
         port:3306
     },
     app: {
-        name: 'MEAN - A Modern Stack - Production'
+        name: 'Estidisticas'
     },
     ldap: {
         server: {

@@ -9,13 +9,18 @@ angular.module('mean', [
   'ui.bootstrap',
   'angles',
   'chart.js',
+  'oc.lazyLoad',
+  'formly',
+  'formlyBootstrap',
 
   /*feature areas*/
   'mean.system',
   'mean.users',
-  'mean.ses'
+  'mean.ses',
+  'mean.iti'
 ]);
 
 angular.module('mean.system', []);
 angular.module('mean.users',[]);
 angular.module('mean.ses',[]);
+angular.module('mean.iti',[]);

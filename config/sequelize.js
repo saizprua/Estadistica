@@ -30,7 +30,9 @@ function init(callback){
       define: {
           timestamps: true,
           freezeTableName: true,
-          underscored: true
+          underscored: true,
+          createdAt: 'fecha_creacion',
+          updatedAt: 'fecha_act'
       }
   });
 

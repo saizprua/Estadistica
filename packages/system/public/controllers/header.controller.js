@@ -9,9 +9,9 @@ angular
     function HeaderController($http,$state,Global){
         var vm = this;
         vm.global = Global;
-        
+
         // {  'title': 'Articles', 'link': 'articles'}
-        vm.menu = [];
+        vm.menu = [{title:'SES', link:'ses'}];
 
         vm.isCollapsed = false;
         vm.logout = logout;

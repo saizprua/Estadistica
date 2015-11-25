@@ -1,0 +1,61 @@
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+              <div class="ibox-title heading-button">
+                  <h5>Capacitaciones
+                      <small></small>
+                  </h5>
+                  <div class="ibox-tools btn-action">
+                      <a href="" ng-click="vm.refresh()" class="btn btn-info"><i  ng-class="{'fa-spin':vm.isRefreshing}" class="fa fa-refresh"></i></a>
+                      <a href="" ng-click="vm.createOrEdit({},true)" class="btn btn-primary">Nuevo <i class="fa fa-plus"></i></a>
+                  </div>
+              </div>
+              <br>
+                <div class="ibox-content">
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                           <table datatable="ng" class="table table-striped table-hover table-bordered">
+                             <thead>
+                                 <tr>
+                                   <th>Fecha Reporte</th>
+                                   <th>Atendidos</th>
+                                   <th>Egresados</th>
+                                   <th>Eventos Realizados</th>
+
+                                   <th></th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                               <tr ng-repeat="item in vm.data">
+                                  <td>{{item.fecha_reporte | date:'yyyy-MM-dd'}}</td>
+                                  <td>{{item.atendidos}}</td>
+                                  <td>{{item.egresados}}</td>
+                                  <td>{{item.eventos}}</td>
+                                 <td class="center">
+                                   <button ng-click="vm.destroy(item)" class="btn btn-sm btn-danger btn-circle" type="button"  ><i class="fa fa-trash"></i></button>
+                                   <button ng-click="vm.createOrEdit(item)" class="btn btn-sm btn-warning btn-circle" type="button"  ><i class="fa fa-pencil"></i></button>
+                                 </td>
+                               </tr>
+                           </tbody>
+
+                           <tfoot>
+                               <tr>
+                                 <th>Fecha Reporte</th>
+                                 <th>Atendidos</th>
+                                 <th>Egresados</th>
+                                 <th>Eventos Realizados</th>
+                                 <th></th>
+                               </tr>
+                           </tfoot>
+                           </table>
+                        </div>
+                      </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

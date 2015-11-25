@@ -1,0 +1,25 @@
+<div class="content-modal-nov">
+    <div class="modal-header" style="padding:5px 15px">
+              <h3 class="modal-title">{{vm.formData.title}}</h3>
+          </div>
+
+          <div class="modal-body">
+            <div ng-show="vm.form.$submitted">
+              <div ng-repeat="err in vm.errors" class="alert alert-danger fadeIn">
+                <strong>{{err.title || err.name}}</strong> {{err.message}}
+              </div>
+            </div>
+
+
+            <form ng-submit="vm.onSubmit()" novalidate>
+                <formly-form model="vm.model" fields="vm.fields" form="vm.form">
+                      <button type="submit" class="btn btn-primary btn-block">Enviar <i class="fa fa-paper-plane-o"></i></button>
+                </formly-form>
+            </form>
+          </div>
+
+    <div class="modal-footer" style="padding:5px 20px">
+              <button class="btn btn-sm btn-warning" type="button" ng-click="vm.cancel()">Cancelar</button>
+    </div>
+
+</div>

@@ -26,7 +26,7 @@
           url: '/',
           templateUrl: 'system/views/index.html',
           controller:'IndexController',
-          controllerAs:'idctr',
+          controllerAs:'vm',
           resolve: {
           loggedin: function(MeanUser) {
                   return MeanUser.checkLoggedin();

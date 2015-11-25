@@ -10,5 +10,5 @@
         var vm = this;
         vm.global = Global;
       }
-  
+
 })();

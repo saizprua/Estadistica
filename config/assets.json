@@ -3,21 +3,28 @@
         "css": {
             "bower_components/build/css/dist.min.css": [
                 "bower_components/bootswatch/flatly/bootstrap.min.css",
-                "bower_components/angular-chart.js/dist/angular-chart.css"
+                "bower_components/angular-chart.js/dist/angular-chart.css",
+                "bower_components/font-awesome/css/font-awesome.min.css"
             ]
         },
         "js": {
             "bower_components/build/js/dist.min.js": [
+                "bower_components/jquery/dist/jquery.min.js",
+                "bower_components/datatables/media/js/jquery.dataTables.min.js",
+                "bower_components/api-check/dist/api-check.min.js",
                 "bower_components/angular/angular.min.js",
+                "bower_components/angular-i18n/angular-locale_es-pa.js",
+                "bower_components/oclazyload/dist/ocLazyLoad.min.js",
                 "bower_components/angular-cookies/angular-cookies.js",
+                "bower_components/angular-formly/dist/formly.js",
+                "bower_components/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.min.js",
                 "bower_components/Chart.js/Chart.min.js",
                 "bower_components/angles/angles.js",
                 "bower_components/angular-chart.js/angular-chart.js",
                 "bower_components/angular-resource/angular-resource.js",
                 "bower_components/angular-mocks/angular-mocks.js",
                 "bower_components/angular-ui-router/release/angular-ui-router.min.js",
-                "bower_components/angular-bootstrap/ui-bootstrap.min.js"
-            ]
+                "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"            ]
         }
     }
 }

@@ -4,9 +4,16 @@
       .module('mean.iti')
       .controller('ItiController',ItiController);
 
-      ItiController.inject = ['Iti','$uibModal'];
+      ItiController.inject = ['Iti','$uibModal', 'DTDefaultOptions'];
 
-      function ItiController( Iti, $uibModal){
+      function ItiController( Iti, $uibModal, DTDefaultOptions){
+
+        //default lang
+        DTDefaultOptions.setLanguage({
+            sUrl: 'iti/assets/json/es_dt.json'
+        });
+        // console.log(DTOptionsBuilder);
+        //iti/assets/json/es_dt.json
         var vm = this;
 
         getData();

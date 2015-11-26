@@ -13,7 +13,7 @@
       controller: ['$scope', function ($scope) {
         $scope.datepicker = {};
         var date = new Date();
-        $scope.datepicker.date = new Date( date.setMonth(date.getMonth() + 1) );
+        $scope.datepicker.date = new Date( date.setMonth(date.getMonth()) );
       }]
     });
   }

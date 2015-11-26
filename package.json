@@ -46,6 +46,7 @@
     "sequelize": "^3.13.0",
     "serve-favicon": "latest",
     "view-helpers": "latest",
+    "when": "^3.7.5",
     "winston": "latest"
   },
   "devDependencies": {

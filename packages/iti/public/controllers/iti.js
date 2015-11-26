@@ -4,14 +4,15 @@
       .module('mean.iti')
       .controller('ItiController',ItiController);
 
-      ItiController.inject = ['Iti','$uibModal', 'DTDefaultOptions'];
+      ItiController.inject = ['Iti','$uibModal'];
 
-      function ItiController( Iti, $uibModal, DTDefaultOptions){
+      function ItiController( Iti, $uibModal){
 
+        // console.log(DTDefaultOptions);
         //default lang
-        DTDefaultOptions.setLanguage({
-            sUrl: 'iti/assets/json/es_dt.json'
-        });
+        // DTDefaultOptions.setLanguage({
+        //     sUrl: 'iti/assets/json/es_dt.json'
+        // });
         // console.log(DTOptionsBuilder);
         //iti/assets/json/es_dt.json
         var vm = this;
@@ -24,16 +25,10 @@
           vm.isRefreshing = false;
           vm.refresh = refresh;
 
-
-
-
       function refresh() {
         vm.isRefreshing = true;
         vm[vm.select.method](true);
       }
-
-
-
 
       function getData(isRefresh){
         vm.select = {name:'data', as:'ItiCEAdminController',title:'Capacitaciones',method:'getData'};
@@ -44,7 +39,6 @@
             });
           }
         }
-
 
       function destroy(model) {
         model.$delete();
@@ -97,8 +91,6 @@
             }
 
          }
-
-
       }
 
 })();

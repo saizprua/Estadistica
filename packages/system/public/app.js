@@ -12,6 +12,7 @@ angular.module('mean', [
   'oc.lazyLoad',
   'formly',
   'formlyBootstrap',
+  'datatables',
 
   /*feature areas*/
   'mean.system',

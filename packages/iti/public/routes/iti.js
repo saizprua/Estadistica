@@ -35,12 +35,6 @@
                                  'bower_components/datatables/media/css/dataTables.bootstrap.min.css',
                                  'bower_components/datatables/media/js/dataTables.bootstrap.min.js'
                                ]
-                             },
-                             {
-                                 name: 'datatables',
-                                 files: [
-                                  'bower_components/angular-datatables/dist/angular-datatables.min.js'
-                               ]
                              }
                          ]).then(function () {
                            console.log('success');

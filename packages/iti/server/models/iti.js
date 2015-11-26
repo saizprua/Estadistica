@@ -1,5 +1,7 @@
 'use strict';
 
+var when = require('when');
+
 module.exports = function(sequelize, DataTypes) {
 
 	var Iti = sequelize.define('iti',
@@ -50,9 +52,32 @@ module.exports = function(sequelize, DataTypes) {
 			},
 			hooks: {
 			 beforeValidate: function (item) {
+				 var deferred = when.defer();
+
  					 if(typeof item.fecha_reporte  === 'string'){
  						 	item.fecha_reporte = new Date(item.fecha_reporte);
  					 }
+
+					 var curdate = new Date();
+ 					 var nFecha = curdate.getYear() + curdate.getMonth();
+ 					 var rFecha = item.fecha_reporte.getYear() + item.fecha_reporte.getMonth();
+
+					 if(item.egresados > item.atendidos){
+						 console.log(item.egresados, item.atendidos);
+						 setTimeout(function () {
+						 		deferred.reject({message:'Egresados no puede ser mayor a atendidos.'});
+						 });
+					 }else if (rFecha > nFecha) {
+						 console.log(rFecha, nFecha);
+						 setTimeout(function () {
+ 							 deferred.reject({message:'El mes no puede ser mayor al actual.'});
+ 						});
+					 }
+					 else{
+						 deferred.resolve();
+					 }
+
+					return deferred.promise;
  			 }
 	 }
 		}

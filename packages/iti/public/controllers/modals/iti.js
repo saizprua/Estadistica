@@ -17,7 +17,6 @@
           vm.originalFields = angular.copy(vm.formData.fields);
 
 
-
           function onSubmit(){
               vm.errors = [];
               vm.form.$submitted = true;
@@ -50,11 +49,11 @@
              $uibModalInstance.dismiss('cancel');
            }
 
-
             vm.fields = [
               {
                 key: 'atendidos',
                 type: 'input',
+                className: 'form-sm',
                 templateOptions: {
                   label: 'Atendidos',
                   maxlength: 11,
@@ -66,6 +65,7 @@
               {
                 key: 'egresados',
                 type: 'input',
+                className: 'form-sm',
                 templateOptions: {
                   label: 'Egresados',
                   maxlength: 11,
@@ -77,6 +77,7 @@
               {
                 key: 'eventos',
                 type: 'input',
+                className: 'form-sm',
                 templateOptions: {
                   label: 'Eventos',
                   maxlength: 11,
@@ -89,26 +90,11 @@
                  key: 'fecha_reporte',
                  type: 'datepicker',
                  templateOptions: {
-                   label: 'Date',
+                   label: 'Mes',
                    required:true
                 }
                }
-              // {
-              //   key: 'fecha_reporte',
-              //   type: 'input',
-              //   templateOptions: {
-              //     label: 'Fecha Reporte',
-              //     type: 'date',
-              //     placeholder: 'Fecha Reporte',
-              //     required: true
-              //   }
-              // }
 
         ];
-
-
-
-
     }
-
 }());

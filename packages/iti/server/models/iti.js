@@ -32,13 +32,21 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: true,
 				unique: true,
         comment: 'Fecha en la que se generea el reporte'
-      }
+      },
+			user_id:{
+				type: DataTypes.INTEGER,
+				allowNull:false,
+				notEmpty: true
+			}
 
 		},
 		{
 			tableName:'iti_capacitaciones',
 			associate: function(models) {
-        Iti.belongsTo(models.User);
+        Iti.belongsTo(models.User,{
+					foreignKey: 'user_id',
+					onDelete: 'cascade'
+				});
 			},
 			hooks: {
 			 beforeValidate: function (item) {

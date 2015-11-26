@@ -28,7 +28,7 @@
                              </thead>
                              <tbody>
                                <tr ng-repeat="item in vm.data">
-                                  <td>{{item.fecha_reporte | date:'yyyy-MM-dd'}}</td>
+                                  <td>{{item.fecha_reporte | date:'MMMM yyyy' | capitalize}}</td>
                                   <td>{{item.atendidos}}</td>
                                   <td>{{item.egresados}}</td>
                                   <td>{{item.eventos}}</td>

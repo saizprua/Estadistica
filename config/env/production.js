@@ -3,15 +3,15 @@ module.exports = {
     db: {
         name: 'estadistica',
         password: '1234',
-        username: 'gene',
-        host:'localhost',
+        username: 'innovacion',
+        host:'10.252.76.239',
         port:3306
     },
     db_inn: {
         name: 'gerencia_innovacion',
-        password: '1nn0v4$$',
-        username: 'innovacion',
-        host:'10.252.75.126',
+        password: 'PWticket2009',
+        username: 'jsena',
+        host:'10.252.75.114',
         port:3306
     },
     app: {

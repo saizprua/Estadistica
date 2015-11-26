@@ -7,6 +7,18 @@
                         <a ui-sref="{{item.link}}">{{item.title}}</a>
                     </li>
                   </ul>
+                  <ul class="navbar-nav nav">
+
+                    <li class="uib-dropdown" uib-dropdown on-toggle="toggled(open)">
+                        <a href="#" class="uib-dropdown-toggle" uib-dropdown-toggle>
+                            <span>ITI</span> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="iti" >Formulario</a></li>
+                        </ul>
+                    </li>
+
+                  </ul>
               </div>
               <div class="right pull-right">
                   <ul  class="navbar-nav nav" data-ng-hide="hdctr.global.authenticated">

@@ -16,6 +16,9 @@ exports.all = function (req, res) {
 
 
 exports.create = function (req,res) {
+
+  req.body.user_id = req.user.id;
+
   var iti = db.iti.build(req.body);
       iti.save().then(function () {
         res.json(iti);
@@ -40,6 +43,7 @@ exports.delete = function (req, res) {
 
 
 exports.update = function (req,res) {
+  req.body.user_id = req.user.id;
   var id  = req.params.itiId;
 
   db.iti.update(req.body,{

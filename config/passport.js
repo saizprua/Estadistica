@@ -18,7 +18,7 @@ passport.deserializeUser(function(id, done) {
 
     db.User.find({where: {id: id}})
     .then(function(user){
-        if(!user) return done('error');
+        if(!user) return done('Permiso Denegado!');
         winston.info('Session: { id: ' + user.id + ', username: ' + user.username + ' }');
         done(null, user);
     }).catch(function(err){

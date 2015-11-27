@@ -22,9 +22,9 @@ head
 
 
   if(process.env.NODE_ENV == 'production')   
-    link(rel='stylesheet', href='/bundle/bundle.min.css')
     each bowerCSSAsset in settings.assetsapp.core.css['bower_components/build/css/dist.min.css']
       link(rel='stylesheet', href='/#{bowerCSSAsset}')
+    link(rel='stylesheet', href='/bundle/bundle.min.css')
   else
     each bowerCSSAsset in settings.assetsapp.core.css['bower_components/build/css/dist.min.css']
       link(rel='stylesheet', href='/#{bowerCSSAsset}')

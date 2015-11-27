@@ -43,7 +43,20 @@
                          });
                      }
                  }
-             });
+             })
+             .state('iti-graficos',{
+                   url: '/iti-grafico',
+                   templateUrl:'iti/views/grafico.html',
+                   data: { pageTitle: 'Iti Grafico' },
+                   controller:'ItiGController',
+                   controllerAs: 'vm',
+                   resolve: {
+                       loggedin: function(MeanUser) {
+                           return MeanUser.checkLoggedin();
+                       }
+                   }
+               });
+
 
   }
 })();

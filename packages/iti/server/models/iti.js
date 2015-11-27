@@ -72,7 +72,11 @@ module.exports = function(sequelize, DataTypes) {
 						 setTimeout(function () {
  							 deferred.reject({message:'El mes no puede ser mayor al actual.'});
  						});
-					 }
+					}else if(item.eventos > item.egresados || item.eventos >  item.atendidos){
+						setTimeout(function () {
+							deferred.reject({message:'Eventos debe ser menor a egresados y antedidos.'});
+					 });
+					}
 					 else{
 						 deferred.resolve();
 					 }

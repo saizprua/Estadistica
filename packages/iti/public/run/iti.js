@@ -42,6 +42,7 @@
       controller: ['$scope', function ($scope) {
         console.log($scope);
 
+        console.log($scope);
         $scope.datepicker = {};
         var date = new Date();
         $scope.datepicker.date = new Date( date.setMonth(date.getMonth()) );
@@ -49,11 +50,12 @@
         $scope.dataDisabled = function (date) {
           var data = $scope.to.data;
 
+
           var isFilter = data.filter(function (item) {
               var df = new Date(item.fecha_reporte);
               var mesYear = df.getYear() + df.getMonth();
               var mesYearP = date.getYear() + date.getMonth();
-              return mesYearP === mesYear;
+              return (mesYearP === mesYear && item.fecha_reporte !== $scope.model.fecha_reporte );
 
           })[0];
 

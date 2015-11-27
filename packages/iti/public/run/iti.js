@@ -37,12 +37,28 @@
 
     formlyConfig.setType({
       name: 'datepicker',
-      template:  '<div style="display:inline-block;"><uib-datepicker id="{{::id}}" max-date="datepicker.date"  min-mode="month" ng-model="model[options.key]"class="well well-sm mini-date"></uib-datepicker></div> ',
+      template:  '<div style="display:inline-block;"><uib-datepicker id="{{::id}}" max-date="datepicker.date" date-disabled="dataDisabled(date)"  min-mode="month" ng-model="model[options.key]"class="well well-sm mini-date"></uib-datepicker></div> ',
       wrapper: ['bootstrapLabel', 'bootstrapHasError'],
       controller: ['$scope', function ($scope) {
+        console.log($scope);
+
         $scope.datepicker = {};
         var date = new Date();
         $scope.datepicker.date = new Date( date.setMonth(date.getMonth()) );
+
+        $scope.dataDisabled = function (date) {
+          var data = $scope.to.data;
+
+          var isFilter = data.filter(function (item) {
+              var df = new Date(item.fecha_reporte);
+              var mesYear = df.getYear() + df.getMonth();
+              var mesYearP = date.getYear() + date.getMonth();
+              return mesYearP === mesYear;
+
+          })[0];
+
+          return !!isFilter;
+        };
       }]
     });
   }

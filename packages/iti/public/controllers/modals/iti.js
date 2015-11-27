@@ -91,7 +91,8 @@
                  type: 'datepicker',
                  templateOptions: {
                    label: 'Mes',
-                   required:true
+                   required:true,
+                   data: formData.data
                 }
                }
 

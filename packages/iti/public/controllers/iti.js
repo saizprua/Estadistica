@@ -78,7 +78,8 @@
                     return {
                       model: model,
                       add : add,
-                      title:vm.select.title
+                      title:vm.select.title,
+                      data:vm.data
                     };
                   }
                 }

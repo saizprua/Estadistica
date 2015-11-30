@@ -49,14 +49,11 @@
 
         $scope.dataDisabled = function (date) {
           var data = $scope.to.data;
-
+          date = date.setHours(0,0,0,0);
 
           var isFilter = data.filter(function (item) {
-              var df = new Date(item.fecha_reporte);
-              var mesYear = df.getYear() + df.getMonth();
-              var mesYearP = date.getYear() + date.getMonth();
-              return (mesYearP === mesYear && item.fecha_reporte !== $scope.model.fecha_reporte );
-
+              var df = new Date(item.fecha_reporte).setHours(0,0,0,0);
+              return (date === df && item.fecha_reporte !== $scope.model.fecha_reporte );
           })[0];
 
           return !!isFilter;

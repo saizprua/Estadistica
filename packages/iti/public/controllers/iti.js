@@ -8,11 +8,6 @@
 
       function ItiController( Iti, $uibModal){
 
-        // console.log(DTDefaultOptions);
-        //default lang
-        // DTDefaultOptions.setLanguage({
-        //     sUrl: 'iti/assets/json/es_dt.json'
-        // });
         // console.log(DTOptionsBuilder);
         //iti/assets/json/es_dt.json
         var vm = this;

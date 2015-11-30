@@ -53,6 +53,22 @@
                    resolve: {
                        loggedin: function(MeanUser) {
                            return MeanUser.checkLoggedin();
+                       },
+                       loadPlugin: function ($ocLazyLoad) {
+                         return  $ocLazyLoad.load([
+                              {
+                                  files: [
+                                  'https://rawgit.com/angular-ui/ui-select/master/dist/select.css'
+                                ]
+                              },{
+                                name: 'ui.select',
+                                files:['https://rawgit.com/angular-ui/ui-select/master/dist/select.js']
+                              }
+                          ]).then(function () {
+                            console.log('success');
+                          },function (err) {
+                            console.log(err);
+                          });
                        }
                    }
                });

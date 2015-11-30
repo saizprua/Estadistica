@@ -4,7 +4,22 @@ var db = require('../../../../config/sequelize');
 
 exports.all = function (req, res) {
 
-  db.iti.findAll()
+  var dates = req.query.dates;
+  var nDates = [];
+
+  if(!!dates){
+    dates =  dates.split(',');
+    dates.forEach(function (item) {
+      var pItem = parseInt(item);
+      if(pItem){  nDates.push( new Date(pItem) );  }
+    });
+  }
+
+  db.iti.findAll({
+    where:{
+      fecha_reporte:{$in:nDates}
+    }
+  })
   .then(function (data) {
     res.json(data);
   })

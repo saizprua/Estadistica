@@ -1,0 +1,41 @@
+
+ <div class="container-fluid">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-md-1  pdr-0">
+          <span class="input-sm">
+                <button type="button" class="btn btn-sm btn-default" ng-click="vm.openDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+
+        </div>
+        <div class="col-md-11 pdl-0 mini-date">
+          <ui-select multiple on-select="vm.onChangeInput()" on-remove="vm.onChangeInput()" data-ng-model="vm.model" theme="bootstrap">
+
+            <ui-select-match >{{$item | date:'MMM yyyy' | capitalize}}</ui-select-match>
+            <ui-select-choices data-repeat="a in []">
+            </ui-select-choices>
+
+          </ui-select>
+          <input ng-model="vm.dateSelect" date-disabled="vm.isDisabled(date)" style="display:none" type="text" class="form-control" uib-datepicker-popup ng-model="vm.dt" is-open="vm.opened" min-mode="'month'" ng-required="true" close-text="Close" />
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+    <div class="panel-body">
+      <div ng-hide="vm.data.length" class="center">
+        <h1>Sin información</h1>
+      </div>
+      <div ng-show="vm.data.length" >
+        <canvas  id="bar" class="chart chart-bar"
+           chart-legend="true" chart-colours="vm.colours" chart-options="vm.options"  chart-data="vm.seriesData" chart-series="vm.series" chart-labels="vm.labels">
+        </canvas>
+      </div>
+
+    </div>
+  </div>
+</div>

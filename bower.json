@@ -16,7 +16,8 @@
     "oclazyload": "1.0.8",
     "font-awesome": "~4.5.0",
     "angular-formly": "~7.3.1",
-    "angular-formly-templates-bootstrap": "~6.1.7"
+    "angular-formly-templates-bootstrap": "~6.1.7",
+    "ui-select": "*"
   },
   "resolutions": {
     "angular": "1.4.6"

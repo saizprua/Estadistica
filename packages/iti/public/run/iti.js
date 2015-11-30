@@ -40,24 +40,33 @@
       template:  '<div style="display:inline-block;"><uib-datepicker id="{{::id}}" max-date="datepicker.date" date-disabled="dataDisabled(date)"  min-mode="month" ng-model="model[options.key]"class="well well-sm mini-date"></uib-datepicker></div> ',
       wrapper: ['bootstrapLabel', 'bootstrapHasError'],
       controller: ['$scope', function ($scope) {
-        console.log($scope);
 
-        console.log($scope);
         $scope.datepicker = {};
         var date = new Date();
+        var data = $scope.to.data;
+        var min = new Date(arrayMin(data).fecha_reporte).setHours(0,0,0,0);
         $scope.datepicker.date = new Date( date.setMonth(date.getMonth()) );
 
         $scope.dataDisabled = function (date) {
-          var data = $scope.to.data;
+
           date = date.setHours(0,0,0,0);
 
           var isFilter = data.filter(function (item) {
               var df = new Date(item.fecha_reporte).setHours(0,0,0,0);
-              return (date === df && item.fecha_reporte !== $scope.model.fecha_reporte );
+              return (date === df  && item.fecha_reporte !== $scope.model.fecha_reporte );
           })[0];
 
-          return !!isFilter;
+
+          return !!isFilter || date < min;
         };
+
+        console.log(min);
+        function arrayMin(arr) {
+          if(!arr || arr.length === 0) return {};
+          return arr.reduce(function (p, v) {
+            return ( p.fecha_reporte < v.fecha_reporte ? p : v );
+          });
+        }
       }]
     });
   }

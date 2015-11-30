@@ -49,6 +49,14 @@
              $uibModalInstance.dismiss('cancel');
            }
 
+           function negative($viewValue, $modelValue) {
+             var value = $viewValue || $modelValue;
+              if(value && value < 0){
+                return false;
+              }
+              return true;
+           }
+
             vm.fields = [
               {
                 key: 'atendidos',
@@ -60,6 +68,9 @@
                   type: 'number',
                   placeholder: 'Atendidos',
                   required: true
+                },
+                validators:{
+                  negative:negative
                 }
               },
               {
@@ -72,6 +83,12 @@
                   type: 'number',
                   placeholder: 'Egresados',
                   required: true
+                },
+                expressionProperties: {
+                 'templateOptions.disabled': '!model.atendidos'
+               },
+                validators:{
+                  negative:negative
                 }
               },
               {
@@ -84,6 +101,12 @@
                   type: 'number',
                   placeholder: 'Eventos',
                   required: true
+                },
+                expressionProperties: {
+                 'templateOptions.disabled': '!model.egresados'
+               },
+                validators:{
+                  negative:negative
                 }
               },
               {

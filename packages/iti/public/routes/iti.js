@@ -58,11 +58,11 @@
                          return  $ocLazyLoad.load([
                               {
                                   files: [
-                                  'https://rawgit.com/angular-ui/ui-select/master/dist/select.css'
+                                  'bower_components/angular-ui-select/dist/select.min.css'
                                 ]
                               },{
                                 name: 'ui.select',
-                                files:['https://rawgit.com/angular-ui/ui-select/master/dist/select.js']
+                                files:['bower_components/angular-ui-select/dist/select.min.js']
                               }
                           ]).then(function () {
                             console.log('success');

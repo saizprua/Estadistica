@@ -52,7 +52,7 @@
            function negative($viewValue, $modelValue) {
              var value = $viewValue || $modelValue;
               if(value && value < 0){
-                return false;
+                 throw new Error('Validacion Error');
               }
               return true;
            }
@@ -88,7 +88,8 @@
                  'templateOptions.disabled': '!model.atendidos'
                },
                 validators:{
-                  negative:negative
+                  negative:negative,
+                  menor: 'model.atendidos >= $viewValue'
                 }
               },
               {
@@ -106,7 +107,8 @@
                  'templateOptions.disabled': '!model.egresados'
                },
                 validators:{
-                  negative:negative
+                  negative:negative,
+                  menor: 'model.egresados > $viewValue || model.atendidos > $viewValue'
                 }
               },
               {

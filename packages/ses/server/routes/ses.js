@@ -8,4 +8,7 @@ var ses = require('../controllers/ses');
     app.route('/api/ses/all')
     .get(ses.all);
 
+    app.route('/api/ses/solicitudes')
+    .get(ses.solcitudes);
+
 };

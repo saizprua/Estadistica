@@ -2,6 +2,135 @@
 
 var db = require('../../../../config/sequelize');
 var sequelize = require('sequelize');
+var async = require('async');
+
+exports.solcitudes = function (req, res) {
+
+    var currentYear = new Date().getFullYear();
+    var years = [];
+    var data = {  };
+
+    for (var i = currentYear; i >= currentYear-2; i--) {
+      years.push(i);
+    }
+
+    async.eachSeries(years,function (year, next) {
+      var fecha = 'fecha_solicitud';
+      var obj = {concluido:0, inactivo:0, activo:0, enproceso:0, cancelado:0, cero:0, recibidas:0};
+
+      async.series([
+       function (done) {
+         getConcluidasOrCanceladas(year,fecha)
+         .then(function(count){
+
+             count.forEach(function (v) {
+               if(v.asignacion) obj[v.asignacion.estatus] = v.dataValues.count;
+             });
+
+             done(null);
+             return null;
+         })
+         .catch(done);
+       },
+       function(done){
+
+         if(currentYear !== year ) return done(null);
+         getCanceladosOrActivo(year,{ $gte: new Date() }).then(function (count) {
+           obj.activo = count;
+           done(null);
+           return null;
+         }).catch(done);
+
+       },
+       function(done){
+
+         if(currentYear !== year ) return done(null);
+         getCanceladosOrActivo(year,{ $lt: new Date() }).then(function (count) {
+           obj.cancelado = count;
+           done(null);
+           return null;
+         }).catch(done);
+
+       },
+
+       function(done) {
+         getCeroIdOrAll(year,{id_asignacion:0}).then(function (count) {
+           obj.cero = count;
+           done(null);
+           return null;
+         }).catch(done);
+       },
+
+       function (done) {
+        getCeroIdOrAll(year).then(function (count) {
+          obj.recibidas = count;
+          done(null);
+          return null;
+        }).catch(done);
+      },
+
+       function(done){
+         //$total_activo[0])+intval($total_asigcero[0])+intval($total_inactivo[0]
+         if(year === currentYear){
+           obj.enproceso += obj.cero + obj.inactivo;
+         }else{
+           obj.cancelado = obj.activo + obj.cero + obj.inactivo;
+         }
+
+         data[year] = obj;
+         done(null);
+       }
+
+      ],next);
+
+    },function(err){
+      if(err) return res.status(500).send(err);
+      res.json(data);
+    });
+
+  function getConcluidasOrCanceladas(year,fecha,extend) {
+    return db.solicitud.findAll({
+      attributes: [[sequelize.fn('count', sequelize.col('asignacion.estatus')), 'count']],
+      where:sequelize.and(
+        sequelize.where(sequelize.fn('YEAR', sequelize.col(fecha)), year),
+        extend
+    ),
+      include: [
+        { attributes: ['estatus'], model: db.asignacion }
+      ],
+      group: ['asignacion.estatus']
+    });
+
+  }
+
+  function getCanceladosOrActivo(year,date){
+    return db.solicitud.count({
+      // attributes: [[sequelize.fn('count', sequelize.col('asignacion.estatus')), 'count']],
+      where: sequelize.where(sequelize.fn('YEAR', sequelize.col('fecha_solicitud')), year),
+      include: [
+        {
+          model: db.asignacion,
+          where: {
+            estatus: 'activo',
+            fecha_terminacion: date
+          }
+        }
+      ]
+    });
+
+  }
+
+  function getCeroIdOrAll(year,query){
+    return db.solicitud.count({
+      where: sequelize.and(
+        sequelize.where(sequelize.fn('YEAR', sequelize.col('fecha_solicitud')), year),
+        query
+      ),
+    });
+  }
+
+};
+
 
 exports.all = function (req, res) {
 

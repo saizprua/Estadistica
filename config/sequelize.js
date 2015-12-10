@@ -94,12 +94,13 @@ function init(callback){
           models.sequelize = sequelize;
           _.extend(models,db);
 
-              sequelize_innovacion
+            return  sequelize_innovacion
                 .sync()
                 .then(function () {
                   models.sequelize_innovacion = sequelize_innovacion;
                   winston.info('Database INNOVACION '+(config.forceSequelizeSync?'*DROPPED* and ':'')+ 'synchronized');
-                  callback();
+                  return callback();
+
                 })
                 .catch(function (err) {
                   winston.error('An error occured: %j',err);

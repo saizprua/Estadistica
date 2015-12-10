@@ -4,11 +4,39 @@ var db = require('../../../../config/sequelize');
 var sequelize = require('sequelize');
 var async = require('async');
 
+exports.generales = function (req, res) {
+
+ async.series({
+   instituciones:function (done) {
+     db.entidad.count()
+     .then(function (count) {
+       done(null,count);
+       return null;
+     })
+     .catch(done);
+   },
+   usuarios:function (done) {
+     db.usuarios.count()
+     .then(function (count) {
+       done(null,count);
+       return null;
+     })
+     .catch(done);
+   }
+ },function (err,data) {
+   if(err) return res.status(500).send(err);
+   res.json(data);
+ });
+
+
+
+};
+
 exports.solcitudes = function (req, res) {
 
     var currentYear = new Date().getFullYear();
     var years = [];
-    var data = {  };
+    var data = [];
 
     for (var i = currentYear; i >= currentYear-2; i--) {
       years.push(i);
@@ -70,14 +98,14 @@ exports.solcitudes = function (req, res) {
       },
 
        function(done){
-         //$total_activo[0])+intval($total_asigcero[0])+intval($total_inactivo[0]
          if(year === currentYear){
            obj.enproceso += obj.cero + obj.inactivo;
          }else{
            obj.cancelado = obj.activo + obj.cero + obj.inactivo;
          }
 
-         data[year] = obj;
+         obj.year = year;
+         data.push(obj);
          done(null);
        }
 

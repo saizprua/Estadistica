@@ -12,7 +12,7 @@
         </div>
         <div class="panel-body">
 
-          <table class="table table-bordered fnt-11" >
+          <table class="table table-bordered  table-striped fnt-11" >
             <tbody>
                 <tr ng-repeat="row in vm.data.data">
                   <td>
@@ -48,7 +48,68 @@
   </div>
   <div class="col-md-6">
 
-       <div>
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              Estadísticas Generales
+          </div>
+          <div class="panel-body">
+              <table class="table table-bordered table-striped fnt-12">
+                  <thead>
+                    <th>Descripción</th>
+                    <th>Cant.</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Instituciones registradas</th>
+                      <td>{{vm.generales.instituciones}}</td>
+                    </tr>
+                    <tr>
+                      <th>Usuarios registrados</th>
+                      <td>{{vm.generales.usuarios}}</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           Cantidad de Solicitudes
+         </div>
+         <div class="panel-body">
+          <table class="table table-bordered  table-striped fnt-12">
+              <thead>
+                <th></th>
+                <th ng-repeat="info in vm.solicitudes">{{info.year}}</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="ts in vm.tipoSolicitudes">
+                    <th>{{ts.name}}</th>
+                    <td ng-repeat="info in vm.solicitudes">
+                      {{info[ts.key]}}
+                    </td>
+                </tr>
+              </tbody>
+          </table>
+          <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="chart-container " >
+
+                      <!-- <canvas  id="bar" class="chart chart-bar"
+                         chart-legend="true" chart-data="vm.keyFix" chart-series="vm.keys" chart-labels="vm.yearsSol">
+                      </canvas> -->
+
+                      <canvas  id="bar" class="chart chart-bar"
+                         chart-legend="true" chart-data="vm.dataFix" chart-series="vm.yearsSol" chart-labels="vm.keys">
+                      </canvas>
+
+
+                    </div>
+                  </div>
+                </div>
+          </div>
+
+         </div>
        </div>
   </div>
 

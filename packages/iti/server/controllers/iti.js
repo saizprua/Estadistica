@@ -1,29 +1,86 @@
 'use strict';
 
 var db = require('../../../../config/sequelize');
+var sequelize = require('sequelize');
+var async = require('async');
 
-exports.all = function (req, res) {
 
-  var dates = req.query.dates;
-  var where = {};
+exports.year = function (req,res) {
 
-  if(!!dates){
-    var nDates = [];
-    dates =  dates.split(',');
-    dates.forEach(function (item) {
-      var pItem = parseInt(item);
-      if(pItem){  nDates.push( new Date(pItem) );  }
-    });
-    where.where = { fecha_reporte:{ $in:nDates }};
-  }
-
-  db.iti.findAll(where)
+  db.iti.findAll({
+    attributes: [
+         [sequelize.fn('YEAR', sequelize.col('fecha_reporte')), 'anio'],
+         [sequelize.fn('SUM', sequelize.col('atendidos')), 'atendidos'],
+         [sequelize.fn('SUM', sequelize.col('egresados')), 'egresados'],
+         [sequelize.fn('SUM', sequelize.col('eventos')), 'eventos']
+      ],
+     group: [ sequelize.fn('YEAR', sequelize.col('fecha_reporte'))]
+  })
   .then(function (data) {
     res.json(data);
   })
   .catch(function (err) {
     res.status(500).send(err);
   });
+
+};
+
+
+
+exports.all = function (req, res) {
+
+  var dates = req.query.dates;
+  var where = {};
+
+  function setWhere(data){
+    where.where = { fecha_reporte:{ $in:data }};
+  }
+
+  async.series(
+    [
+      function(done){
+
+        if(!!dates){
+          var nDates = [];
+          dates =  dates.split(',');
+          dates.forEach(function (item) {
+            var pItem = parseInt(item);
+            if(pItem){  nDates.push( new Date(pItem) );  }
+          });
+          setWhere(nDates);
+          done(null);
+        }else if(!!req.query.init){
+          db.iti.max('fecha_reporte')
+          .then( function (max) {
+            if(!max) done(null);
+            else{
+              var lastYear = new Date(max);
+                  lastYear.setFullYear(lastYear.getFullYear() - 1);
+                setWhere([lastYear,max]);
+                done(null);
+            }
+            return null;
+          }).catch(done);
+
+        }else{
+          done(null);
+        }
+
+      }
+    ],
+    function (err) {
+      if(err) return res.status(500).send(err);
+
+      db.iti.findAll(where)
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        res.status(500).send(err);
+      });
+
+  });
+
 
 };
 

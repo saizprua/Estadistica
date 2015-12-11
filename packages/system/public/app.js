@@ -13,6 +13,7 @@ angular.module('mean', [
   'formly',
   'formlyBootstrap',
   'datatables',
+  'oitozero.ngSweetAlert',
 
   /*feature areas*/
   'mean.system',

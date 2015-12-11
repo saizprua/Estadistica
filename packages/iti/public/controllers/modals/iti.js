@@ -4,8 +4,8 @@
     .module('mean.iti')
     .controller('ItiCEAdminController', ItiCEAdminController);
 
-  ItiCEAdminController.$inject = ['$uibModalInstance', 'formData','Iti'];
-    function ItiCEAdminController($uibModalInstance, formData, Iti) {
+  ItiCEAdminController.$inject = ['$uibModalInstance', 'formData','Iti','sAlert','SweetAlert'];
+    function ItiCEAdminController($uibModalInstance, formData, Iti,sAlert, SweetAlert) {
       var vm = this;
           vm.model = angular.copy(formData.model);
           vm.errors = [];
@@ -27,20 +27,33 @@
               }
 
               if(!formData.add){
-                vm.model.$update().then(function (empresa) {
-                    angular.extend(formData.model, empresa);
-                    vm.cancel();
-                },function (err) {
-                  vm.errors.push(err.data || err);
-                });
-              }else {
-                var empresa = new Iti(vm.model);
 
-                  empresa.$save().then(function(empresa) {
-                    $uibModalInstance.close(empresa);
+                sAlert({title:'Desea modificar el registro?', text:'Se modificara el registro ID: ' + formData.model.id})
+                .then(function () {
+                  vm.model.$update().then(function (empresa) {
+                      SweetAlert.swal('Confirmado!', 'Cambios guardados!', 'success');
+                      angular.extend(formData.model, empresa);
+                      vm.cancel();
                   },function (err) {
                     vm.errors.push(err.data || err);
                   });
+                });
+
+
+              }else {
+                sAlert({title:'Desea agregar un nuevo registro?', text:'Se se agregara un nuevo registro'})
+                .then(function () {
+                  var empresa = new Iti(vm.model);
+
+                    empresa.$save().then(function(empresa) {
+                      SweetAlert.swal('Confirmado!', 'Nuevo registro guardado!', 'success');
+                      $uibModalInstance.close(empresa);
+                    },function (err) {
+                      vm.errors.push(err.data || err);
+                    });
+                });
+
+
               }
 
           }

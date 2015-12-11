@@ -4,9 +4,9 @@
       .module('mean.iti')
       .controller('ItiController',ItiController);
 
-      ItiController.inject = ['Iti','$uibModal'];
+      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert'];
 
-      function ItiController( Iti, $uibModal){
+      function ItiController( Iti, $uibModal, sAlert, SweetAlert){
 
         // console.log(DTOptionsBuilder);
         //iti/assets/json/es_dt.json
@@ -36,9 +36,18 @@
         }
 
       function destroy(model) {
-        model.$delete();
-        var index =  getIndexById(model.id);
-        if(index >= 0 ) vm[vm.select.name].splice(index, 1);
+
+        sAlert({title:'Desea elminar el registro?', text:'Se eliminara el registro ID: ' + model.id})
+        .then(function () {
+          model.$delete().then(function () {
+              SweetAlert.swal('Confirmado!', 'Eliminado!', 'success');
+              var index =  getIndexById(model.id);
+              if(index >= 0 ) vm[vm.select.name].splice(index, 1);
+          });
+
+        });
+
+
       }
 
       function getIndexById(id,array){

@@ -1,7 +1,10 @@
   <div ng-controller="HeaderController as hdctr">
           <div class="inner">
               <div class="logo pull-left">
-                  <a class="navbar-brand" ui-sref="home">Estadisticas</a>
+                <a class="navbar-brand"  href="http://innovacion.gob.pa">
+                   <img alt="Brand" width="20" height="20" src="system/assets/img/aig_vertical.png">
+                 </a>
+                  <a class="navbar-brand" ui-sref="home">Estadísticas</a>
                   <ul class="navbar-nav nav" ng-show="hdctr.global.authenticated">
                     <li data-ng-repeat="item in hdctr.menu" ng-show="hdctr.global.user" >
                         <a ui-sref="{{item.link}}">{{item.title}}</a>

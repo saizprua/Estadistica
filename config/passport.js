@@ -50,8 +50,10 @@ passport.use(new LocalStrategy({
 passport.use(new LDAPStrategy(
     config.ldap,
     function(profile, done) {
+
         db.User.find({where:{ldapUserId:profile.sAMAccountName}})
         .then(function (user) {
+
           if(user) return done(null, user);
 
           db.User.create({

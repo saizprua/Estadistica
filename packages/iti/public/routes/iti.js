@@ -11,8 +11,7 @@
   function config($stateProvider, $ocLazyLoadProvider){
 
         $ocLazyLoadProvider.config({
-          debug: true,
-          events: true
+          debug: true
         });
 
          $stateProvider

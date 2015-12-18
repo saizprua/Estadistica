@@ -1,49 +1,49 @@
-  <div ng-controller="HeaderController as hdctr">
-          <div class="inner">
-              <div class="logo pull-left">
-                <a class="navbar-brand"  href="http://innovacion.gob.pa">
-                   <img alt="Brand" width="20" height="20" src="system/assets/img/aig_vertical.png">
-                 </a>
-                  <a class="navbar-brand" ui-sref="home">Estadísticas</a>
-                  <ul class="navbar-nav nav" ng-show="hdctr.global.authenticated">
-                    <li data-ng-repeat="item in hdctr.menu" ng-show="hdctr.global.user" >
-                        <a ui-sref="{{item.link}}">{{item.title}}</a>
-                    </li>
-                  </ul>
-                  <ul class="navbar-nav nav" ng-show="hdctr.global.authenticated">
+<nav ng-controller="HeaderController as vm"  class="navbar-default navbar-aig-bg navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
 
-                    <li class="uib-dropdown" uib-dropdown on-toggle="toggled(open)">
-                        <a href="#" class="uib-dropdown-toggle" uib-dropdown-toggle>
-                            <span>ITI</span> <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="iti" >Formulario</a></li>
-                            <li><a ui-sref="iti-graficos" >Graficos</a></li>
-                        </ul>
-                    </li>
+                <div class="uib-dropdown profile-element" uib-dropdown>
+                    <img  alt="image" class="img-circle img-bread" src="system/assets/img/io.png"/>
+                    <a class="uib-dropdown-toggle" uib-dropdown-toggle href>
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">{{vm.user.name}}</strong>
+                                </span>
+                                 <span class="text-muted text-xs ">{{vm.user.empresasParada.empresa.nombre}} - </span>
+                                 <span class="text-muted text-xs ">{{vm.user.empresasParada.parada.nombre}}</span>
 
-                  </ul>
-              </div>
-              <div class="right pull-right">
-                  <ul  class="navbar-nav nav" data-ng-hide="hdctr.global.authenticated">
-                      <!-- <li><a ui-sref='auth.register'>Join</a></li> -->
-                      <li class="divider-vertical"></li>
-                      <li><a ui-sref='auth.login'>Iniciar Sesion</a></li>
-                  </ul>
+                                <span class="text-muted text-xs block">{{vm.global.isAdmin ? 'Administrador' : 'Normal'}} <b class="caret"></b></span>
+                            </span>
+                    </a>
+                    <ul class="uib-dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a ui-sref="profile">Perfil</a></li>
+                        <li><a ui-sref="contacts">Contactos</a></li>
+                        <li><a ui-sref="inbox">Email</a></li>
+                        <li class="divider"></li>
+                        <li><a ng-click="vm.logout()">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    ET+
+                </div>
+            </li>
+            <li ng-class="{active: $state.includes('asignacion') ||$state.is('operaciones.buses') || $state.is('operaciones.inventario') }">
+                <a href=""><i class="fa fa-diamond"></i> <span class="nav-label">Operaciones</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" ng-class="{in: $state.includes('asignacion') || $state.is('operaciones.buses') || $state.is('operaciones.inventario')}">
+                    <li ui-sref-active="active"><a ui-sref="asignacion.presentaciones">Presentaciones</a></li>
+                </ul>
+            </li>
+            <li ng-class="{active: $state.includes('forms')}">
+                <a href=""><i class="fa fa-edit"></i> <span class="nav-label">Formas</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" ng-class="{in: $state.includes('forms')}">
+                    <li ui-sref-active="active"><a ui-sref="forms.uploads">Cargar Archivos</a></li>
+                </ul>
+            </li>
 
-                  <ul class="navbar-nav nav" data-ng-show="hdctr.global.authenticated">
 
-                    <li class="uib-dropdown" uib-dropdown on-toggle="toggled(open)">
-                        <a href="#" class="uib-dropdown-toggle" uib-dropdown-toggle>
-                            <span>{{hdctr.global.user.name}}</span> <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" ng-click="hdctr.logout()">Log Out</a></li>
-                        </ul>
-                    </li>
+        </ul>
 
-                  </ul>
+    </div>
+</nav>
 
-              </div>
-          </div>
-      </div>

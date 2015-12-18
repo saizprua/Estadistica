@@ -1,49 +1,31 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
+//Module dependencies.
 var acl = require('acl');
+var _ = require('lodash');
 
 // Using the memory backend
 acl = new acl(new acl.memoryBackend());
 
-/**
- * Invoke Articles Permissions
- */
-exports.invokeRolesPolicies = function () {
-  acl.allow([{
-    roles: ['admin','iti'],
-    allows: [{
-      resources: '/api/iti',
-      permissions: '*'
-    },{
-      resources: '/api/iti/year',
-      permissions: '*'
-    }, {
-      resources: '/api/iti/:itiId',
-      permissions: '*'
-    }]
-  },{
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/iti',
-      permissions: ['get']
-    },{
-      resources: '/api/iti/year',
-      permissions: ['get']
-    }, {
-      resources: '/api/iti/:itiId',
-      permissions: ['get']
-    }]
-  }]);
-};
+//Invoke Permissions
+acl.allow([{
+  roles: ['IT_Administradores','Direccion Gobernanza'],
+  allows: [{
+    resources: ['/api/iti', '/api/iti/year', '/api/iti/:itiId'],
+    permissions: '*'
+  }]
+},{
+  roles: ['guest'],
+  allows: [{
+    resources: ['/api/iti', '/api/iti/year', '/api/iti/:itiId'],
+    permissions: ['get']
+  }]
+}]);
 
-/**
- * Check If Articles Policy Allows
- */
+// Check If Articles Policy Allows
 exports.isAllowed = function (req, res, next) {
-  var roles = (req.user) ? req.user.roles : ['guest'];
+  var userGuest = ['guest'];
+  var roles = (req.user && req.user.roles) ? _.union(userGuest, req.user.roles.split(',')) : userGuest;
 
   // Check for user roles
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
@@ -55,7 +37,7 @@ exports.isAllowed = function (req, res, next) {
         // Access granted! Invoke next middleware
         return next();
       } else {
-        return res.status(403).json({
+        return res.status(401).json({
           message: 'User is not authorized'
         });
       }

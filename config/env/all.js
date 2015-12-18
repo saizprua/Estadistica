@@ -5,6 +5,7 @@ module.exports = {
 	root: rootPath,
   prefix: 'INNOVACION',
 	port: process.env.PORT || 3000,
+  ignoreRoutes: ['/api/loggedin', '/api/login/ldap', '/api/login','/api/logout','/api/users/me','/','/api/routes/all'],
     forceSequelizeSync: process.env.FORCE_DB_SYNC==='true',
     enableSequelizeLog: true,
     timezone : '-05:00' ,

@@ -1,34 +1,47 @@
-<div class="middle-box text-center loginscreen  animated fadeInDown">
-    <div class="login-interface">
-      <div class="well well-sm">
-        <div>
-            <h5 class="text-info login-title">AIG-ESTADÍSTICA</h5>
-        </div>
-        <p class="text-muted">Sistema de Gestión de Estadística
-        </p>
-        <p>
-          NODO DE TRANSPARENCIA
-        </p>
-      </div>
 
-        <div class="alert alert-danger animated fadeIn" ng-show="lgctr.meanuser.loginError">
-            {{lgctr.meanuser.loginError}}
-        </div>
 
-        <p class="text-info login-session">Iniciar Sesión</p>
-        <form class="m-t" role="form" ng-submit="lgctr.login()">
-            <div class="form-group">
-                <input  ng-model="lgctr.user.username"  type="text" class="form-control" placeholder="Usuario"  required>
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content">
+
+                    <div class="login-interface middle-box text-center loginscreen" >
+                        <div class="well well-sm">
+                            <div>
+                                <h5 class="text-info login-title">AIG-ESTADÍSTICA</h5>
+                            </div>
+                            <p class="text-muted">Sistema de Gestión de Estadística
+                            </p>
+                            <p>
+                                NODO DE TRANSPARENCIA
+                            </p>
+                        </div>
+
+                        <div class="alert alert-danger animated fadeIn" ng-show="lgctr.meanuser.loginError">
+                            {{lgctr.meanuser.loginError}}
+                        </div>
+
+                        <p class="text-info login-session">Iniciar Sesión</p>
+                        <form class="m-t" role="form" ng-submit="lgctr.login()">
+                            <div class="form-group">
+                                <input  ng-model="lgctr.user.username"  type="text" class="form-control" placeholder="Usuario"  required>
+                            </div>
+                            <div class="form-group">
+                                <input  ng-model="lgctr.user.password" type="password" class="form-control" placeholder="Contraseña" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block full-width m-b">Iniciar</button>
+
+                            <!-- <a ui-sref="auth.register"><small>Forget password?</small></a> -->
+
+                            <!-- <p clas s="text-muted text-center"><small>Do not have an account?</small></p> -->
+                            <!-- <a class="btn btn-sm btn-primary btn-block" ui-sref="auth.register">Sign Up</a> -->
+                        </form>
+                    </div>
+
+                </div>
             </div>
-            <div class="form-group">
-                <input  ng-model="lgctr.user.password" type="password" class="form-control" placeholder="Contraseña" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block full-width m-b">Iniciar</button>
-
-            <!-- <a ui-sref="auth.register"><small>Forget password?</small></a> -->
-
-            <!-- <p clas s="text-muted text-center"><small>Do not have an account?</small></p> -->
-            <!-- <a class="btn btn-sm btn-primary btn-block" ui-sref="auth.register">Sign Up</a> -->
-        </form>
+        </div>
     </div>
 </div>

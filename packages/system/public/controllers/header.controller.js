@@ -10,6 +10,8 @@ angular
         var vm = this;
         vm.global = Global;
 
+        console.log(vm.global);
+
         // {  'title': 'Articles', 'link': 'articles'}
         vm.menu = [{title:'SES', link:'ses'}];
 

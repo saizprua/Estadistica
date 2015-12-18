@@ -1,0 +1,21 @@
+<div class="row border-bottom">
+    <nav class="navbar navbar-aig navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div ng-show="main.global.authenticated" class="navbar-header">
+            <span minimaliza-sidebar></span>
+        </div>
+        <ul ng-show="main.global.authenticated" class="nav navbar-top-links navbar-right">
+
+            <li>
+                <a ng-click="main.logout()">
+                    <i class="fa fa-sign-out"></i> Log out
+                </a>
+            </li>
+            <li>
+                <a ng-click="$root.rightSidebar = !$root.rightSidebar">
+                    <i class="fa fa-tasks"></i>
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+</div>

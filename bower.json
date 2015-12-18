@@ -18,7 +18,8 @@
     "angular-formly": "~7.3.1",
     "angular-formly-templates-bootstrap": "~6.1.7",
     "angular-ui-select": "~0.13.2",
-    "angular-sweetalert": "~1.1.0"
+    "angular-sweetalert": "~1.1.0",
+    "metisMenu": "~2.2.0"
   },
   "resolutions": {
     "angular": "1.4.6"

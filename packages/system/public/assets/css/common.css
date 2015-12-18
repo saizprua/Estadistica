@@ -3,24 +3,23 @@
     margin-left:0
 }
 
-.content {
-  margin-top:50px;
-  width:100%
-}
-
 .img-bread{
   width: 45px;
 }
 
 .navbar-aig{
   background-color: #003061;
-  height: 40px;
   min-height: 40px;
+}
+
+.navbar-aig-bg{
+    background-color: #003061;
 }
 
 .navbar-aig .navbar-brand{
   padding: 10.5px 15px;
 }
+
 .navbar-aig .navbar-nav a{
   padding: 10.5px 15px;
 }

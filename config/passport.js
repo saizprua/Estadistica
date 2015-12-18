@@ -51,29 +51,35 @@ passport.use(new LDAPStrategy(
     config.ldap,
     function(profile, done) {
 
-        db.User.find({where:{ldapUserId:profile.sAMAccountName}})
-        .then(function (user) {
+          var distinguishedName = profile.distinguishedName;
 
-          if(user) return done(null, user);
+          distinguishedName = distinguishedName.split(',')
+          .filter(function (i) { return i.slice(0,2) === 'CN';})
+          .map(function (i) { return i.split('=')[1].trim();})
+          .toString();
 
-          db.User.create({
+          db.User.upsert({
             ldapUserId: profile.sAMAccountName,
             name: profile.name,
             username: profile.sAMAccountName,
             email : profile.userPrincipalName,
+            roles : distinguishedName,
             provider: 'ldap'
-          }).then(function (u) {
-            winston.info('Login (local) : { id: ' + u.id + ', username: ' + u.username + ' }');
-            done(null, u);
+          }).then(function () {
+            db.User.findOne({where:{ldapUserId: profile.sAMAccountName}})
+            .then(function (user) {
+              done(null, user);
+              return null;
+            })
+            .catch(function (err) {
+              done(err,null);
+            });
+
+            return null;
           })
           .catch(function (err) {
             done(err,null);
           });
-
-        })
-        .catch(function (err) {
-          done(err,null);
-        });
     }
 ));
 

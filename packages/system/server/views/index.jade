@@ -1,6 +1,10 @@
 extends layouts/default
 
 block content
-  section(data-ui-view)
-  script(type="text/javascript").
-    window.user = !{user};
+  div(ng-controller="MainCtrl as main")
+    div(data-ng-include="'system/views/header.html'", ng-show="main.global.authenticated", data-role="navigation")
+    div.gray-bg(ng-class="{'page-wrapper': main.global.authenticated}")
+      div(data-ng-include="'system/views/navbar.html'" data-role="navigation")
+      section(data-ui-view)
+      script(type="text/javascript").
+        window.user = !{user};

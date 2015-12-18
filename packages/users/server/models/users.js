@@ -21,6 +21,10 @@ module.exports = function(sequelize, DataTypes) {
 				unique: true,
 				notEmpty: true
 			},
+			roles:{
+				type: DataTypes.STRING,
+				notEmpty: true
+			},
 			hashedPassword: DataTypes.STRING,
 			provider: DataTypes.STRING,
 			salt: DataTypes.STRING,

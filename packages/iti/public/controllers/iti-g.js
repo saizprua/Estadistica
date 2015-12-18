@@ -14,7 +14,7 @@
         vm.openDate = openDate;
         vm.isDisabled= isDisabled;
         vm.onChangeInput = onChangeInput;
-        vm.colours = ['#b7b7b7', '#55acee'];
+        vm.colours = ['#03cb02', '#ff0000'];
         vm.series = [];
         vm.labels = [];
         vm.seriesData = [];

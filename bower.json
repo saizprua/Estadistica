@@ -2,7 +2,7 @@
   "name": "estadisticas",
   "version": "0.0.2",
   "dependencies": {
-    "angular": "~1.4.6",
+    "angular": "1.4.6",
     "angular-cookies": "~1.4.6",
     "angular-mocks": "~1.4.6",
     "angular-resource": "~1.4.6",
@@ -19,7 +19,8 @@
     "angular-formly-templates-bootstrap": "~6.1.7",
     "angular-ui-select": "~0.13.2",
     "angular-sweetalert": "~1.1.0",
-    "metisMenu": "~2.2.0"
+    "metisMenu": "~2.2.0",
+    "animate.css": "~3.5.0"
   },
   "resolutions": {
     "angular": "1.4.6"

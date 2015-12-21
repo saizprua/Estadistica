@@ -3,24 +3,25 @@
 
     angular
         .module('mean.admin')
-        .controller('Controller', adminController);
+        .controller('AdminController', AdminController);
 
-    adminController.$inject = ['$state'];
+    AdminController.$inject = ['ACL'];
 
-    function adminController($state) {
+    function AdminController(ACL) {
         var vm = this;
 
         console.log(vm);
-
-        console.log(angular.toJson($state.get()));
-
 
         //call method init
         init();
 
         //method init
         function init() {
-
+            ACL.query().$promise.then(function (data) {
+                vm.data = data;
+            }, function (err) {
+                vm.err = err;
+            })
         }
     }
 }());

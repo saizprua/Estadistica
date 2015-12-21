@@ -4,42 +4,53 @@
             <li class="nav-header">
 
                 <div class="uib-dropdown profile-element" uib-dropdown>
-                    <img  alt="image" class="img-circle img-bread" src="system/assets/img/io.png"/>
+                    <img  alt="image" class="img-circle img-bread" src="system/assets/img/1.jpg"/>
                     <a class="uib-dropdown-toggle" uib-dropdown-toggle href>
                             <span class="clear">
                                 <span class="block m-t-xs">
                                     <strong class="font-bold">{{vm.user.name}}</strong>
                                 </span>
-                                 <span class="text-muted text-xs ">{{vm.user.empresasParada.empresa.nombre}} - </span>
-                                 <span class="text-muted text-xs ">{{vm.user.empresasParada.parada.nombre}}</span>
+                                 <span class="text-muted text-xs "></span>
+                                 <span class="text-muted text-xs "></span>
 
                                 <span class="text-muted text-xs block">{{vm.global.isAdmin ? 'Administrador' : 'Normal'}} <b class="caret"></b></span>
                             </span>
                     </a>
                     <ul class="uib-dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a ui-sref="profile">Perfil</a></li>
-                        <li><a ui-sref="contacts">Contactos</a></li>
-                        <li><a ui-sref="inbox">Email</a></li>
                         <li class="divider"></li>
-                        <li><a ng-click="vm.logout()">Logout</a></li>
+                        <li><a ng-click="vm.logout()">Salir</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
                     ET+
                 </div>
             </li>
-            <li ng-class="{active: $state.includes('asignacion') ||$state.is('operaciones.buses') || $state.is('operaciones.inventario') }">
-                <a href=""><i class="fa fa-diamond"></i> <span class="nav-label">Operaciones</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level" ng-class="{in: $state.includes('asignacion') || $state.is('operaciones.buses') || $state.is('operaciones.inventario')}">
-                    <li ui-sref-active="active"><a ui-sref="asignacion.presentaciones">Presentaciones</a></li>
+            <li ng-class="{active: $state.includes('iti') || $state.includes('iti-graficos') || $state.includes('ses')}">
+                <a href=""><i class="fa fa-pie-chart"></i> <span class="nav-label">Estadísticas</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" ng-class="{in: $state.includes('iti') || $state.includes('iti-graficos') || $state.includes('ses')}">
+
+                    <li ng-class="{active: $state.includes('iti') || $state.includes('iti-graficos')}">
+                        <a href="">ITI<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level" ng-class="{in: $state.includes('iti') || $state.includes('iti-graficos')}">
+                            <li ui-sref-active="active"><a ui-sref="iti">Formulario</a></li>
+                            <li ui-sref-active="active"><a ui-sref="iti-graficos">Gráficos</a></li>
+                        </ul>
+                    </li>
+                    <li ng-class="{active: $state.includes('ses')}">
+                        <a href="">SES<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level" ng-class="{in: $state.includes('ses')}">
+                            <li ui-sref-active="active"><a ui-sref="ses">Gráficos</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
             </li>
-            <li ng-class="{active: $state.includes('forms')}">
-                <a href=""><i class="fa fa-edit"></i> <span class="nav-label">Formas</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level" ng-class="{in: $state.includes('forms')}">
-                    <li ui-sref-active="active"><a ui-sref="forms.uploads">Cargar Archivos</a></li>
-                </ul>
-            </li>
+            <!--<li ng-class="{active: $state.includes('forms')}">-->
+                <!--<a href=""><i class="fa fa-edit"></i> <span class="nav-label">Formas</span><span class="fa arrow"></span></a>-->
+                <!--<ul class="nav nav-second-level" ng-class="{in: $state.includes('forms')}">-->
+                    <!--<li ui-sref-active="active"><a ui-sref="forms.uploads">Cargar Archivos</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
 
 
         </ul>

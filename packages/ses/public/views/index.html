@@ -1,116 +1,144 @@
-<div class="row">
-  <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">Solicitudes Aprobadas - Año {{vm.year || "actual"}}
-
-          <select class="form-control input-sm input-right"
-              ng-options="year for year in vm.years track by year"
-              ng-model="vm.year"
-              ng-change="vm.getDataAll()"
-              >
-        </select>
-        </div>
-        <div class="panel-body">
-
-          <table class="table table-bordered  table-striped fnt-11" >
-            <tbody>
-                <tr ng-repeat="row in vm.data.data">
-                  <td>
-                  <b>{{$index + 1}}</b>
-                  </td>
-                  <td>
-                    <span  class="label-chart" style="background-color:{{vm.data.colors[$index]}}"></span>
-                  </td>
-                  <td>
-                      {{row.entidad.nombre_entidad}}
-                  </td>
-                  <td>
-                    {{row.monto | currency : "B/. " : 2}}
-                  </td>
-                </tr>
-                <tr class="active">
-                  <td colspan="3" style="text-align: right"> <b>TOTAL: </b></td>
-                  <td >  <b>{{vm.data.sum | currency : "B/. " : 2}}</b></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="panel panel-default">
-                <div class="panel-body">
-                  <div class="chart-container " >
-                    <canvas  id="base" class="chart-base" chart-type="'Pie'"
-                       chart-data="vm.data.values" chart-labels="vm.data.labels" chart-options="vm.config"  chart-colours="vm.data.colors">
-                    </canvas>
-                  </div>
-                </div>
-              </div>
-        </div>
-  </div>
-  </div>
-  <div class="col-md-6">
-
-      <div class="panel panel-default">
-          <div class="panel-heading">
-              Estadísticas Generales
-          </div>
-          <div class="panel-body">
-              <table class="table table-bordered table-striped mgb-0 fnt-12">
-                  <thead>
-                    <th>Descripción</th>
-                    <th>Cant.</th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th>Instituciones registradas</th>
-                      <td>{{vm.generales.instituciones}}</td>
-                    </tr>
-                    <tr>
-                      <th>Usuarios registrados</th>
-                      <td>{{vm.generales.usuarios}}</td>
-                    </tr>
-                  </tbody>
-              </table>
-          </div>
-      </div>
-
-       <div class="panel panel-default">
-         <div class="panel-heading">
-           Cantidad de Solicitudes
-         </div>
-         <div class="panel-body">
-          <table class="table table-bordered  table-striped fnt-12">
-              <thead>
-                <th></th>
-                <th ng-repeat="info in vm.solicitudes">{{info.year}}</th>
-              </thead>
-              <tbody>
-                <tr ng-repeat="ts in vm.tipoSolicitudes">
-                    <th>{{ts.name}}</th>
-                    <td ng-repeat="info in vm.solicitudes">
-                      {{info[ts.key]}}
-                    </td>
-                </tr>
-              </tbody>
-          </table>
-          <div class="panel panel-default">
-                  <div class="panel-body">
-                    <div class="chart-container " >
-
-                      <!-- <canvas  id="bar" class="chart chart-bar"
-                         chart-legend="true" chart-data="vm.keyFix" chart-series="vm.keys" chart-labels="vm.yearsSol">
-                      </canvas> -->
-
-                      <canvas  id="bar" class="chart chart-bar"
-                         chart-legend="true" chart-data="vm.dataFix" chart-series="vm.yearsSol" chart-labels="vm.keys">
-                      </canvas>
 
 
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content">
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Solicitudes Aprobadas - Año {{vm.year || "actual"}}
+
+                                    <select class="form-control input-sm input-right"
+                                            ng-options="year for year in vm.years track by year"
+                                            ng-model="vm.year"
+                                            ng-change="vm.getDataAll()"
+                                    >
+                                    </select>
+                                </div>
+                                <div class="panel-body">
+
+                                    <table class="table table-bordered  table-striped fnt-11" >
+                                        <tbody>
+                                        <tr ng-repeat="row in vm.data.data">
+                                            <td>
+                                                <b>{{$index + 1}}</b>
+                                            </td>
+                                            <td>
+                                                <span  class="label-chart" style="background-color:{{vm.data.colors[$index]}}"></span>
+                                            </td>
+                                            <td>
+                                                {{row.entidad.nombre_entidad}}
+                                            </td>
+                                            <td class="with-td">
+                                                {{row.monto | currency : "B/. " : 2}}
+                                            </td>
+                                        </tr>
+                                        <tr class="active">
+                                            <td colspan="3" style="text-align: right"> <b>TOTAL: </b></td>
+                                            <td >  <b>{{vm.data.sum | currency : "B/. " : 2}}</b></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="chart-container " >
+                                                <canvas  id="base" class="chart-base" chart-type="'Pie'"
+                                                         chart-data="vm.data.values" chart-labels="vm.data.labels" chart-options="vm.config"  chart-colours="vm.data.colors">
+                                                </canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Estadísticas Generales
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered table-striped mgb-0 fnt-12">
+                                        <thead>
+                                        <th>Descripción</th>
+                                        <th>Cant.</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>Instituciones registradas</th>
+                                            <td>{{vm.generales.instituciones}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Usuarios registrados</th>
+                                            <td>{{vm.generales.usuarios}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Cantidad de Solicitudes
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered  table-striped fnt-12">
+                                        <thead>
+                                        <th></th>
+                                        <th ng-repeat="info in vm.solicitudes">{{info.year}}</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="ts in vm.tipoSolicitudes">
+                                            <th>{{ts.name}}</th>
+                                            <td ng-repeat="info in vm.solicitudes">
+                                                {{info[ts.key]}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="chart-container " >
+
+                                                <!-- <canvas  id="bar" class="chart chart-bar"
+                                                   chart-legend="true" chart-data="vm.keyFix" chart-series="vm.keys" chart-labels="vm.yearsSol">
+                                                </canvas> -->
+
+                                                <canvas  id="bar" class="chart chart-bar"
+                                                         chart-legend="true" chart-data="vm.dataFix" chart-series="vm.yearsSol" chart-labels="vm.keys">
+                                                </canvas>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-                  </div>
+
                 </div>
-          </div>
 
-         </div>
-       </div>
-  </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+

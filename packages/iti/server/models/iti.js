@@ -9,13 +9,13 @@ module.exports = function(sequelize, DataTypes) {
 
 			atendidos:{
 				type: DataTypes.INTEGER,
-        allowNull: false,
-        notEmpty: true,
-        comment: 'Son las personas antendidas durantes la capacitacion'
+        		allowNull: false,
+        		notEmpty: true,
+        		comment: 'Son las personas antendidas durantes la capacitacion'
 			},
-      egresados:{
+     		 egresados:{
 				type: DataTypes.INTEGER,
-        allowNull: false,
+        		allowNull: false,
         notEmpty: true,
         comment: 'Son la personas egresadas al finalizar las capacitaciones'
 			},

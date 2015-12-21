@@ -4,17 +4,17 @@
        .module('mean.system')
        .controller('MainCtrl', MainCtrl);
 
-       MainCtrl.$inject = ['Global', 'MeanUser'];
+       MainCtrl.$inject = ['Global', 'MeanUser','$rootScope','$state'];
 
-  function MainCtrl(Global, MeanUser) {
+  function MainCtrl(Global, MeanUser, $rootScope, $state) {
       var vm = this;
-      vm.isValid = true;
       vm.global = Global;
       vm.logout = MeanUser.logout;
 
-      vm.userName = 'Example user';
-      vm.helloText = 'Welcome in SeedProject';
-      vm.descriptionText = 'It is an application skeleton for a typical AngularJS web app. You can use it to quickly bootstrap your angular webapp projects and dev environment for these projects.';
-  }
+      $rootScope.$on('logout', function () {
+          $state.go('auth.login');
+      });
+
+}
 
  })();

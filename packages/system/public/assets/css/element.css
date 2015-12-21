@@ -205,3 +205,28 @@ body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav li:hover > .nav-seco
 .nav .open>a:hover, .nav .open>a{
     background-color: #002449;
 }
+
+.nav-second-level li a {
+    padding: 7px 10px 7px 10px;
+    padding-left: 52px;
+}
+
+.nav-third-level li a {
+    padding-left: 62px;
+}
+
+body.mini-navbar .nav-header {
+    padding: 0;
+    background-color: #1ab394;
+}
+.nav.nav-second-level > li.active {
+    border: none;
+}
+
+body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav-second-level {
+    display: none;
+}
+
+.with-td{
+    width: 25%;
+}

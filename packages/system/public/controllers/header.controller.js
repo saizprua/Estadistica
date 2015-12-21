@@ -4,9 +4,9 @@ angular
     .module('mean.system')
     .controller('HeaderController',HeaderController);
 
-    HeaderController.$inject = ['$http','$state', 'Global'];
+    HeaderController.$inject = ['$http','$state', 'Global','MeanUser'];
 
-    function HeaderController($http,$state,Global){
+    function HeaderController($http,$state,Global,MeanUser){
         var vm = this;
         vm.global = Global;
 
@@ -16,18 +16,6 @@ angular
         vm.menu = [{title:'SES', link:'ses'}];
 
         vm.isCollapsed = false;
-        vm.logout = logout;
-
-        function logout(){
-          $http.get('/api/logout').success(function() {
-            vm.global = {
-              user: false,
-              authenticated: false
-            };
-
-            $state.go('auth.login');
-
-          });
-        }
+        vm.logout = MeanUser.logout;
     }
 })();

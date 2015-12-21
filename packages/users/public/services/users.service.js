@@ -61,12 +61,12 @@ angular
 
                     if ($location.absUrl() === response.redirect) {
                         //This is so an admin user will get full admin page
-                        $window.location.reload();
+                        $location.url('/');
                     } else {
-                    $window.location.href = response.redirect;
+                        $window.location.href = response.redirect;
                     }
                 }else{
-                $window.location.reload();
+                    $location.url('/');
                 }
             }
 

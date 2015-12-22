@@ -3,24 +3,68 @@
 //Module dependencies.
 var acl = require('acl');
 var _ = require('lodash');
+var when = require('when');
+var db = require('./sequelize');
 
 // Using the memory backend
-acl = new acl(new acl.memoryBackend());
+acl = exports.acl = new acl(new acl.memoryBackend());
 
-//Invoke Permissions
-acl.allow([{
-  roles: ['IT_Administradores','Direccion Gobernanza'],
-  allows: [{
-    resources: ['/api/iti', '/api/iti/year', '/api/iti/:itiId'],
-    permissions: '*'
-  }]
-},{
-  roles: ['guest'],
-  allows: [{
-    resources: ['/api/iti', '/api/iti/year', '/api/iti/:itiId'],
-    permissions: ['get']
-  }]
-}]);
+
+
+exports.invokeRolesPolicies = function (callback) {
+        acl.allow([{
+            roles: ['Julio Sena'],
+            allows: [{
+                resources: [
+                    '/api/iti',
+                    '/api/iti/year',
+                    '/api/iti/:itiId',
+                    '/api/acl',
+                    '/api/acl/:aclId',
+                    '/api/routes/all'
+                ],
+                permissions: '*'
+            }]
+        },{
+            roles: ['guest'],
+            allows: [{
+                resources: ['/api/iti', '/api/iti/year', '/api/iti/:itiId'],
+                permissions: ['get']
+            }]
+        }]);
+
+
+
+    db.acl.findAll({})
+        .then(function (acls) {
+            allowPermison(acls);
+            callback();
+        })
+        .catch(callback);
+
+
+    function allowPermison(acls){
+        var allow = [];
+        var group = _.groupBy(acls,'role');
+        for(var i in group){
+            var obj = { roles: [i]};
+            var allows = [];
+
+            group[i].forEach(function (value) {
+                allows.push({
+                    resources: [value.ruta],
+                    permissions: value.metodos.split(',')
+                });
+            });
+            obj.allows = allows;
+            allow.push(obj);
+        }
+        acl.allow(allow);
+    }
+
+
+
+};
 
 // Check If Articles Policy Allows
 exports.isAllowed = function (req, res, next) {

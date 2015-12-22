@@ -2,7 +2,9 @@
 
 var config = require('../../../../config/config.js');
 var db = require('../../../../config/sequelize');
+var acl = require('../../../../config/acl');
 var ir = config.ignoreRoutes;
+var when = require('when');
 
 module.exports = function (app) {
 
@@ -34,43 +36,123 @@ module.exports = function (app) {
     }
 
     function save(req,res){
+        var body  = req.body;
+        body.metodos = body.metodos.toString();
 
-        req.body.metodos = req.body.metodos.toString();
+        db.sequelize.transaction(function (t) {
+            var deferred = when.defer();
 
-        db.acl.create(req.body)
-            .then(function () {
-                res.json(req.body);
-            })
-            .catch(function (err) {
-                res.status(500).send(err);
-            });
+            db.acl.create(body,{
+                    transaction: t
+                })
+                .then(function (acl_) {
+
+                        acl.acl.allow(acl_.role, acl_.ruta, acl_.metodos.split(','), function (err) {
+                            if(err) return deferred.reject(err);
+                            //resolve promisers
+                            deferred.resolve(body);
+                        });
+                })
+                .catch(deferred.reject);
+
+            return deferred.promise;
+
+        }).then(function (result) {
+            // Transaction has been committed
+            // result is whatever the result of the promise chain returned to the transaction callback
+            res.json(result);
+        }).catch(function (err) {
+            // Transaction has been rolled back
+            // err is whatever rejected the promise chain returned to the transaction callback
+            res.status(500).send(err);
+        });
 
     }
 
     function update(req,res){
-        req.body.metodos = req.body.metodos.toString();
 
-        db.acl.update(req.body,{
-            where:{id:req.params.aclId}
-        })
-            .then(function () {
-                res.json(req.body);
-            })
-            .catch(function (err) {
-                res.status(500).send(err);
-            });
+        var body = req.body;
+        body.metodos = body.metodos.toString();
+
+
+
+        db.sequelize.transaction(function (t) {
+            var deferred = when.defer();
+
+                 db.acl.update(body,{
+                     where:{id:req.params.aclId},
+                     transaction: t
+                })
+                .then(function () {
+
+                    acl.acl.removeAllow(body.role, body.ruta, function (err) {
+                        if(err) return deferred.reject(err);
+
+                        acl.acl.allow(body.role, body.ruta, body.metodos.split(','), function (err) {
+                            if(err) return deferred.reject(err);
+
+                            //resolve promisers
+                            deferred.resolve(body);
+                        });
+                    });
+
+                })
+                .catch(deferred.reject);
+
+            return deferred.promise;
+
+        }).then(function (result) {
+            // Transaction has been committed
+            // result is whatever the result of the promise chain returned to the transaction callback
+            res.json(result);
+        }).catch(function (err) {
+            // Transaction has been rolled back
+            // err is whatever rejected the promise chain returned to the transaction callback
+            res.status(500).send(err);
+        });
     }
 
+
+    //cuando se elimina la politica de acl para el resoruce de rol
     function destroy(req, res){
-        db.acl.destroy({
-                where:{id: req.params.aclId}
-            })
-            .then(function () {
-                res.json({success:true});
-            })
-            .catch(function (err) {
-                res.status(500).send(err);
-            });
+
+        db.sequelize.transaction(function (t) {
+          var deferred = when.defer();
+
+          db.acl.find({
+              where: {id: req.params.aclId}
+          })
+              .then(function (acl_) {
+
+                  db.acl.destroy({
+                          where:{id: req.params.aclId},
+                          transaction: t
+                      })
+                      .then(function () {
+                          acl.acl.removeAllow(acl_.role, acl_.ruta, function (err) {
+                              if(err) return deferred.reject(err);
+                              deferred.resolve({success:true});
+
+                          });
+                      })
+                      .catch(deferred.reject);
+
+              })
+              .catch(deferred.reject);
+
+
+          return deferred.promise;
+
+        }).then(function (result) {
+            // Transaction has been committed
+            // result is whatever the result of the promise chain returned to the transaction callback
+          res.json(result);
+        }).catch(function (err) {
+            // Transaction has been rolled back
+            // err is whatever rejected the promise chain returned to the transaction callback
+          res.status(500).send(err);
+        });
+
     }
 
 

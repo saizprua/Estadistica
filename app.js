@@ -64,8 +64,10 @@ function createApp(){
     //Initialize Express
     require('./config/express')(app, passport, db);
 
-    app.listen(port);
-    winston.info('Express app started on port ' + port);
+      require('./config/acl').invokeRolesPolicies(function () {
+          app.listen(port);
+          winston.info('Express app started on port ' + port);
+      })
 
   });
 }

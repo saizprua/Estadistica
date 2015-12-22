@@ -26,7 +26,8 @@
 }
 .loginscreen{
   max-width: 300px;
-  margin: 0 auto;
+  margin: 20px auto;
+  background-color: #fff;
 }
 .center{
   text-align: center;
@@ -37,4 +38,11 @@
   border-radius:  3px;
   padding: 5px;
 
+}
+
+.brand-ok{
+    padding: 14.5px 10px !important;
+}
+.brand-no{
+    padding: 10.5px 30px !important;
 }

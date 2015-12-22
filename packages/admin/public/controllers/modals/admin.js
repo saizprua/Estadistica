@@ -9,7 +9,10 @@
         var vm = this;
         vm.model = angular.copy(formData.model);
 
-        if(!formData.add) vm.model.metodos = vm.model.metodos.split(',');
+        if(!formData.add) {
+            var model = vm.model.metodos.split(',');
+            vm.model.metodos = model;
+        }
 
 
         vm.errors = [];
@@ -24,6 +27,7 @@
         function init(){
             $http.get('api/routes/all').then(function (response) {
                 vm.routes = response.data;
+                vm.options = getMethods(vm.model.ruta);
             });
         }
 
@@ -111,11 +115,18 @@
                     valueProp: 'id',
                     labelProp: 'label',
                     placeholder: 'Select options',
-                    options: []
+                    options:  []
                 },
                 controller:function($scope){
+
+
+                    $scope.$watch(function () {return  vm.options;}, function (n) {
+                        if(n){
+                            $scope.to.options = n;
+                        }
+                    });
+
                     $scope.$watch('model.ruta', function (newValue, oldValue) {
-                        console.log(newValue,oldValue);
                         if(newValue !== oldValue) {
                             // logic to reload this select's options asynchronusly based on state's value (newValue)
                             if(!oldValue) {

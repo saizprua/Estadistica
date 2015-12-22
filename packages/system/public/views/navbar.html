@@ -1,8 +1,13 @@
 <div class="row border-bottom">
     <nav class="navbar navbar-aig navbar-static-top" role="navigation" style="margin-bottom: 0;padding-right: 25px;">
+
+
         <div ng-show="main.global.authenticated" class="navbar-header">
             <span minimaliza-sidebar></span>
         </div>
+        <a ng-class="main.global.authenticated ? 'brand-ok' : 'brand-no'" class="navbar-brand" style="height: 0" href="http://innovacion.gob.pa">
+            <img alt="Brand" width="20" height="20" src="system/assets/img/aig_vertical.png">
+        </a>
         <ul ng-show="main.global.authenticated" class="nav navbar-top-links navbar-right">
 
             <li>

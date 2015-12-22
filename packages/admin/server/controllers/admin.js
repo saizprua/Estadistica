@@ -8,7 +8,10 @@ module.exports = function (app) {
 
   return {
       routes: routes,
-      getAcl: getAcl
+      getAcl: getAcl,
+      save: save,
+      update: update,
+      destroy: destroy
   };
 
 
@@ -24,6 +27,46 @@ module.exports = function (app) {
         db.acl.findAll()
             .then(function (acl) {
                  res.json(acl);
+            })
+            .catch(function (err) {
+                res.status(500).send(err);
+            });
+    }
+
+    function save(req,res){
+
+        req.body.metodos = req.body.metodos.toString();
+
+        db.acl.create(req.body)
+            .then(function () {
+                res.json(req.body);
+            })
+            .catch(function (err) {
+                res.status(500).send(err);
+            });
+
+    }
+
+    function update(req,res){
+        req.body.metodos = req.body.metodos.toString();
+
+        db.acl.update(req.body,{
+            where:{id:req.params.aclId}
+        })
+            .then(function () {
+                res.json(req.body);
+            })
+            .catch(function (err) {
+                res.status(500).send(err);
+            });
+    }
+
+    function destroy(req, res){
+        db.acl.destroy({
+                where:{id: req.params.aclId}
+            })
+            .then(function () {
+                res.json({success:true});
             })
             .catch(function (err) {
                 res.status(500).send(err);

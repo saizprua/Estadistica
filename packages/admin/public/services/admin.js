@@ -8,7 +8,7 @@
 
     function ACL($resource){
 
-        return $resource('api/acl/:aclId',{itiId:'@id'},{
+        return $resource('api/acl/:aclId',{aclId:'@id'},{
             'update': { method:'PUT' }
         });
 

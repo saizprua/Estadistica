@@ -8,6 +8,10 @@
     function AdminCEAdminController($uibModalInstance, formData, ACL,sAlert, SweetAlert,$http) {
         var vm = this;
         vm.model = angular.copy(formData.model);
+
+        if(!formData.add) vm.model.metodos = vm.model.metodos.split(',');
+
+
         vm.errors = [];
         init();
 
@@ -99,7 +103,7 @@
                 }
             },
             {
-                key: 'multipleOption',
+                key: 'metodos',
                 type: 'ui-select-multiple',
                 templateOptions: {
                     optionsAttr: 'bs-options',

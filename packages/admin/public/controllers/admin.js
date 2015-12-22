@@ -31,7 +31,6 @@
         //function refresh
         function refresh() {
             vm.isRefreshing = true;
-            vm[vm.select.method](true);
         }
 
         //function destroy
@@ -42,7 +41,7 @@
                     model.$delete().then(function () {
                         SweetAlert.swal('Confirmado!', 'Eliminado!', 'success');
                         var index =  getIndexById(model.id);
-                        if(index >= 0 ) vm[vm.select.name].splice(index, 1);
+                        if(index >= 0 ) vm.data.splice(index, 1);
                     });
 
                 });

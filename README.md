@@ -84,3 +84,6 @@ Leer el documento [https://www.digitalocean.com/community/tutorials/how-to-set-u
 ```bash
 $setsebool httpd_can_network_connect on -P
 ```
+
+DOCS
+[http://stackoverflow.com/questions/23948527/13-permission-denied-while-connecting-to-upstreamnginx](httpd_can_network_connect)

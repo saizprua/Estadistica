@@ -13,7 +13,7 @@ acl = exports.acl = new acl(new acl.memoryBackend());
 
 exports.invokeRolesPolicies = function (callback) {
         acl.allow([{
-            roles: ['Julio Sena'],
+            roles: ['Julio Sena','Lidia Serrano'],
             allows: [{
                 resources: [
                     '/api/iti',

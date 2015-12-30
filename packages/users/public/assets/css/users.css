@@ -1,5 +1,5 @@
 .login-title{
-  font-size: 30px;
+  font-size: 70px;
   /*color: #b7b7b7;*/
   font-weight: 400;
   /*letter-spacing: -5px;*/
@@ -27,14 +27,14 @@
 .loginscreen{
   max-width: 300px;
   margin: 20px auto;
-  background-color: #fff;
+  /*background-color: #fff;*/
 }
 .center{
   text-align: center;
 }
 
 .login-interface{
-  border: 1px solid #ddd;
+  /*border: 1px solid #ddd;*/
   border-radius:  3px;
   padding: 5px;
 
@@ -52,9 +52,25 @@
 }
 
 .text-blue{
-  color: #2073f9;
+  color: #cee6ff;
+}
+
+.text-aig-2{
+  color:#e8f3ff;
 }
 
 .text-aig{
- color: #003061;
+  margin-top: 5px;
+  margin-bottom: 5px;
+ color: #72a2d3;
+}
+.m-t input{
+  border-width: 1px;
+  border: 1px solid #fff;
+  border-radius: 1px;
+  /*border 1px*/
+}
+
+.m-t input:focus{
+  border: 1px solid #18bc9c;
 }

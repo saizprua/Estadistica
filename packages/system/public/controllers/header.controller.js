@@ -9,6 +9,7 @@ angular
     function HeaderController($http,$state,Global,MeanUser){
         var vm = this;
         vm.global = Global;
+        vm.user = Global.user;
 
         console.log(vm.global);
 

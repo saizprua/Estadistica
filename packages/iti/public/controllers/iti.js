@@ -4,16 +4,23 @@
       .module('mean.iti')
       .controller('ItiController',ItiController);
 
-      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert'];
+      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert', 'DTOptionsBuilder'];
 
-      function ItiController( Iti, $uibModal, sAlert, SweetAlert){
+      function ItiController( Iti, $uibModal, sAlert, SweetAlert, DTOptionsBuilder){
 
-        // console.log(DTOptionsBuilder);
-        //iti/assets/json/es_dt.json
+
         var vm = this;
 
+          vm.opt =  DTOptionsBuilder.newOptions()
+              .withOption('order', [0, 'desc'])
+              .withDisplayLength(12);
+
+
         getData();
+
           //metodos
+
+
           vm.createOrEdit = createOrEdit;
           vm.destroy = destroy;
           vm.getData = getData;

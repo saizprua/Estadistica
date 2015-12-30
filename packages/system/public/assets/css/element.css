@@ -230,3 +230,12 @@ body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav-second-level {
 .with-td{
     width: 25%;
 }
+
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+     background-color: transparent;
+     border-color: transparent;
+}
+
+.text-white{
+    color: #fff;
+}

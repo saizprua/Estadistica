@@ -5,15 +5,14 @@
 
                 <div class="uib-dropdown profile-element" uib-dropdown>
                     <img  alt="image" class="img-circle img-bread" src="system/assets/img/1.jpg"/>
-                    <a class="uib-dropdown-toggle" uib-dropdown-toggle href>
+                    <a class="uib-dropdown-toggle text-white" uib-dropdown-toggle href>
                             <span class="clear">
                                 <span class="block m-t-xs">
-                                    <strong class="font-bold">{{vm.user.name}}</strong>
+                                    <strong class="font-bold">{{vm.user.name}}  <b class="caret"></b></strong>
                                 </span>
                                  <span class="text-muted text-xs "></span>
                                  <span class="text-muted text-xs "></span>
 
-                                <span class="text-muted text-xs block">{{vm.global.isAdmin ? 'Administrador' : 'Normal'}} <b class="caret"></b></span>
                             </span>
                     </a>
                     <ul class="uib-dropdown-menu animated fadeInRight m-t-xs">
@@ -45,14 +44,6 @@
 
                 </ul>
             </li>
-            <!--<li ng-class="{active: $state.includes('forms')}">-->
-                <!--<a href=""><i class="fa fa-edit"></i> <span class="nav-label">Formas</span><span class="fa arrow"></span></a>-->
-                <!--<ul class="nav nav-second-level" ng-class="{in: $state.includes('forms')}">-->
-                    <!--<li ui-sref-active="active"><a ui-sref="forms.uploads">Cargar Archivos</a></li>-->
-                <!--</ul>-->
-            <!--</li>-->
-
-
         </ul>
 
     </div>

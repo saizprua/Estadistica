@@ -99,7 +99,19 @@ function init(callback){
                 .then(function () {
                   models.sequelize_innovacion = sequelize_innovacion;
                   winston.info('Database INNOVACION '+(config.forceSequelizeSync?'*DROPPED* and ':'')+ 'synchronized');
-                  return callback();
+
+                    db.config.findAll()
+                        .then(function (conf) {
+                            var c = {};
+                            conf.forEach(function (i) { c[i.config_item] = i.value_item; });
+                            _.extend(config,c);
+                            console.log(c);
+                            return callback();
+                        })
+                        .catch(function (err) {
+                            winston.error('An error occured: %j',err);
+                        })
+
 
                 })
                 .catch(function (err) {

@@ -20,7 +20,7 @@
         vm.seriesData = [];
         vm.options = {
             barValueSpacing : 20,
-            tooltipFillColor: "rgba(0,48,97,0.8)"
+            tooltipFillColor: 'rgba(0,48,97,0.8)'
         };
 
         vm.labels = items.map(function(i){return i.title;});

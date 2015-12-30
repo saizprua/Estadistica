@@ -31,6 +31,7 @@ app.route('/api/loggedin')
       .get(function(req, res) {
           res.send(req.isAuthenticated() ? req.user : '0');
       });
+
 // Finish with setting up the userId param
 app.param('userId', users.user);
 };

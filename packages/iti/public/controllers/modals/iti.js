@@ -28,6 +28,7 @@
 
               if(!formData.add){
 
+
                 sAlert({title:'Desea modificar el registro?', text:'Se modificara el registro ID: ' + formData.model.id})
                 .then(function () {
                   vm.model.$update().then(function (empresa) {

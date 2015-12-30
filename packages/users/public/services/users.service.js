@@ -46,27 +46,27 @@ angular
 
             function onIdentity(response) {
 
-                var user = response.user ? response.user : response;
+                //var user = response.user ? response.user : response;
 
-                self.loggedin = true;
-                self.isAdmin = false;
-                self.user = user;
-                self.name = user.name;
-
-                //Global Services
-                Global.user = user;
-                Global.authenticated = true;
+                //self.loggedin = true;
+                //self.isAdmin = false;
+                //self.user = user;
+                //self.name = user.name;
+                //
+                ////Global Services
+                //Global.user = user;
+                //Global.authenticated = true;
 
                 if (response.redirect) {
 
                     if ($location.absUrl() === response.redirect) {
                         //This is so an admin user will get full admin page
-                        $location.url('/');
+                        location.href = '/';
                     } else {
                         $window.location.href = response.redirect;
                     }
                 }else{
-                    $location.url('/');
+                    location.href = '/';
                 }
             }
 
@@ -147,6 +147,7 @@ angular
                     Global.user = null;
                     Global.authenticated = false;
 
+                    //location.href = '/auth/login';
                     $rootScope.$emit('logout');
                 });
 

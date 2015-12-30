@@ -1,6 +1,9 @@
 
 'use strict';
 
+
+var config = require('../../../../config/config.js');
+
 module.exports = function(app) {
 
     var admin = require('../controllers/admin')(app);
@@ -19,17 +22,8 @@ module.exports = function(app) {
         .delete(admin.destroy);
 
 
-    app.get('/api/test/acl/:role', function (req, res) {
-        acl.acl.whatResources(req.params.role, function (err, data) {
-            res.json(data);
-        });
-    });
-
-    app.get('/api/clear/acl/:role', function (req, res) {
-        acl.acl.removeAllow('Innovacion','/api/acl',function (err) {
-            if(err) return res.status(500).send(err);
-            res.json('ok');
-        });
+    app.get('/api/test/config', function (req, res) {
+        res.json(config);
     });
 
 

@@ -239,3 +239,6 @@ body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav-second-level {
 .text-white{
     color: #fff;
 }
+.config-t{
+    padding: 14px 25px 14px 25px !important;
+}

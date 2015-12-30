@@ -15,8 +15,8 @@
                     <i class="fa fa-sign-out"></i> Salir
                 </a>
             </li>
-            <li>
-                <a ui-sref="admin">
+            <li ui-sref-active="active"  ng-if="main.global.isAdmin">
+                <a class="config-t" ui-sref="admin">
                     <i class="fa fa-cog"></i>
                 </a>
             </li>

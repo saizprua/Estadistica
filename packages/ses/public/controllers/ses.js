@@ -20,11 +20,11 @@
           vm.config = {
             segmentStrokeWidth : 3,
             tooltipTemplate: '<%= value + "%" %>',
-            tooltipFillColor: "rgba(0,48,97,0.8)"
+            tooltipFillColor: 'rgba(0,48,97,0.8)'
           };
 
           vm.optC = {
-            tooltipFillColor: "rgba(0,48,97,0.8)"
+            tooltipFillColor: 'rgba(0,48,97,0.8)'
           };
 
           vm.getDataAll = getDataAll;

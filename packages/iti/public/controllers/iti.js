@@ -4,9 +4,9 @@
       .module('mean.iti')
       .controller('ItiController',ItiController);
 
-      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert', 'DTOptionsBuilder'];
+      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert', 'DTOptionsBuilder', '$filter'];
 
-      function ItiController( Iti, $uibModal, sAlert, SweetAlert, DTOptionsBuilder){
+      function ItiController( Iti, $uibModal, sAlert, SweetAlert, DTOptionsBuilder, $filter){
 
 
         var vm = this;
@@ -44,7 +44,7 @@
 
       function destroy(model) {
 
-        sAlert({title:'Desea elminar el registro?', text:'Se eliminara el registro ID: ' + model.id})
+        sAlert({title:'Desea elminar el registro?', text:'Se eliminara el registro: ' + $filter('capitalize')($filter('date')(model.fecha_reporte, 'MMMM yyyy')) })
         .then(function () {
           model.$delete().then(function () {
               SweetAlert.swal('Confirmado!', 'Eliminado!', 'success');

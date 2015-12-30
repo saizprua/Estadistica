@@ -3,9 +3,10 @@ var path = require('path'),
 
 module.exports = {
 	root: rootPath,
-  prefix: 'INNOVACION',
+    adminRole: 'Julio Sena',
+    prefix: 'INNOVACION',
 	port: process.env.PORT || 3000,
-  ignoreRoutes: ['/api/loggedin', '/api/login/ldap', '/api/login','/api/logout','/api/users/me','/'],
+    ignoreRoutes: ['/api/loggedin', '/api/login/ldap', '/api/login','/api/logout','/api/users/me','/'],
     forceSequelizeSync: process.env.FORCE_DB_SYNC==='true',
     enableSequelizeLog: true,
     timezone : '-05:00' ,

@@ -36,9 +36,21 @@
 }
 
 .panel-extend{
+  color: #ecf0f1 !important;
   height: 56px;
   padding: 18px 15px;
 }
 .mgb-0{
   margin-bottom: 0;
+}
+
+.text-iti {
+    color: #4C6B9E;
+    text-align: center;
+    font-size: 22px;
+}
+
+.bar-legend li {
+
+    font-weight: bold;
 }

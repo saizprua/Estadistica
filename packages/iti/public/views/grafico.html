@@ -2,16 +2,17 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="ibox">
-          <div class="ibox-title">
-              <h4>Graficos ITI
-                  <small></small>
-              </h4>
-              <!-- <div ibox-tools></div> -->
-          </div>
+          <!--<div class="ibox-title">-->
+              <!--&lt;!&ndash;<h4>Graficos ITI&ndash;&gt;-->
+                  <!--&lt;!&ndash;<small></small>&ndash;&gt;-->
+              <!--&lt;!&ndash;</h4>&ndash;&gt;-->
+              <!--&lt;!&ndash; <div ibox-tools></div> &ndash;&gt;-->
+          <!--</div>-->
         <div class="ibox-content">
 
           <div class="row">
             <div class="col-md-6">
+                <h3 class="text-iti">CAPACITACIONES REALIZADAS - ACUMULATIVAS DEL AÑO</h3>
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <div class="row">
@@ -22,7 +23,7 @@
 
                     </div>
                     <div class="col-md-10 pdl-0 mini-date">
-                      <ui-select multiple on-select="vm.onChangeInput()" on-remove="vm.onChangeInput()" data-ng-model="vm.model" theme="bootstrap">
+                      <ui-select multiple  on-select="vm.onChangeInput()" on-remove="vm.onChangeInput()" data-ng-model="vm.model" theme="bootstrap">
 
                         <ui-select-match >{{$item | date:'MMM yyyy' | capitalize}}</ui-select-match>
                         <ui-select-choices data-repeat="a in []">
@@ -42,7 +43,7 @@
                     <h1>Sin información</h1>
                   </div>
                   <div ng-show="vm.data.length" >
-                    <canvas ng-if="vm.seriesData" id="bar" class="chart chart-bar"
+                    <canvas ng-if="vm.seriesData"  class="chart chart-bar"
                             chart-legend="true" chart-colours="vm.colours" chart-options="vm.options"  chart-data="vm.seriesData" chart-series="vm.series" chart-labels="vm.labels">
                     </canvas>
                   </div>
@@ -52,16 +53,16 @@
             </div>
 
             <div class="col-md-6">
+                <h3 class="text-iti">CAPACITACIONES REALIZADAS - ACUMULATIVAS DESDE EL INCIO DE ITI</h3>
               <div class="panel panel-default ">
                 <div class="panel-heading panel-extend">Grafica por años</div>
                 <div class="panel-body">
-                  <canvas  id="bar" class="chart chart-bar"
+                  <canvas  class="chart chart-bar"
                            chart-legend="true" chart-colours="vm.colours" chart-options="vm.options"  chart-data="vm.seriesDataYear" chart-series="vm.seriesYear" chart-labels="vm.labels">
                   </canvas>
                 </div>
               </div>
             </div>
-
           </div>
 
         </div>

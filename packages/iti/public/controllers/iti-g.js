@@ -18,7 +18,10 @@
         vm.series = [];
         vm.labels = [];
         vm.seriesData = [];
-        vm.options = {barValueSpacing : 20};
+        vm.options = {
+            barValueSpacing : 20,
+            tooltipFillColor: "rgba(0,48,97,0.8)"
+        };
 
         vm.labels = items.map(function(i){return i.title;});
         vm.keys =  items.map(function(i){return i.key;});
@@ -35,8 +38,17 @@
 
         function getDataFecha(){
 
+            vm.seriesData  = false;
+            vm.series = false;
+
           $http.get('api/iti' + (vm.model.length > 0 ? ('?dates=' + vm.model.toString()) : '?init=1') ).then(function (response) {
             vm.data = response.data;
+
+             var fechas =  vm.data.map(function (item) {
+                  var d = new Date(item.fecha_reporte).setHours(0,0,0,0);
+                  return d;
+              });
+              vm.model = fechas;
             chartDinamic();
           },function(err){
             vm.err = err;
@@ -85,7 +97,7 @@
         }
 
         function onChangeInput() {
-          init();
+            getDataFecha();
         }
 
         $scope.$watch('vm.dateSelect', function (n,o) {

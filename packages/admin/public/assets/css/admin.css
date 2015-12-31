@@ -1,3 +1,18 @@
 .input-mult.ui-select-bootstrap input.ui-select-search {
     height: 35px !important;
 }
+
+.editable-buttons button {
+    padding: 6px 9px;
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.editable-input{
+    height: 35px;
+    padding: 6px 9px;
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: 3px;
+}

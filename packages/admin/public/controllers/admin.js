@@ -5,19 +5,26 @@
         .module('mean.admin')
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['ACL' ,'$uibModal', 'sAlert', 'SweetAlert'];
+    AdminController.$inject = ['ACL','Params' ,'$uibModal', 'sAlert', 'SweetAlert', 'editableOptions','$q'];
 
-    function AdminController(ACL, $uibModal, sAlert, SweetAlert) {
+    function AdminController(ACL, Params, $uibModal, sAlert, SweetAlert, editableOptions, $q) {
         var vm = this;
+        editableOptions.theme = 'bs3';
 
         //metodos
         vm.createOrEdit = createOrEdit;
         vm.destroy = destroy;
         vm.isRefreshing = false;
         vm.refresh = refresh;
+        vm.onBeforeSaveParams = onBeforeSaveParams;
 
         //call method init
         init();
+
+
+        function onBeforeSaveParams(data, param){
+           console.log(data, param);
+        }
 
         //method init
         function init() {
@@ -26,6 +33,12 @@
             }, function (err) {
                 vm.err = err;
             });
+
+            Params.query().$promise.then(function (params) {
+                vm.params = params;
+            }, function (err) {
+                vm.err = err;
+            })
         }
 
         //function refresh

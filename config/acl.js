@@ -21,7 +21,8 @@ exports.invokeRolesPolicies = function (callback) {
                     '/api/iti/:itiId',
                     '/api/acl',
                     '/api/acl/:aclId',
-                    '/api/routes/all'
+                    '/api/routes/all',
+                    '/api/config'
                 ],
                 permissions: '*'
             }]

@@ -3,17 +3,48 @@
         <div class="col-lg-12">
             <div class="ibox">
                 <div class="ibox-title heading-button">
-                    <h5>Configuraciones ADMIN
+                    <h4>Configuraciones
                         <small></small>
-                    </h5>
-                    <div class="ibox-tools btn-action">
-                        <a href="" ng-click="vm.refresh()" class="btn btn-info"><i  ng-class="{'fa-spin':vm.isRefreshing}" class="fa fa-refresh"></i></a>
-                        <a href="" ng-click="vm.createOrEdit({},true)" class="btn btn-primary">Nuevo <i class="fa fa-plus"></i></a>
-                    </div>
+                    </h4>
                 </div>
                 <div class="ibox-content">
-                    <div class="panel panel-default">
+
+
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            Variables Globales
+                        </div>
                         <div class="panel-body">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <th>Parametro</th>
+                                    <th>Valor</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="param in vm.params">
+                                        <td>{{param.config_item}}</td>
+                                        <td editable-text="param.value_item" onbeforesave="vm.onBeforeSaveParams($data, param)">  {{param.value_item}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading">
+                            Politicas de ACL
+                            <div class="pull-right" style="margin: -7px;">
+                                <a href="" ng-click="vm.refresh()" class="btn btn-sm btn-info"><i  ng-class="{'fa-spin':vm.isRefreshing}" class="fa fa-refresh"></i></a>
+                                <a href="" ng-click="vm.createOrEdit({},true)" class="btn btn-sm btn-primary">Nuevo <i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+
+
                             <table datatable="ng" class="table table-striped table-hover table-bordered table-aig">
                                 <thead>
                                 <tr>

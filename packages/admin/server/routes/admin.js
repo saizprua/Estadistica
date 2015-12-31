@@ -2,12 +2,11 @@
 'use strict';
 
 
-var config = require('../../../../config/config.js');
-
 module.exports = function(app) {
 
     var admin = require('../controllers/admin')(app);
     var acl = require('../../../../config/acl');
+    var params = require('../controllers/params');
 
     app.route('/api/routes/all').all(acl.isAllowed)
         .get( admin.routes);
@@ -22,9 +21,8 @@ module.exports = function(app) {
         .delete(admin.destroy);
 
 
-    app.get('/api/test/config', function (req, res) {
-        res.json(config);
-    });
+    app.route('/api/config').all(acl.isAllowed)
+        .get(params.getConfig);
 
 
 };

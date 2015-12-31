@@ -23,26 +23,22 @@
                             serie: true,
                             files: [
                                 'bower_components/datatables/media/css/dataTables.bootstrap.min.css',
+                                'bower_components/angular-ui-select/dist/select.min.css',
+                                'bower_components/angular-xeditable/dist/css/xeditable.css',
                                 'bower_components/datatables/media/js/dataTables.bootstrap.min.js'
                             ]
+                        }, {
+                            name: 'ui.select',
+                            files:['bower_components/angular-ui-select/dist/select.min.js']
+                        }, {
+                            name:'xeditable',
+                            files:['bower_components/angular-xeditable/dist/js/xeditable.min.js']
                         }
                     ]).then(function () {
                         console.log('success');
                     },function (err) {
                         console.log(err);
                     });
-                },
-                loadPlugin_: function ($ocLazyLoad) {
-                    return  $ocLazyLoad.load([
-                        {
-                            files: [
-                                'bower_components/angular-ui-select/dist/select.min.css'
-                            ]
-                        },{
-                            name: 'ui.select',
-                            files:['bower_components/angular-ui-select/dist/select.min.js']
-                        }
-                    ]);
                 }
             }
         });

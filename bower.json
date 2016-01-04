@@ -11,7 +11,7 @@
     "angular-ui-router": "~0.2.15",
     "angles": "*",
     "angular-chart.js": "~0.8.5",
-    "bootswatch": "~3.3.5+4",
+    "bootswatch": "~3.3.5",
     "angular-datatables": "0.4.3",
     "oclazyload": "1.0.8",
     "font-awesome": "~4.5.0",

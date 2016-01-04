@@ -53,10 +53,13 @@
                   }
                 }
               }
+            
+              if( objData.value.toFixed){
+                  result.values.push( ((objData.value / result.sum)*100).toFixed(2) );
+                  result.montos.push( objData.value.toFixed(2) );
+                  result.labels.push( objData.label );
+              }
 
-               result.values.push( ((objData.value / result.sum)*100).toFixed(2) );
-               result.montos.push( objData.value.toFixed(2) );
-               result.labels.push( objData.label );
 
 
         });

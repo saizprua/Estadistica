@@ -11,19 +11,23 @@ acl = exports.acl = new acl(new acl.memoryBackend());
 
 
 
+var routes = exports.routes = [
+    '/api/iti',
+    '/api/iti/year',
+    '/api/iti/:itiId',
+    '/api/acl',
+    '/api/acl/:aclId',
+    '/api/routes/all',
+    '/api/config',
+    '/api/config/:configId',
+    '/api/roles'
+];
+
 exports.invokeRolesPolicies = function (callback) {
         acl.allow([{
-            roles: ['Julio Sena','Lidia Serrano'],
+            roles: ['GitLab'],
             allows: [{
-                resources: [
-                    '/api/iti',
-                    '/api/iti/year',
-                    '/api/iti/:itiId',
-                    '/api/acl',
-                    '/api/acl/:aclId',
-                    '/api/routes/all',
-                    '/api/config'
-                ],
+                resources:routes,
                 permissions: '*'
             }]
         },{

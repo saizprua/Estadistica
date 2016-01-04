@@ -5,9 +5,9 @@
         .module('mean.admin')
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['ACL','Params' ,'$uibModal', 'sAlert', 'SweetAlert', 'editableOptions','$q'];
+    AdminController.$inject = ['ACL','Params' ,'$uibModal', 'sAlert', 'SweetAlert', 'editableOptions','$http'];
 
-    function AdminController(ACL, Params, $uibModal, sAlert, SweetAlert, editableOptions, $q) {
+    function AdminController(ACL, Params, $uibModal, sAlert, SweetAlert, editableOptions,$http) {
         var vm = this;
         editableOptions.theme = 'bs3';
 
@@ -23,11 +23,24 @@
 
 
         function onBeforeSaveParams(data, param){
-           console.log(data, param);
+
+            var com = param.value_item;
+
+            param.value_item = data;
+            var up = param.$update();
+
+            up.then(
+                function () {  console.log('ok');},
+                function () {  param.value_item = com;}
+            );
+
+           return up;
         }
 
         //method init
         function init() {
+            getRoles();
+
             ACL.query().$promise.then(function (data) {
                 vm.data = data;
             }, function (err) {
@@ -39,6 +52,15 @@
             }, function (err) {
                 vm.err = err;
             })
+        }
+
+
+        function getRoles(){
+            $http.get('api/roles').then(function (response) {
+                vm.roles = response.data;
+            }, function (err) {
+                vm.err = err;
+            });
         }
 
         //function refresh

@@ -14,3 +14,30 @@ exports.getConfig = function (req, res) {
             res.status(500).send(err);
         });
 };
+
+exports.roles = function(req,res){
+    db.roles.findAll()
+        .then(function (roles) {
+            res.json(roles);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        });
+}
+
+exports.updateConfig = function (req, res) {
+    var ci = req.params.configId;
+    db.config.update({
+        value_item: req.body.value_item
+    },{
+        where:{
+            id:ci
+        }
+    })
+        .then(function () {
+            res.json(req.body);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        });
+};

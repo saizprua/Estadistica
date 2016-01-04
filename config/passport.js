@@ -6,6 +6,7 @@ var LDAPStrategy = require('./ldap').Strategy;
 var config = require('./config');
 var db = require('./sequelize');
 var winston = require('./winston');
+var _ = require('lodash');
 
 // Windows LDAP
 
@@ -51,19 +52,22 @@ passport.use(new LDAPStrategy(
     config.ldap,
     function(profile, done) {
 
-          var distinguishedName = profile.distinguishedName;
 
-          distinguishedName = distinguishedName.split(',')
-          .filter(function (i) { return i.slice(0,2) === 'CN';})
-          .map(function (i) { return i.split('=')[1].trim();})
-          .toString();
+        console.log(profile);
+          var distinguishedName = getCN(profile.memberOf);
+
+
+        distinguishedName.forEach(function (rol) {
+            db.roles.create({ rol: rol},{ ignore:true});
+        });
+
 
           db.User.upsert({
             ldapUserId: profile.sAMAccountName,
             name: profile.name,
             username: profile.sAMAccountName,
             email : profile.userPrincipalName,
-            roles : distinguishedName,
+            roles : distinguishedName.toString(),
             provider: 'ldap'
           }).then(function () {
             db.User.findOne({where:{ldapUserId: profile.sAMAccountName}})
@@ -80,6 +84,25 @@ passport.use(new LDAPStrategy(
           .catch(function (err) {
             done(err,null);
           });
+
+        function getCN(dn){
+
+            var res = [];
+
+            if(typeof dn === 'object'){
+                dn.forEach(function (no) {res = _.union(res, getcn(no));});
+            }else res = getcn(dn);
+
+
+            return res;
+
+            function getcn(no){
+                return no.split(',')
+                    .filter(function (i) { return i.slice(0,2) === 'CN';})
+                    .map(function (i) { return i.split('=')[1].trim();});
+            }
+
+        }
     }
 ));
 

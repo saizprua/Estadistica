@@ -105,13 +105,11 @@ function init(callback){
                             var c = {};
                             conf.forEach(function (i) { c[i.config_item] = i.value_item; });
                             _.extend(config,c);
-                            console.log(c);
                             return callback();
                         })
                         .catch(function (err) {
                             winston.error('An error occured: %j',err);
                         })
-
 
                 })
                 .catch(function (err) {

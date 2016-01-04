@@ -21,8 +21,17 @@ module.exports = function(app) {
         .delete(admin.destroy);
 
 
+    app.route('/api/config/:configId').all(acl.isAllowed)
+        .put(params.updateConfig)
+
     app.route('/api/config').all(acl.isAllowed)
         .get(params.getConfig);
+
+
+    app.route('/api/roles').all(acl.isAllowed)
+        .get(params.roles);
+
+
 
 
 };

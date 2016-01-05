@@ -22,7 +22,8 @@
     "angular-sweetalert": "~1.1.0",
     "metisMenu": "~2.2.0",
     "animate.css": "~3.5.0",
-    "angular-xeditable": "~0.1.9"
+    "angular-xeditable": "~0.1.9",
+    "angular-i18n": "~1.4.8"
   },
   "resolutions": {
     "angular": "1.4.6"

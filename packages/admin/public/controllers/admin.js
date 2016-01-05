@@ -51,7 +51,7 @@
                 vm.params = params;
             }, function (err) {
                 vm.err = err;
-            })
+            });
         }
 
 

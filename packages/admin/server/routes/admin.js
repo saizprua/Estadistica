@@ -22,7 +22,7 @@ module.exports = function(app) {
 
 
     app.route('/api/config/:configId').all(acl.isAllowed)
-        .put(params.updateConfig)
+        .put(params.updateConfig);
 
     app.route('/api/config').all(acl.isAllowed)
         .get(params.getConfig);

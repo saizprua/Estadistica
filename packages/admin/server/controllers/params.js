@@ -4,6 +4,7 @@
 
 'use strict';
 var db = require('../../../../config/sequelize');
+var async = require('async');
 
 exports.getConfig = function (req, res) {
     db.config.findAll()
@@ -23,21 +24,53 @@ exports.roles = function(req,res){
         .catch(function (err) {
             res.status(500).send(err);
         });
-}
+};
 
 exports.updateConfig = function (req, res) {
     var ci = req.params.configId;
-    db.config.update({
-        value_item: req.body.value_item
-    },{
-        where:{
-            id:ci
+
+    async.series({
+        query: function (done) {
+            
+            async.waterfall([
+
+                function (done) {
+                    db.config.find({
+                            where:{id: ci}
+                        })
+                        .then(function (cnf) {
+                            done(null,cnf);
+                        })
+                        .catch(done);
+                },
+                function (cnf,done) {
+                    done(null);
+                }
+                
+            ], done);
+            
+          
+        },
+        update: function (done) {
+            db.config.update({
+                    value_item: req.body.value_item
+                },{
+                    where:{ id:ci}
+                })
+                .then(function () {
+                    done(null, req.body);
+                })
+                .catch(done);
         }
-    })
-        .then(function () {
-            res.json(req.body);
-        })
-        .catch(function (err) {
-            res.status(500).send(err);
-        });
+    }, function (err, result) {
+
+            if(err) return res.status(500).send(err);
+
+            res.json(result.update);
+
+    });
+
+
+
+
 };

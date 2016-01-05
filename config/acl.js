@@ -25,12 +25,6 @@ var routes = exports.routes = [
 
 exports.invokeRolesPolicies = function (callback) {
         acl.allow([{
-            roles: ['GitLab'],
-            allows: [{
-                resources:routes,
-                permissions: '*'
-            }]
-        },{
             roles: ['guest'],
             allows: [{
                 resources: ['/api/iti', '/api/iti/year', '/api/iti/:itiId'],
@@ -46,6 +40,28 @@ exports.invokeRolesPolicies = function (callback) {
             callback();
         })
         .catch(callback);
+
+
+    db.config.find({where:{config_item: 'adminRole'}})
+        .then(function (adminRole) {
+            if(adminRole && adminRole.value_item){
+
+                var roles = adminRole.value_item.split(',').map(function (rol) {
+                   return rol.trim();
+                });
+
+                console.log(roles);
+
+                acl.allow([{
+                    roles: roles,
+                    allows: [{
+                        resources:routes,
+                        permissions: '*'
+                    }]
+                }]);
+
+            }
+        })
 
 
     function allowPermison(acls){

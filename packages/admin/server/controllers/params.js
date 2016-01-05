@@ -4,6 +4,8 @@
 
 'use strict';
 var db = require('../../../../config/sequelize');
+var Acl = require('../../../../config/acl');
+var config = require('../../../../config/config.js');
 var async = require('async');
 
 exports.getConfig = function (req, res) {
@@ -30,28 +32,62 @@ exports.updateConfig = function (req, res) {
     var ci = req.params.configId;
 
     async.series({
-        query: function (done) {
-            
-            async.waterfall([
 
-                function (done) {
-                    db.config.find({
-                            where:{id: ci}
-                        })
-                        .then(function (cnf) {
-                            done(null,cnf);
-                        })
-                        .catch(done);
-                },
-                function (cnf,done) {
-                    done(null);
-                }
-                
-            ], done);
-            
-          
-        },
-        update: function (done) {
+
+            query: function (done) {
+
+                async.waterfall([
+
+                    function (done) {
+                        db.config.find({
+                                where:{id: ci}
+                            })
+                            .then(function (cnf) {
+                                done(null,cnf);
+                            })
+                            .catch(done);
+                    },
+                    function (cnf,done) {
+                        if(cnf.config_item === 'adminRole'){
+
+
+                            async.each(cnf.value_item.split(',') , function (role, nxt) {
+
+                                Acl.acl.removeRole(role.trim(), nxt);
+                            }, function (err) {
+                                if(err) return done(err);
+
+                                var newRoles = req.body.value_item.split(',').map(function (role) {
+                                    return role.trim();
+                                });
+
+
+
+                                Acl.acl.allow([{
+                                    roles: newRoles,
+                                    allows: [{
+                                        resources:Acl.routes,
+                                        permissions: '*'
+                                    }]
+
+                                }]);
+
+                                config.adminRole = newRoles.toString();
+                                done(null);
+                            });
+                            done(null);
+
+                        }else{
+                            done(null);
+                        }
+                    }
+
+                ], done);
+
+
+            },
+
+            update: function (done) {
             db.config.update({
                     value_item: req.body.value_item
                 },{
@@ -62,7 +98,8 @@ exports.updateConfig = function (req, res) {
                 })
                 .catch(done);
         }
-    }, function (err, result) {
+    },
+        function (err, result) {
 
             if(err) return res.status(500).send(err);
 

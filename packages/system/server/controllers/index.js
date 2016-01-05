@@ -20,7 +20,7 @@ exports.render = function(req, res) {
 
 
         for(var i = 0; i < rolesForAdmin.length; i++){
-            var roleAdmin = rolesForAdmin[i];
+            var roleAdmin = rolesForAdmin[i].trim();
             if(rolesUser.indexOf(roleAdmin) > -1){
                 iad = true;
                 break;

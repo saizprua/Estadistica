@@ -99,8 +99,12 @@ exports.create = function (req,res) {
 };
 
 exports.delete = function (req, res) {
+
+  var  itiId = req.query.itiId;
+  if(!itiId) return res.status(404).send('Parametro invalido!');
+
   db.iti.destroy({
-    where:{id: req.params.itiId}
+    where:{id: itiId}
   })
   .then(function () {
     res.json({success:true});
@@ -114,7 +118,9 @@ exports.delete = function (req, res) {
 
 exports.update = function (req,res) {
   req.body.user_id = req.user.id;
-  var id  = req.params.itiId;
+  var id  = req.body.id;
+
+  if(!id) return res.status(404).send('Parametro invalido!');
 
   db.iti.update(req.body,{
     where:{id:id}

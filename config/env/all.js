@@ -3,7 +3,7 @@ var path = require('path'),
 
 module.exports = {
 	root: rootPath,
-    adminRole: 'Julio Sena',
+    adminRole: 'GitLab',
     prefix: 'INNOVACION',
 	port: process.env.PORT || 3000,
     ignoreRoutes: ['/api/loggedin', '/api/login/ldap', '/api/login','/api/logout','/api/users/me','/'],

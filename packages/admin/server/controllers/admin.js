@@ -80,7 +80,7 @@ module.exports = function (app) {
             var deferred = when.defer();
 
                  db.acl.update(body,{
-                     where:{id:req.params.aclId},
+                     where:{id:req.body.id},
                      transaction: t
                 })
                 .then(function () {
@@ -116,16 +116,21 @@ module.exports = function (app) {
     //cuando se elimina la politica de acl para el resoruce de rol
     function destroy(req, res){
 
+        var aclId = req.query.aclId;
+
+        if(!aclId) return res.status(404).send('Parametro invalido!');
+
+
         db.sequelize.transaction(function (t) {
           var deferred = when.defer();
 
           db.acl.find({
-              where: {id: req.params.aclId}
+              where: {id: aclId}
           })
               .then(function (acl_) {
 
                   db.acl.destroy({
-                          where:{id: req.params.aclId},
+                          where:{id: aclId},
                           transaction: t
                       })
                       .then(function () {

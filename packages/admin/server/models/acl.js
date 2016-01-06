@@ -5,8 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     var Acl = sequelize.define('acl',
         {
 
-            role:{
-                type: DataTypes.STRING,
+            role_id:{
+                type: DataTypes.INTEGER,
                 allowNull: false,
                 notEmpty: true,
                 unique: 'role_ruta'
@@ -25,8 +25,13 @@ module.exports = function(sequelize, DataTypes) {
 
         },
         {
-            tableName:'acl'
-
+            tableName:'acl',
+            associate: function(models) {
+                Acl.belongsTo(models.roles,{
+                    foreignKey: 'role_id',
+                    onDelete: 'cascade'
+                });
+            },
         }
     );
 

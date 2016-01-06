@@ -15,6 +15,13 @@ module.exports = function(sequelize, DataTypes) {
                 notEmpty: true,
                 unique:true
             }
+        },
+        {
+            associate: function(models) {
+                Roles.hasMany(models.acl,{
+                    onDelete: 'cascade'
+                });
+            }
         }
     );
 

@@ -8,51 +8,47 @@ var Acl = require('../../../../config/acl');
 var config = require('../../../../config/config.js');
 var async = require('async');
 
-exports.getConfig = function (req, res) {
+exports.query = function (req, res) {
     db.config.findAll()
         .then(function (confs) {
-            res.json(confs);
+            if(!confs.length){
+              db.config.create({ config_item: 'adminRole', value_item: config.adminRole})
+                  .then(function (conf) {
+
+                      console.log(conf);
+                      res.json(conf);
+                  })
+                  .catch(function (err) {
+                      res.status(500).send(err);
+                  });
+            }else{
+                res.json(confs);
+            }
+
         })
         .catch(function (err) {
             res.status(500).send(err);
         });
 };
 
-exports.roles = function(req,res){
-    db.roles.findAll()
-        .then(function (roles) {
-            res.json(roles);
-        })
-        .catch(function (err) {
-            res.status(500).send(err);
-        });
-};
 
-exports.updateConfig = function (req, res) {
-    var ci = req.params.configId;
+exports.update = function (req, res) {
+
+    var ci = req.query.configId;
+
+    if(!ci) return res.status(404).send('Parametro invalido');
 
     async.series({
-
-
             query: function (done) {
-
                 async.waterfall([
-
                     function (done) {
-                        db.config.find({
-                                where:{id: ci}
-                            })
-                            .then(function (cnf) {
-                                done(null,cnf);
-                            })
+                        db.config.find({where:{id: ci}})
+                            .then(function (cnf) {done(null,cnf);})
                             .catch(done);
                     },
                     function (cnf,done) {
                         if(cnf.config_item === 'adminRole'){
-
-
                             async.each(cnf.value_item.split(',') , function (role, nxt) {
-
                                 Acl.acl.removeRole(role.trim(), nxt);
                             }, function (err) {
                                 if(err) return done(err);
@@ -60,8 +56,6 @@ exports.updateConfig = function (req, res) {
                                 var newRoles = req.body.value_item.split(',').map(function (role) {
                                     return role.trim();
                                 });
-
-
 
                                 Acl.acl.allow([{
                                     roles: newRoles,
@@ -83,7 +77,6 @@ exports.updateConfig = function (req, res) {
                     }
 
                 ], done);
-
 
             },
 

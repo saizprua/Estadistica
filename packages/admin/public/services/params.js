@@ -8,7 +8,7 @@
 
     function Params($resource){
 
-        return $resource('api/config/:configId',{configId:'@id'},{
+        return $resource('api/config?configId=:configId',{configId:'@id'},{
             'update': { method:'PUT' }
         });
 

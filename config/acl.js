@@ -3,8 +3,8 @@
 //Module dependencies.
 var acl = require('acl');
 var _ = require('lodash');
-var when = require('when');
 var db = require('./sequelize');
+var config = require('./config');
 
 // Using the memory backend
 acl = exports.acl = new acl(new acl.memoryBackend());
@@ -20,7 +20,8 @@ var routes = exports.routes = [
     '/api/routes/all',
     '/api/config',
     '/api/config/:configId',
-    '/api/roles'
+    '/api/roles',
+    '/api/roles/:roleId'
 ];
 
 exports.invokeRolesPolicies = function (callback) {
@@ -44,22 +45,18 @@ exports.invokeRolesPolicies = function (callback) {
 
     db.config.find({where:{config_item: 'adminRole'}})
         .then(function (adminRole) {
-            if(adminRole && adminRole.value_item){
+            var roles = (adminRole && adminRole.value_item) ? trimV(adminRole.value_item) : trimV(config.adminRole);
 
-                var roles = adminRole.value_item.split(',').map(function (rol) {
-                   return rol.trim();
-                });
+            acl.allow([{
+                roles: roles,
+                allows: [{
+                    resources:routes,
+                    permissions: '*'
+                }]
+            }]);
 
-                console.log(roles);
-
-                acl.allow([{
-                    roles: roles,
-                    allows: [{
-                        resources:routes,
-                        permissions: '*'
-                    }]
-                }]);
-
+            function trimV(text){
+                return text.split(',').map(function (rol) {return rol.trim();});
             }
         })
 

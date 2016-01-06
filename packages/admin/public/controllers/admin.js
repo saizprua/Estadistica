@@ -5,9 +5,9 @@
         .module('mean.admin')
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['ACL','Params' ,'$uibModal', 'sAlert', 'SweetAlert', 'editableOptions','$http'];
+    AdminController.$inject = ['ACL','Params', 'Roles' ,'$uibModal', 'sAlert', 'SweetAlert', 'editableOptions'];
 
-    function AdminController(ACL, Params, $uibModal, sAlert, SweetAlert, editableOptions,$http) {
+    function AdminController(ACL, Params, Roles,  $uibModal, sAlert, SweetAlert, editableOptions) {
         var vm = this;
         editableOptions.theme = 'bs3';
 
@@ -17,6 +17,8 @@
         vm.isRefreshing = false;
         vm.refresh = refresh;
         vm.onBeforeSaveParams = onBeforeSaveParams;
+        vm.updateRole = updateRole;
+        vm.destroyRole = destroyRole;
 
         //call method init
         init();
@@ -55,9 +57,25 @@
         }
 
 
+
+        function  updateRole(data, rol){
+            var com = rol.rol;
+
+            rol.rol = data;
+            var up = rol.$update();
+
+            up.then(
+                function () {  console.log('ok');},
+                function () {  rol.rol = com;}
+            );
+
+            return up;
+        }
+
+
         function getRoles(){
-            $http.get('api/roles').then(function (response) {
-                vm.roles = response.data;
+            Roles.query().$promise.then(function (data) {
+                vm.roles = data;
             }, function (err) {
                 vm.err = err;
             });
@@ -77,6 +95,22 @@
                         SweetAlert.swal('Confirmado!', 'Eliminado!', 'success');
                         var index =  getIndexById(model.id);
                         if(index >= 0 ) vm.data.splice(index, 1);
+                    });
+
+                });
+
+
+        }
+
+
+        function destroyRole(model) {
+
+            sAlert({title:'Desea elminar el registro?', text:'Se eliminara el ROL : ' + model.rol})
+                .then(function () {
+                    model.$delete().then(function () {
+                        SweetAlert.swal('Confirmado!', 'Eliminado!', 'success');
+                        var index =  getIndexById(model.id,vm.roles);
+                        if(index >= 0 ) vm.roles.splice(index, 1);
                     });
 
                 });

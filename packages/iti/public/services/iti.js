@@ -9,7 +9,7 @@ angular
 
     function Iti($resource) {
 
-    return $resource('api/iti/:itiId',{itiId:'@id'},{
+    return $resource('api/iti?itiId=:itiId',{itiId:'@id'},{
        'update': { method:'PUT' }
     });
 

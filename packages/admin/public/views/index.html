@@ -74,7 +74,25 @@
                                 <div class="panel-heading">
                                     Roles
                                     <div class="pull-right" style="margin: -7px;">
-                                        <a href="" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+
+                                        <div ng-if="vm.createRol"  class="col-md-9 pad-r-0 animated slideInRight ">
+                                            <form ng-submit="vm.createRole()" novalidate class="form-horizontal">
+                                                <div class="form-group">
+                                                    <div class="col-md-10 pad-r-0">
+                                                        <input placeholder="Agregar Rol" required class="form-control input-sm" type="text" ng-model="vm.nRole.rol">
+                                                    </div>
+                                                    <div class="col-md-2 pad-l-0">
+                                                        <button href="" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-ok"></i></button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                       <div class="col-md-3 pad-r-0 right">
+                                           <a ng-class="vm.createRol ? 'btn-warning' : 'btn-primary'" ng-click="vm.createRol = !vm.createRol" href="" class="btn btn-sm">
+                                               <i ng-class="vm.createRol ? 'fa-times' : 'fa-plus'" class="fa "></i>
+                                           </a>
+
+                                       </div>
                                     </div>
                                 </div>
                                 <div class="panel-body">

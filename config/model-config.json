@@ -1,0 +1,8 @@
+{
+  "config": [
+    {
+      "config_item": "adminRole",
+      "value_item": "GitLab"
+    }
+  ]
+}

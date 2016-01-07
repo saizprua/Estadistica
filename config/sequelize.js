@@ -6,7 +6,9 @@ var Sequelize = require('sequelize');
 var _         = require('lodash');
 var config    = require('./config');
 var winston   = require('./winston');
+var modelConfig =  require('./model-config');
 var db        = {};
+var async = require('async');
 
 
 var models = module.exports = {
@@ -100,16 +102,56 @@ function init(callback){
                   models.sequelize_innovacion = sequelize_innovacion;
                   winston.info('Database INNOVACION '+(config.forceSequelizeSync?'*DROPPED* and ':'')+ 'synchronized');
 
-                    db.config.findAll()
-                        .then(function (conf) {
-                            var c = {};
-                            conf.forEach(function (i) { c[i.config_item] = i.value_item; });
-                            _.extend(config,c);
-                            return callback();
-                        })
-                        .catch(function (err) {
-                            winston.error('An error occured: %j',err);
-                        })
+
+                    if(config.forceSequelizeSync)  return writeConfig();
+
+                    readConfigs();
+
+
+
+                    function writeConfig(){
+                        var dataModelName = Object.keys(modelConfig);
+                        async.eachSeries(dataModelName,function (modelName,next) {
+                            if(!db[modelName]) return next();
+
+                            //se define el modelo
+                            var model = db[modelName];
+
+                            //se busca algun campo del modelo
+                            model.find({}).then(function(result){
+                                if(result) return next();
+                                model.bulkCreate(modelConfig[modelName]).then(function(){
+                                    console.log('config model uploaded ' + modelName );
+                                    next();
+                                }).catch(function(err){
+                                    console.log(err);
+                                    next();
+                                });
+                            }).catch(function(err){
+                                console.log(err);
+                                next();
+                            });
+                        },function(){
+                            readConfigs();
+                            winston.info('Finish config all models data!');
+                        });
+                    }
+
+
+
+                   function readConfigs(){
+                       db.config.findAll()
+                           .then(function (conf) {
+                               var c = {};
+                               conf.forEach(function (i) { c[i.config_item] = i.value_item; });
+                               _.extend(config,c);
+                               return callback();
+                           })
+                           .catch(function (err) {
+                               winston.error('An error occured: %j',err);
+                           })
+                    }
+
 
                 })
                 .catch(function (err) {

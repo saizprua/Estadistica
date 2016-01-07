@@ -19,9 +19,15 @@
         vm.onBeforeSaveParams = onBeforeSaveParams;
         vm.updateRole = updateRole;
         vm.destroyRole = destroyRole;
+        vm.createRole = createRole;
+        vm.nRole = {};
+        vm.createRol = false;
 
         //call method init
         init();
+
+
+
 
 
         function onBeforeSaveParams(data, param){
@@ -56,6 +62,19 @@
             });
         }
 
+
+        function createRole(){
+            if(vm.nRole.rol){
+             var role =   new Roles(vm.nRole);
+                role.$save().then(function (result) {
+                    vm.roles.push(result);
+                    vm.createRol = false;
+                    vm.nRole = {};
+                }, function (err) {
+                    vm.err = err;
+                });
+            }
+        }
 
 
         function  updateRole(data, rol){

@@ -11,20 +11,7 @@ var async = require('async');
 exports.query = function (req, res) {
     db.config.findAll()
         .then(function (confs) {
-            if(!confs.length){
-              db.config.create({ config_item: 'adminRole', value_item: config.adminRole})
-                  .then(function (conf) {
-
-                      console.log(conf);
-                      res.json(conf);
-                  })
-                  .catch(function (err) {
-                      res.status(500).send(err);
-                  });
-            }else{
-                res.json(confs);
-            }
-
+            res.json(confs);
         })
         .catch(function (err) {
             res.status(500).send(err);

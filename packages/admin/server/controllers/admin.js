@@ -20,13 +20,15 @@ module.exports = function (app) {
     function  routes (req, res) {
         var paths = app._router.stack;
         paths = paths.filter(function (e) {
-        return (e.name === 'bound dispatch' &&  ir.indexOf(e.route.path) === -1);
+        return (e.name === 'bound dispatch' &&  ir.indexOf(e.route.path) === -1 && e.route.methods._all);
         });
         res.json(paths);
     }
 
     function getAcl(req, res){
-        db.acl.findAll()
+        db.acl.findAll({
+                include: [{model: db.roles}]
+        })
             .then(function (acl) {
                  res.json(acl);
             })
@@ -47,11 +49,22 @@ module.exports = function (app) {
                 })
                 .then(function (acl_) {
 
-                        acl.acl.allow(acl_.role, acl_.ruta, acl_.metodos.split(','), function (err) {
-                            if(err) return deferred.reject(err);
-                            //resolve promisers
-                            deferred.resolve(body);
-                        });
+                    db.acl.findOne({
+                        transaction: t,
+                        include: [{model: db.roles}],
+                        where: {id: acl_.id}
+                    })
+                        .then(function (_acl) {
+                            acl.acl.allow(_acl.role.rol, acl_.ruta, acl_.metodos.split(','), function (err) {
+                                if(err) return deferred.reject(err);
+                                //resolve promisers
+                                deferred.resolve(_acl);
+                            });
+                        })
+                        .catch(deferred.reject);
+
+
+
                 })
                 .catch(deferred.reject);
 
@@ -85,16 +98,24 @@ module.exports = function (app) {
                 })
                 .then(function () {
 
-                    acl.acl.removeAllow(body.role, body.ruta, function (err) {
-                        if(err) return deferred.reject(err);
+                    db.acl.findOne({
+                        transaction: t,
+                        include: [{model: db.roles}],
+                        where: {id: req.body.id}
+                    })
+                        .then(function(_acl){
+                            acl.acl.removeAllow(_acl.role.rol, body.ruta, function (err) {
+                                if(err) return deferred.reject(err);
 
-                        acl.acl.allow(body.role, body.ruta, body.metodos.split(','), function (err) {
-                            if(err) return deferred.reject(err);
+                                acl.acl.allow(_acl.role.rol, body.ruta, body.metodos.split(','), function (err) {
+                                    if(err) return deferred.reject(err);
 
-                            //resolve promisers
-                            deferred.resolve(body);
-                        });
-                    });
+                                    //resolve promisers
+                                    deferred.resolve(_acl);
+                                });
+                            });
+                        })
+                        .catch(deferred.reject);
 
                 })
                 .catch(deferred.reject);
@@ -125,7 +146,8 @@ module.exports = function (app) {
           var deferred = when.defer();
 
           db.acl.find({
-              where: {id: aclId}
+              where: {id: aclId},
+              include: [{model: db.roles}],
           })
               .then(function (acl_) {
 
@@ -134,11 +156,13 @@ module.exports = function (app) {
                           transaction: t
                       })
                       .then(function () {
-                          acl.acl.removeAllow(acl_.role, acl_.ruta, function (err) {
+
+                          acl.acl.removeAllow(acl_.role.rol, acl_.ruta, function (err) {
                               if(err) return deferred.reject(err);
                               deferred.resolve({success:true});
 
                           });
+
                       })
                       .catch(deferred.reject);
 

@@ -41,7 +41,7 @@
             vm.seriesData  = false;
             vm.series = false;
 
-          $http.get('api/iti' + (vm.model.length > 0 ? ('?dates=' + vm.model.toString()) : '?init=1') ).then(function (response) {
+          $http.get('api/iti/all' + (vm.model.length > 0 ? ('?dates=' + vm.model.toString()) : '?init=1') ).then(function (response) {
             vm.data = response.data;
 
              var fechas =  vm.data.map(function (item) {

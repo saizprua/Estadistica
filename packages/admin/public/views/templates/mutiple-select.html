@@ -1,6 +1,6 @@
 <ui-select class="input-mult" multiple ng-model="model[options.key]" theme="bootstrap">
-    <ui-select-match placeholder="Seleccione Metodos">{{$item}}</ui-select-match>
-    <ui-select-choices repeat="metodo in to.options | filter:$select.search">
-        {{metodo}}
+    <ui-select-match  placeholder="Seleccione Metodos">{{$item | metodos}}</ui-select-match>
+    <ui-select-choices  repeat="metodo in to.options | filter:$select.search">
+        {{metodo | metodos}}
     </ui-select-choices>
 </ui-select>

@@ -170,7 +170,8 @@
                             model: model,
                             add : add,
                             title:'ACL',
-                            data:vm.data
+                            data:vm.data,
+                            roles: vm.roles
                         };
                     }
                 }

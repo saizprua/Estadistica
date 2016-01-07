@@ -28,3 +28,12 @@
 .pad-l-0{
     padding-left: 0;
 }
+
+.ui-select-multiple.ui-select-bootstrap[disabled] {
+    height: 45px;
+    padding: 10px 15px;
+}
+
+.mgn-l-4{
+    margin-left: 4px;
+}

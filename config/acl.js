@@ -14,28 +14,28 @@ acl = exports.acl = new acl(new acl.memoryBackend());
 var routes = exports.routes = [
     '/api/iti',
     '/api/iti/year',
-    '/api/iti/:itiId',
     '/api/acl',
-    '/api/acl/:aclId',
     '/api/routes/all',
     '/api/config',
-    '/api/config/:configId',
-    '/api/roles',
-    '/api/roles/:roleId'
+    '/api/roles'
 ];
 
 exports.invokeRolesPolicies = function (callback) {
         acl.allow([{
             roles: ['guest'],
             allows: [{
-                resources: ['/api/iti', '/api/iti/year', '/api/iti/:itiId'],
+                resources: ['/api/iti', '/api/iti/year'],
                 permissions: ['get']
             }]
         }]);
 
 
 
-    db.acl.findAll({})
+    db.acl.findAll({
+        include:[
+            {model: db.roles}
+        ]
+    })
         .then(function (acls) {
             allowPermison(acls);
             callback();
@@ -63,7 +63,7 @@ exports.invokeRolesPolicies = function (callback) {
 
     function allowPermison(acls){
         var allow = [];
-        var group = _.groupBy(acls,'role');
+        var group = _.groupBy(acls,'role.rol');
         for(var i in group){
             var obj = { roles: [i]};
             var allows = [];

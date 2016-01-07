@@ -4,9 +4,9 @@
       .module('mean.iti')
       .controller('ItiController',ItiController);
 
-      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert', 'DTOptionsBuilder', '$filter'];
+      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert', 'DTOptionsBuilder', '$filter', '$http'];
 
-      function ItiController( Iti, $uibModal, sAlert, SweetAlert, DTOptionsBuilder, $filter){
+      function ItiController( Iti, $uibModal, sAlert, SweetAlert, DTOptionsBuilder, $filter, $http){
 
 
         var vm = this;
@@ -35,6 +35,7 @@
       function getData(isRefresh){
         vm.select = {name:'data', as:'ItiCEAdminController',title:'Capacitaciones',method:'getData'};
           if(isRefresh || !vm.data){
+
             Iti.query().$promise.then(function (data) {
               vm.data = data;
               vm.isRefreshing = false;

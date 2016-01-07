@@ -79,14 +79,13 @@
 
         vm.fields = [
             {
-                key: 'role',
-                type: 'input',
+                key: 'role_id',
+                type: 'select',
                 templateOptions: {
-                    label: 'Nombre del Rol',
-                    maxlength: 20,
-                    type: 'text',
-                    placeholder: 'Nombre del Rol',
-                    required: true
+                    label: 'Rol',
+                    required: true,
+                    options: formData.roles,
+                    ngOptions: 'opt.id as opt.rol  for opt in to.options'
                 }
             },
             {
@@ -96,9 +95,27 @@
                     required: true,
                     label: 'Ruta',
                     options: [],
-                    ngOptions: 'opt.route.path as opt.route.path  for opt in to.options'
+                    ngOptions: 'opt.route.path as opt.route.path  for opt in to.options  | rutas:rutaLoad'
+                },
+                expressionProperties: {
+                    'templateOptions.disabled': '!model.role_id'
                 },
                 controller:  function($scope) {
+
+                    var data = formData.data;
+                    $scope.rutaLoad = [];
+
+                    $scope.$watch('model.role_id', function (newValue) {
+                        if(newValue){
+                            $scope.rutaLoad = data
+                                .filter(function (ruta) {
+                                    return ruta.role_id  ===  parseInt(newValue) && formData.model.ruta !== ruta.ruta;
+                                })
+                                .map(function (ruta) { return ruta.ruta; });
+                        }
+                    });
+
+
                     $scope.$watch(function () { return vm.routes; }, function (n) {
                         if(n){
                             $scope.to.options = n;
@@ -111,11 +128,14 @@
                 type: 'ui-select-multiple',
                 templateOptions: {
                     optionsAttr: 'bs-options',
-                    label: 'Multiple Select',
+                    label: 'Tipo Permiso',
                     valueProp: 'id',
                     labelProp: 'label',
                     placeholder: 'Select options',
                     options:  []
+                },
+                expressionProperties: {
+                    'templateOptions.disabled': '!model.ruta'
                 },
                 controller:function($scope){
 

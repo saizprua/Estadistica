@@ -56,9 +56,22 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="item in vm.data">
-                                    <td>{{item.role}}</td>
+                                    <td>{{item.role.rol}}</td>
                                     <td>{{item.ruta}}</td>
-                                    <td>{{item.metodos}}</td>
+                                    <td>
+                                        <span  ng-repeat="metodo in item.metodos.split(',')">
+                                            <span
+                                                    ng-class="{
+                                                     'label-success': metodo == 'get',
+                                                     'label-warning': metodo == 'put',
+                                                     'label-danger': metodo == 'delete',
+                                                     'label-primary': metodo == 'post'
+                                                     }"
+                                                    class="label mgn-l-4">{{metodo | metodos}}
+                                            </span>
+                                            <span ng-show="!$last">&#32;</span>
+                                        </span>
+                                    </td>
                                     <td class="center">
                                         <button ng-click="vm.destroy(item)" class="btn btn-sm  btn-sm-aig btn-danger btn-circle" type="button"  ><i class="fa fa-trash"></i></button>
                                         <button ng-click="vm.createOrEdit(item)" class="btn btn-sm  btn-sm-aig btn-warning btn-circle" type="button"  ><i class="fa fa-pencil"></i></button>

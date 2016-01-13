@@ -8,6 +8,7 @@ module.exports = function(app) {
     var acl = require('../../../../config/acl');
     var params = require('../controllers/params');
     var roles = require('../controllers/roles');
+    var menu = require('../controllers/menu');
 
     app.route('/api/routes/all').all(acl.isAllowed)
         .get( admin.routes);
@@ -27,4 +28,13 @@ module.exports = function(app) {
         .post(roles.save)
         .put(roles.update)
         .delete(roles.destroy);
+
+    app.route('/api/menu')
+        .get(menu.query);
+
+    app.route('/api/menu').all(acl.isAllowed)
+        .put(menu.update)
+        .post(menu.save)
+        .delete(menu.delete);
+
 };

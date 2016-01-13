@@ -126,6 +126,73 @@
                                 </div>
                             </div>
 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Menu
+                            <div class="pull-right" style="margin: -7px;">
+                                <button ng-click="vm.newMenu()" class="btn btn-sm btn-success"> <i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <th>Nombre</th>
+                                    <th>Child?</th>
+                                    <th>Path</th>
+                                    <th>Pariente</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="menu in vm.menu">
+                                    <td>
+                                        <span editable-text="menu.name" e-name="name" e-form="rowform" e-required>{{ menu.name}} </span>
+                                    </td>
+                                    <td>
+                                        <span e-name="is_child"  e-title="Child?" editable-checkbox="menu.is_child"  e-form="rowform">
+                                            {{menu.is_child && 'Child' || 'Principal'}}
+                                        </span>
+
+                                    </td>
+                                    <td>
+                                        <span  e-ng-disabled="!rowform.$data.is_child" editable-text="menu.path" e-name="path" e-form="rowform" e-required>
+                                            {{menu.path || 'Desplegable'}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span  e-ng-disabled="!rowform.$data.is_child" editable-select="menu.parent_id" e-name="parent_id" e-form="rowform"
+                                               e-ng-options="s.id as s.name for s in vm.menu | menus:menu.id">
+                                            {{vm.getParent(menu.parent_id)}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <!-- form -->
+                                        <form editable-form name="rowform" onbeforesave="vm.saveMenu($data, menu)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="vm.insertedMenu == menu">
+                                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-sm btn-primary">
+                                                save
+                                            </button>
+                                            <button type="button" ng-disabled="rowform.$waiting" ng-click="vm.cancelMenu(rowform, menu, $index)" class="btn btn-sm btn-default">
+                                                cancel
+                                            </button>
+                                        </form>
+                                        <div class="buttons" ng-show="!rowform.$visible">
+                                            <button class="btn btn-sm btn-warning" ng-click="rowform.$show()"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-sm btn-danger" ng-click="vm.destroyMenu(menu)"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+
+                            <!--<pre>{{vm.menu | json}}</pre>-->
+                        </div>
+
+                    </div>
+
+
+
 
                 </div>
             </div>

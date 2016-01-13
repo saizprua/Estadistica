@@ -5,9 +5,9 @@
         .module('mean.admin')
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['ACL','Params', 'Roles' ,'$uibModal', 'sAlert', 'SweetAlert', 'editableOptions'];
+    AdminController.$inject = ['ACL','Params', 'MenuList', 'Roles' ,'$uibModal', 'sAlert', 'SweetAlert', 'editableOptions'];
 
-    function AdminController(ACL, Params, Roles,  $uibModal, sAlert, SweetAlert, editableOptions) {
+    function AdminController(ACL, Params, MenuList, Roles,  $uibModal, sAlert, SweetAlert, editableOptions) {
         var vm = this;
         editableOptions.theme = 'bs3';
 
@@ -20,6 +20,11 @@
         vm.updateRole = updateRole;
         vm.destroyRole = destroyRole;
         vm.createRole = createRole;
+        vm.getParent = getParent;
+        vm.saveMenu = saveMenu;
+        vm.destroyMenu = destroyMenu;
+        vm.newMenu = newMenu;
+        vm.cancelMenu  = cancelMenu;
         vm.nRole = {};
         vm.createRol = false;
 
@@ -28,7 +33,30 @@
 
 
 
+        //method init
+        function init() {
+            getRoles();
+            getMenu();
 
+            ACL.query().$promise.then(function (data) {
+                vm.data = data;
+            }, function (err) {
+                vm.err = err;
+            });
+
+            Params.query().$promise.then(function (params) {
+                vm.params = params;
+            }, function (err) {
+                vm.err = err;
+            });
+        }
+
+        function cancelMenu(form, model, index){
+            if(!model.id){
+                vm.menu.splice(index, 1);
+            }
+            form.$cancel();
+        }
 
         function onBeforeSaveParams(data, param){
 
@@ -42,24 +70,73 @@
                 function () {  param.value_item = com;}
             );
 
-           return up;
+            return up;
         }
 
-        //method init
-        function init() {
-            getRoles();
+        function newMenu(){
+         var ins =  vm.insertedMenu =  new MenuList({
+               name: null,
+               parent_id: null,
+               path: null,
+               is_child: false
+           });
+            vm.menu.push(ins);
+        }
 
-            ACL.query().$promise.then(function (data) {
-                vm.data = data;
-            }, function (err) {
-                vm.err = err;
-            });
+        function destroyMenu(model, index){
 
-            Params.query().$promise.then(function (params) {
-                vm.params = params;
-            }, function (err) {
-                vm.err = err;
+            if(model.id) index = getIndexById(model.id,  vm.menu);
+            model.$delete().then(function () {
+                vm.menu.splice(index, 1);
             });
+        }
+
+        function saveMenu(data, model){
+
+           var cd = angular.copy(model);
+            angular.extend(model, data);
+
+            var save ;
+
+            if(!model.id) save = model.$save(model);
+            else save = model.$update();
+
+            save = save;
+
+            save.then(function () {
+                console.log('ok');
+            }, function () {
+                angular.extend(model, cd);
+            });
+            return save;
+        }
+
+        function getParent(parent){
+            var res = 'Principal';
+            if(!parent) return res;
+
+            for(var i=0; i < vm.menu.length; i++){
+                var item = vm.menu[i];
+                if(item.id === parent){
+                    res = item.name;
+                    break;
+                }
+            }
+
+            return res;
+
+            //return vm.menu.filter(function (item) {
+            //    return item.id = parent;
+            //})[0].name;
+        }
+
+        function getMenu(){
+            MenuList.query().$promise
+                .then(function (menu) {
+                    vm.menu = menu;
+                }, function (err) {
+                    vm.err = err;
+                });
         }
 
 

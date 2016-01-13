@@ -17,6 +17,15 @@
                 return metodos[input];
             }
         })
+        .filter('menus',function(){
+            return  filterMenus;
+
+            function filterMenus (arr,id){
+                return arr.filter(function (itm) {
+                   return !itm.path;
+                });
+            }
+        })
         .filter('rutas',function(){
 
             return filterRutas;

@@ -1,6 +1,6 @@
 <nav ng-controller="HeaderController as vm"  class="navbar-default navbar-aig-bg navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
-        <ul side-navigation class="nav metismenu" id="side-menu">
+        <ul ng-if="vm.menu.length" side-navigation class="nav metismenu" id="side-menu">
             <li class="nav-header">
 
                 <div class="uib-dropdown profile-element" uib-dropdown>
@@ -24,26 +24,21 @@
                     AIG
                 </div>
             </li>
-            <li ng-class="{active: $state.includes('iti') || $state.includes('iti-graficos') || $state.includes('ses')}">
-                <a href=""><i class="fa fa-pie-chart"></i> <span class="nav-label">Estadísticas</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level" ng-class="{in: $state.includes('iti') || $state.includes('iti-graficos') || $state.includes('ses')}">
 
-                    <li ng-class="{active: $state.includes('iti') || $state.includes('iti-graficos')}">
-                        <a href="">ITI<span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level" ng-class="{in: $state.includes('iti') || $state.includes('iti-graficos')}">
-                            <li ui-sref-active="active"><a ui-sref="iti">Formulario</a></li>
-                            <li ui-sref-active="active"><a ui-sref="iti-graficos">Gráficos</a></li>
+            <li ng-class="{ active: vm.isActive(one.child) }"  ng-repeat="one in vm.menu">
+                <a ui-sref="{{one.path || '0'}}"> <i class="{{one.icon}}"></i>  <span class="nav-label">{{one.name}}</span><span class="fa arrow"></span></a>
+                <ul ng-if="one.menus.length" class="nav nav-second-level" ng-class="{in: vm.isActive(one.child) }">
+                    <li ng-class="{ active: vm.isActive(two.child) }" ui-sref-active="active" ng-repeat="two in one.menus" >
+                        <a ui-sref="{{two.path || '0'}}"><i class="{{two.icon}}"></i> {{two.name}}<span class="fa arrow"></span></a>
+                        <ul ng-if="two.menus.length" class="nav nav-third-level" ng-class="{ in: vm.isActive(two.child) }">
+                            <li ng-repeat="three in two.menus" ui-sref-active="active">
+                                <a ui-sref="{{three.path || '0'}}"><i class="{{three.icon}}"></i> {{three.name}}</a>
+                            </li>
                         </ul>
                     </li>
-                    <li ng-class="{active: $state.includes('ses')}">
-                        <a href="">SES<span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level" ng-class="{in: $state.includes('ses')}">
-                            <li ui-sref-active="active"><a ui-sref="ses">Gráficos</a></li>
-                        </ul>
-                    </li>
-
                 </ul>
             </li>
+
         </ul>
 
     </div>

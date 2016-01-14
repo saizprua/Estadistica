@@ -18,7 +18,8 @@ var routes = exports.routes = [
     '/api/routes/all',
     '/api/config',
     '/api/roles',
-    '/api/menu'
+    '/api/menu',
+    '/api/menu-roles'
 ];
 
 exports.invokeRolesPolicies = function (callback) {

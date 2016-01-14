@@ -12,7 +12,7 @@
                     'delete': 'Eliminar',
                     'post': 'Crear',
                     'download': 'Descargar'
-                }
+                };
 
                 return metodos[input];
             }
@@ -20,7 +20,7 @@
         .filter('menus',function(){
             return  filterMenus;
 
-            function filterMenus (arr,id){
+            function filterMenus (arr){
                 return arr.filter(function (itm) {
                    return !itm.path;
                 });

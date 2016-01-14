@@ -5,9 +5,9 @@
         .module('mean.admin')
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['ACL','Params', 'MenuList', 'Roles' ,'$uibModal', 'sAlert', 'SweetAlert', 'editableOptions'];
+    AdminController.$inject = ['ACL','Params', 'MenuList', 'Roles' ,'$uibModal', 'sAlert', 'SweetAlert', 'editableOptions','MenuRoles'];
 
-    function AdminController(ACL, Params, MenuList, Roles,  $uibModal, sAlert, SweetAlert, editableOptions) {
+    function AdminController(ACL, Params, MenuList, Roles,  $uibModal, sAlert, SweetAlert, editableOptions, MenuRoles) {
         var vm = this;
         editableOptions.theme = 'bs3';
 
@@ -25,6 +25,9 @@
         vm.destroyMenu = destroyMenu;
         vm.newMenu = newMenu;
         vm.cancelMenu  = cancelMenu;
+        vm.menuRole = menuRole;
+        vm.checkMenuRole = checkMenuRole;
+        vm.menuRoles = [];
         vm.nRole = {};
         vm.createRol = false;
 
@@ -38,6 +41,12 @@
             getRoles();
             getMenu();
 
+            MenuRoles.query().$promise.then(function (data) {
+                vm.menuRoles = data;
+            }, function (err) {
+                vm.err = err;
+            });
+
             ACL.query().$promise.then(function (data) {
                 vm.data = data;
             }, function (err) {
@@ -49,6 +58,31 @@
             }, function (err) {
                 vm.err = err;
             });
+        }
+
+        function checkMenuRole(menu, role){
+            var r = false;
+
+            for(var i = 0; i < vm.menuRoles.length; i++ ){
+                var mr = vm.menuRoles[i];
+                if(mr.menu_id === menu.id && mr.role_id === role.id){
+                    r = mr;
+                    break;
+                }
+            }
+
+            return r;
+        }
+
+        function menuRole(menu, role){
+            var s = checkMenuRole(menu, role);
+            if(s){ s.$remove(); }
+            else{
+                var nmr = new MenuRoles({menu_id :menu.id,  role_id: role.id});
+                nmr.$save().then(function (data) {
+                    vm.menuRoles.push(data);
+                });
+            }
         }
 
         function cancelMenu(form, model, index){

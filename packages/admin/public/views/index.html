@@ -58,6 +58,8 @@
                                 <tr ng-repeat="item in vm.data">
                                     <td>{{item.role.rol}}</td>
                                     <td>{{item.ruta}}</td>
+
+
                                     <td>
                                         <span  ng-repeat="metodo in item.metodos.split(',')">
                                             <span
@@ -112,11 +114,31 @@
                                     <table datatable="ng" class="table table-striped table-hover table-bordered table-aig">
                                         <thead>
                                             <th>Nombre del rol</th>
+                                            <th>Vistas</th>
                                             <th></th>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="rol in vm.roles">
                                                 <td  editable-text="rol.rol" onbeforesave="vm.updateRole($data, rol)">{{rol.rol}}</td>
+                                                <td>
+
+                                                    <div ng-repeat="menu in vm.menu | filter:{is_public:false, path:'!!'}">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input
+                                                                        type="checkbox"
+                                                                        ng-checked="vm.checkMenuRole(menu,rol)"
+                                                                        ng-click="vm.menuRole(menu, rol)"
+                                                                >
+                                                                {{menu.name}}
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </td>
                                                 <td class="center">
                                                     <button ng-click="vm.destroyRole(rol)"  class="btn btn-sm  btn-sm-aig btn-danger btn-circle" type="button"  ><i class="fa fa-trash"></i></button>
                                                 </td>
@@ -138,7 +160,9 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <th>Nombre</th>
+                                    <th>Icono</th>
                                     <th>Child?</th>
+                                    <th>Publico?</th>
                                     <th>Path</th>
                                     <th>Pariente</th>
                                     <th></th>
@@ -149,8 +173,23 @@
                                         <span editable-text="menu.name" e-name="name" e-form="rowform" e-required>{{ menu.name}} </span>
                                     </td>
                                     <td>
+                                        <span editable-text="menu.icon" e-name="icon" e-form="rowform" e-required>
+                                            <div class="center" style="font-size: 18px;">
+                                                <i class="{{menu.icon}}"></i>
+                                            </div>
+                                        </span>
+                                    </td>
+                                    <td>
                                         <span e-name="is_child"  e-title="Child?" editable-checkbox="menu.is_child"  e-form="rowform">
                                             {{menu.is_child && 'Child' || 'Principal'}}
+                                        </span>
+
+                                    </td>
+                                    <td>
+                                        <span e-name="is_public"  e-title="Publico?" editable-checkbox="menu.is_public"  e-form="rowform">
+                                          <div class="center">
+                                              <i class="fa {{ menu.is_public && 'fa-cloud public' || 'fa-times' }} "></i>
+                                          </div>
                                         </span>
 
                                     </td>
@@ -186,7 +225,6 @@
                                 </tbody>
                             </table>
 
-                            <!--<pre>{{vm.menu | json}}</pre>-->
                         </div>
 
                     </div>

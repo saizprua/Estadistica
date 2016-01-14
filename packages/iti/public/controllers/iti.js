@@ -4,9 +4,9 @@
       .module('mean.iti')
       .controller('ItiController',ItiController);
 
-      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert', 'DTOptionsBuilder', '$filter', '$http'];
+      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert', 'DTOptionsBuilder', '$filter'];
 
-      function ItiController( Iti, $uibModal, sAlert, SweetAlert, DTOptionsBuilder, $filter, $http){
+      function ItiController( Iti, $uibModal, sAlert, SweetAlert, DTOptionsBuilder, $filter){
 
 
         var vm = this;

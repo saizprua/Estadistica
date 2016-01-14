@@ -32,6 +32,17 @@ module.exports = function(app) {
     app.route('/api/menu')
         .get(menu.query);
 
+    app.route('/api/menu-tree')
+        .get(menu.tree);
+
+    app.route('/api/menu-protected')
+        .get(menu.protected);
+
+    app.route('/api/menu-roles').all(acl.isAllowed)
+        .get(menu.mrquery)
+        .delete(menu.mrdelete)
+        .post(menu.mrsave);
+
     app.route('/api/menu').all(acl.isAllowed)
         .put(menu.update)
         .post(menu.save)

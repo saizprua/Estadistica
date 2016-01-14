@@ -21,6 +21,9 @@ module.exports = function(sequelize, DataTypes) {
                 Roles.hasMany(models.acl,{
                     onDelete: 'cascade'
                 });
+                Roles.hasMany(models.menuRoles,{
+                    onDelete: 'cascade'
+                });
             }
         }
     );

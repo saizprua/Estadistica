@@ -12,7 +12,6 @@
 
           <div class="row">
             <div class="col-md-6">
-                <h3 class="text-iti">CAPACITACIONES REALIZADAS - ACUMULATIVAS DEL AÑO</h3>
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <div class="row">
@@ -39,8 +38,10 @@
 
                 </div>
                 <div class="panel-body">
-                  <div ng-hide="vm.data.length" class="center">
-                    <h1>Sin información</h1>
+                    <h3 class="text-iti">CAPACITACIONES REALIZADAS - ACUMULATIVAS DEL AÑO</h3>
+                    <hr style="margin-top: 2px;">
+                  <div ng-hide="vm.data.length" class="well well-sm center">
+                    <h3 style="margin-top: 10px;" class="text-muted">La información no esta disponible  <b><i class="fa fa-frown-o"></i></b></h3>
                   </div>
                   <div ng-show="vm.data.length" >
                     <canvas ng-if="vm.seriesData"  class="chart chart-bar"
@@ -53,13 +54,23 @@
             </div>
 
             <div class="col-md-6">
-                <h3 class="text-iti">CAPACITACIONES REALIZADAS - ACUMULATIVAS DESDE EL INCIO DE ITI</h3>
+
               <div class="panel panel-default ">
                 <div class="panel-heading panel-extend">Grafica por años</div>
                 <div class="panel-body">
-                  <canvas  class="chart chart-bar"
-                           chart-legend="true" chart-colours="vm.colours" chart-options="vm.options"  chart-data="vm.seriesDataYear" chart-series="vm.seriesYear" chart-labels="vm.labels">
-                  </canvas>
+                    <h3 class="text-iti">CAPACITACIONES REALIZADAS - ACUMULATIVAS DESDE EL INCIO DE ITI</h3>
+                    <hr style="margin-top: 2px;">
+
+                    <div ng-hide="vm.seriesDataYear.length" class="well well-sm center">
+                        <h3 style="margin-top: 10px;" class="text-muted">La información no esta disponible  <b><i class="fa fa-frown-o"></i></b></h3>
+                    </div>
+
+                    <div ng-show="vm.seriesDataYear.length">
+                        <canvas  class="chart chart-bar"
+                                 chart-legend="true" chart-colours="vm.colours" chart-options="vm.options"  chart-data="vm.seriesDataYear" chart-series="vm.seriesYear" chart-labels="vm.labels">
+                        </canvas>
+                    </div>
+
                 </div>
               </div>
             </div>

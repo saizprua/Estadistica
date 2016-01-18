@@ -42,7 +42,7 @@ angular
             MenuList.query().$promise.then(function (data) {
                 vm.menuList = data;
 
-                $scope.$watch('vm.$state.current.name',function(n, o){
+                $scope.$watch('vm.$state.current.name',function(n){
                     if(n && vm.menuList.length > 0){
                         vm.parent = [];
                         var arr = vm.menuList.filter(function (l) {
@@ -76,17 +76,12 @@ angular
 
         function isActive (arr){
            if(!arr) return false;
-
-            //console.log(vm.parent, arr);
            return vm.parent.indexOf(arr.id) > -1;
         }
 
         function isVisible(arr){
             return arr.is_public || vm.menuRoles.indexOf(arr.id) > -1 || vm.global.isAdmin;
         }
-
-
-
 
 
     }

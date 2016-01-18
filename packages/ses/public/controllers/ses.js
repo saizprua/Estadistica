@@ -58,6 +58,7 @@
 
       function getDataAll(){
         console.log(vm.year);
+        vm.data = [];
         SesChartService.all({year:vm.year}).then(function (data) {
           vm.data = data;
         });

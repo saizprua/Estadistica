@@ -10,5 +10,6 @@ module.exports = {
     forceSequelizeSync: process.env.FORCE_DB_SYNC==='true',
     enableSequelizeLog: true,
     timezone : '-05:00' ,
+    expressSessionExpiration: 1800000,
     expressSessionSecret: '$u234r$ecr13t$e$$ionKey123$$para$amto$2' // replace with your own
 };

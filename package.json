@@ -28,7 +28,7 @@
     "connect-multiparty": "^2.0.0",
     "cookie-parser": "latest",
     "express": "latest",
-    "express-mysql-session": "^0.4.1",
+    "express-mysql-session": "^0.4.4",
     "express-session": "latest",
     "forever": "latest",
     "glob": "^5.0.14",

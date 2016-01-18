@@ -9,7 +9,6 @@
     function AclPermission(Global){
 
         var g = Global;
-
         var gr = g.aclRoles;
 
         return allow;

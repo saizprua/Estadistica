@@ -47,7 +47,8 @@
 .text-iti {
     color: #4C6B9E;
     text-align: center;
-    font-size: 22px;
+    font-size: 16px;
+    margin-top: 0;
 }
 
 .bar-legend li {

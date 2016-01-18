@@ -13,13 +13,12 @@
 
           vm.opt =  DTOptionsBuilder.newOptions()
               .withOption('order', [0, 'desc'])
-              .withDisplayLength(12);
+              .withDisplayLength(10);
 
 
         getData();
 
           //metodos
-
 
           vm.allow  = AclPermission;
           vm.createOrEdit = createOrEdit;
@@ -28,8 +27,6 @@
           vm.isRefreshing = false;
           vm.refresh = refresh;
 
-
-          //console.log(vm.allow('/api/iti', 'post'));
 
       function refresh() {
         vm.isRefreshing = true;
@@ -75,13 +72,6 @@
         return index;
       }
 
-      /**
-       * [ Esta funcion permitera iniciar el modal para crear o editar el usuario de la aplicacion]
-       * @method createOrEdit void
-       * @param  {[object]}     model [modelo del usario @object]
-       * @param  {[boolean]}     add   [indicara si el suario es nuevo]
-       * @return {[void]}     [null]
-       */
       function createOrEdit(model, add) {
         var result = $uibModal.open({
                 windowClass: 'animated fadeIn',

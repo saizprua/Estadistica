@@ -7,7 +7,7 @@ var sessionMiddleware = session({
     resave: true,
     saveUninitialized: true,
     store: sessionStore,
-    cookie:{maxAge:1000*3600*24*7}, //remember for 7 days
+    cookie:{maxAge:config.expressSessionExpiration}, //remember for 7 days
     secret: config.expressSessionSecret/*||'$uper$ecret$e$$ionKey'*/
 });
 

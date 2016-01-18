@@ -7,7 +7,7 @@
 
         Global.$inject = [];
 
-        window.user.roles = window.user.roles.split(',');
+        //window.user.roles = window.user && || false;
         function Global(){
           var _this = this;
           _this._data = {
@@ -15,6 +15,9 @@
               authenticated: !! window.user,
               isAdmin: window.isAdmin
           };
+            if(window.user){
+                _this._data.user.roles =  window.user.roles.split(',');
+            }
 
           return _this._data;
         }

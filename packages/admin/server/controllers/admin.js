@@ -13,7 +13,9 @@ module.exports = function (app) {
       getAcl: getAcl,
       save: save,
       update: update,
-      destroy: destroy
+      destroy: destroy,
+      getAclRoles: getAclRoles
+
   };
 
 
@@ -31,6 +33,26 @@ module.exports = function (app) {
         })
             .then(function (acl) {
                  res.json(acl);
+            })
+            .catch(function (err) {
+                res.status(500).send(err);
+            });
+    }
+
+
+    function getAclRoles(req, res){
+
+        var roles = req.user.roles.split(',');
+        db.acl.findAll({
+            attributes:['ruta', 'metodos'],
+            include:[{
+                attributes:['rol'],
+                model: db.roles,
+                where:{ rol: {$in:roles} }
+            }]
+        })
+            .then(function (data) {
+                res.json(data);
             })
             .catch(function (err) {
                 res.status(500).send(err);

@@ -8,7 +8,7 @@
                   </h5>
                   <div class="ibox-tools btn-action">
                       <a href="" ng-click="vm.refresh()" class="btn btn-info"><i  ng-class="{'fa-spin':vm.isRefreshing}" class="fa fa-refresh"></i></a>
-                      <a href="" ng-click="vm.createOrEdit({},true)" class="btn btn-primary">Nuevo <i class="fa fa-plus"></i></a>
+                      <a ng-if="vm.allow('/api/iti','post')" href="" ng-click="vm.createOrEdit({},true)" class="btn btn-primary">Nuevo <i class="fa fa-plus"></i></a>
                   </div>
               </div>
                 <div class="ibox-content">
@@ -32,8 +32,8 @@
                                   <td>{{item.egresados}}</td>
                                   <td>{{item.eventos}}</td>
                                  <td class="center">
-                                   <button ng-click="vm.destroy(item)" class="btn btn-sm  btn-sm-aig btn-danger btn-circle" type="button"  ><i class="fa fa-trash"></i></button>
-                                   <button ng-click="vm.createOrEdit(item)" class="btn btn-sm  btn-sm-aig btn-warning btn-circle" type="button"  ><i class="fa fa-pencil"></i></button>
+                                   <button ng-if="vm.allow('/api/iti','delete')" ng-click="vm.destroy(item)" class="btn btn-sm  btn-sm-aig btn-danger btn-circle" type="button"  ><i class="fa fa-trash"></i></button>
+                                   <button ng-if="vm.allow('/api/iti','put')" ng-click="vm.createOrEdit(item)" class="btn btn-sm  btn-sm-aig btn-warning btn-circle" type="button"  ><i class="fa fa-pencil"></i></button>
                                  </td>
                                </tr>
                            </tbody>

@@ -4,9 +4,9 @@
       .module('mean.iti')
       .controller('ItiController',ItiController);
 
-      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert', 'DTOptionsBuilder', '$filter'];
+      ItiController.inject = ['Iti','$uibModal', 'sAlert','SweetAlert', 'DTOptionsBuilder', '$filter', 'AclPermission'];
 
-      function ItiController( Iti, $uibModal, sAlert, SweetAlert, DTOptionsBuilder, $filter){
+      function ItiController( Iti, $uibModal, sAlert, SweetAlert, DTOptionsBuilder, $filter, AclPermission){
 
 
         var vm = this;
@@ -21,11 +21,15 @@
           //metodos
 
 
+          vm.allow  = AclPermission;
           vm.createOrEdit = createOrEdit;
           vm.destroy = destroy;
           vm.getData = getData;
           vm.isRefreshing = false;
           vm.refresh = refresh;
+
+
+          //console.log(vm.allow('/api/iti', 'post'));
 
       function refresh() {
         vm.isRefreshing = true;

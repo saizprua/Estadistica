@@ -9,6 +9,7 @@ module.exports = function(app) {
     var params = require('../controllers/params');
     var roles = require('../controllers/roles');
     var menu = require('../controllers/menu');
+    var user = require('../../../users/server/controllers/users');
 
     app.route('/api/routes/all').all(acl.isAllowed)
         .get( admin.routes);
@@ -30,17 +31,19 @@ module.exports = function(app) {
         .delete(roles.destroy);
 
     app.route('/api/menu')
-        .get(menu.query);
+        .get(user.requiresLogin, menu.query);
 
     app.route('/api/menu-tree')
-        .get(menu.tree);
+        .get(user.requiresLogin, menu.tree);
 
     app.route('/api/menu-protected')
-        .get(menu.protected);
-
+        .get(user.requiresLogin, menu.protected);
 
     app.route('/api/menu-roles')
-        .get(menu.mrquery);
+        .get(user.requiresLogin, menu.mrquery);
+
+    app.route('/api/acl/roles')
+        .get(user.requiresLogin, admin.getAclRoles);
 
     app.route('/api/menu-roles').all(acl.isAllowed)
         .delete(menu.mrdelete)

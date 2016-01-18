@@ -25,6 +25,10 @@ angular
 
         function init(){
 
+            $http.get('/api/acl/roles').then(function (response) {
+                vm.global.aclRoles =  response.data;
+            });
+
 
             MenuRoles.query().$promise.then(function (data) {
                 vm.menuRoles = data

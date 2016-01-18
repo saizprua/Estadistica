@@ -3,7 +3,13 @@ var db = require('../../../../config/sequelize');
 
 
 exports.mrquery = function (req, res) {
-    db.menuRoles.findAll()
+    db.menuRoles.findAll({
+        include:[{
+            model: db.menu
+        },{
+            model: db.roles
+        }]
+    })
         .then(function (data) {
             res.json(data);
         })

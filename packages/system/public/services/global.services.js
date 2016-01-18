@@ -7,6 +7,7 @@
 
         Global.$inject = [];
 
+        window.user.roles = window.user.roles.split(',');
         function Global(){
           var _this = this;
           _this._data = {

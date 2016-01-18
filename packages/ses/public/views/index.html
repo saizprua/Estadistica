@@ -44,7 +44,14 @@
                                         </tbody>
                                     </table>
                                     <div  class="panel panel-default">
+
+
                                         <div class="panel-body">
+
+                                            <div ng-hide="vm.data.values.length" class="well well-sm center">
+                                                <h3 style="margin-top: 10px;" class="text-muted">La información no esta disponible  <b><i class="fa fa-frown-o"></i></b></h3>
+                                            </div>
+
                                             <div ng-show="vm.data.values.length" class="chart-container ">
                                                 <canvas  id="base" class="chart-base" chart-type="'Pie'"
                                                          chart-data="vm.data.values" chart-labels="vm.data.labels" chart-options="vm.config"  chart-colours="vm.data.colors">

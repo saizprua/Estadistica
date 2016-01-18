@@ -148,6 +148,8 @@ module.exports = function(grunt) {
           grunt.registerTask('default', ['clean','csslint','jshint', 'concurrent']);
       }
 
+
+    grunt.registerTask('compile',['clean','ngAnnotate','uglify','cssmin']);
     grunt.registerTask('annotate',['clean','ngAnnotate']);
 
     //Test task.

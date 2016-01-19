@@ -10,11 +10,15 @@
                 <div class="ibox-content">
 
 
-                    <div class="panel panel-warning">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             Variables Globales
                         </div>
                         <div class="panel-body">
+                            <div class="alert alert-danger" role="alert">
+                                <b>Configuración de Admin!</b>
+                                Esta es la configuración es para definir el ROL de administrador tipo <b>STRING</b> separado por <b>","</b>
+                            </div>
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <th>Parametro</th>
@@ -44,12 +48,16 @@
 
                         <div class="panel-body">
 
+                            <div class="alert alert-warning" role="alert">
+                                <b>Access control list al API!</b>
+                                Esta configuración permitira configurar el ACL para el API para cada ROLE
+                            </div>
 
                             <table datatable="ng" class="table table-striped table-hover table-bordered table-aig">
                                 <thead>
                                 <tr>
                                     <th>Role</th>
-                                    <th>Ruta</th>
+                                    <th>API</th>
                                     <th>Metodos</th>
                                     <th></th>
                                 </tr>
@@ -81,6 +89,7 @@
                                 </tr>
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
 
@@ -111,10 +120,14 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
+                                    <div class="alert alert-warning" role="alert">
+                                        <b>Creación de Menu</b>
+                                        Permitira configurar el menu con las vistas privadas
+                                    </div>
                                     <table datatable="ng" class="table table-striped table-hover table-bordered table-aig">
                                         <thead>
                                             <th>Nombre del rol</th>
-                                            <th>Vistas</th>
+                                            <th>Vistas Privadas</th>
                                             <th></th>
                                         </thead>
                                         <tbody>
@@ -130,9 +143,8 @@
                                                                         ng-checked="vm.checkMenuRole(menu,rol)"
                                                                         ng-click="vm.menuRole(menu, rol)"
                                                                 >
-                                                                {{menu.name}}
+                                                                <b ng-repeat="parent in vm.menu | filter:{id: menu.parent_id}"> {{parent.name + '/'}}</b>{{menu.name}}
                                                             </label>
-
                                                         </div>
                                                     </div>
 

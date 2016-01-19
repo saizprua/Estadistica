@@ -93,7 +93,7 @@
                 type: 'select',
                 templateOptions: {
                     required: true,
-                    label: 'Ruta',
+                    label: 'API',
                     options: [],
                     ngOptions: 'opt.route.path as opt.route.path  for opt in to.options  | rutas:rutaLoad'
                 },

@@ -11,24 +11,24 @@ module.exports = function(app) {
     var menu = require('../controllers/menu');
     var user = require('../../../users/server/controllers/users');
 
-    app.route('/api/routes/all').all(acl.isAllowed)
-        .get( admin.routes);
+    app.route('/api/routes/all')
+        .get(acl.isAllowed, admin.routes);
 
-    app.route('/api/config').all(acl.isAllowed)
-        .get(params.query)
-        .put(params.update);
+    app.route('/api/config')
+        .get(acl.isAllowed,params.query)
+        .put(acl.isAllowed,params.update);
 
-    app.route('/api/acl').all(acl.isAllowed)
-        .get(admin.getAcl)
-        .post(admin.save)
-        .put(admin.update)
-        .delete(admin.destroy);
+    app.route('/api/acl')
+        .get(acl.isAllowed, admin.getAcl)
+        .post(acl.isAllowed, admin.save)
+        .put(acl.isAllowed, admin.update)
+        .delete(acl.isAllowed, admin.destroy);
 
-    app.route('/api/roles').all(acl.isAllowed)
-        .get(roles.query)
-        .post(roles.save)
-        .put(roles.update)
-        .delete(roles.destroy);
+    app.route('/api/roles')
+        .get(acl.isAllowed, roles.query)
+        .post(acl.isAllowed, roles.save)
+        .put(acl.isAllowed, roles.update)
+        .delete(acl.isAllowed, roles.destroy);
 
     app.route('/api/menu')
         .get(user.requiresLogin, menu.query);
@@ -45,13 +45,13 @@ module.exports = function(app) {
     app.route('/api/acl/roles')
         .get(user.requiresLogin, admin.getAclRoles);
 
-    app.route('/api/menu-roles').all(acl.isAllowed)
-        .delete(menu.mrdelete)
-        .post(menu.mrsave);
+    app.route('/api/menu-roles')
+        .delete(acl.isAllowed, menu.mrdelete)
+        .post(acl.isAllowed, menu.mrsave);
 
-    app.route('/api/menu').all(acl.isAllowed)
-        .put(menu.update)
-        .post(menu.save)
-        .delete(menu.delete);
+    app.route('/api/menu')
+        .put(acl.isAllowed, menu.update)
+        .post(acl.isAllowed, menu.save)
+        .delete(acl.isAllowed, menu.delete);
 
 };

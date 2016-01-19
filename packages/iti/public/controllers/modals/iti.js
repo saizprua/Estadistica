@@ -34,7 +34,9 @@
                       angular.extend(formData.model, empresa);
                       vm.cancel();
                   },function (err) {
-                    vm.errors.push(err.data || err);
+                      err = err.data && err.data.message|| err.message || err;
+                      SweetAlert.swal('ERROR!', err, 'error');
+                      vm.errors.push(err.data || err);
                   });
                 });
 
@@ -48,7 +50,9 @@
                       SweetAlert.swal('Confirmado!', 'Nuevo registro guardado!', 'success');
                       $uibModalInstance.close(empresa);
                     },function (err) {
-                      vm.errors.push(err.data || err);
+                        err = err.data && err.data.message|| err.message || err;
+                        SweetAlert.swal('ERROR!', err, 'error');
+                        vm.errors.push(err.data || err);
                     });
                 });
               }

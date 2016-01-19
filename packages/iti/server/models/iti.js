@@ -59,8 +59,8 @@ module.exports = function(sequelize, DataTypes) {
  					 }
 
 					 var curdate = new Date();
- 					 var nFecha = curdate.getYear() + curdate.getMonth();
- 					 var rFecha = item.fecha_reporte.getYear() + item.fecha_reporte.getMonth();
+ 					 var nFecha = curdate.getYear() + '' + curdate.getMonth();
+ 					 var rFecha = item.fecha_reporte.getYear() + '' + item.fecha_reporte.getMonth();
 
 					 if(item.egresados > item.atendidos){
 						 console.log(item.egresados, item.atendidos);

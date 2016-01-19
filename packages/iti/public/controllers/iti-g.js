@@ -15,6 +15,7 @@
         vm.isDisabled= isDisabled;
         vm.onChangeInput = onChangeInput;
         vm.colours = ['#03cb02', '#ff0000'];
+        vm.colours2 = ['#329ECC', '#5A32CC'];
         vm.series = [];
         vm.labels = [];
         vm.seriesData = [];

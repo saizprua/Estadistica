@@ -22,7 +22,7 @@
               vm.form.$submitted = true;
 
               if(vm.form.$invalid){
-                  vm.errors.push({title:'Invalid Form!'});
+                  //vm.errors.push({title:'Invalid Form!'});
                   return;
               }
 

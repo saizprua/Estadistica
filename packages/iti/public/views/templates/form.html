@@ -8,7 +8,14 @@
               <div ng-repeat="err in vm.errors" class="alert alert-danger fadeIn">
                 <strong>{{err.title || err.name}}</strong> {{err.message}}
               </div>
+                <div style="margin-bottom: 5px; padding: 5px;" ng-repeat="req in vm.form.$error.required" class="alert alert-danger fadeIn">
+                    <strong>{{a = req.$name.split('_'); a[a.length - 2] | capitalize}}</strong>
+                    Es un campo requerido
+                </div>
             </div>
+
+              <div></div>
+
 
 
             <form ng-submit="vm.onSubmit()" novalidate>

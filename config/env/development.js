@@ -15,7 +15,7 @@ module.exports = {
         port:3306
     },
     app: {
-        name: 'Dev-Estadisticas'
+        name: 'Dev- AIG- Sistema de Gestión de Estadísticas'
     },
 
     ldap: {

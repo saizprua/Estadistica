@@ -16,6 +16,8 @@
                             </span>
                     </a>
                     <ul class="uib-dropdown-menu animated fadeInRight m-t-xs">
+                        <li ng-show="vm.global.isAdmin"><a href="">Admin</a></li>
+                        <li ng-repeat="rol in vm.user.roles"><a href="">{{rol}}</a></li>
                         <li class="divider"></li>
                         <li><a ng-click="vm.logout()">Salir</a></li>
                     </ul>

@@ -1,7 +1,7 @@
 {
   "name": "mean-relational",
   "description": "M*EAN - A Modern Stack: MySQL, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "author": "Julio Seña",
   "repository": {

@@ -17,6 +17,9 @@
             if (response.status === 401) {
               $location.path('/auth/login');
               return $q.reject(response);
+            }else if(response.status === 403){
+              $location.path('/auth/notauth');
+              return $q.reject(response);
             }
             return response || $q.when(response);
           },
@@ -27,6 +30,11 @@
               $location.url('/auth/login');
               return $q.reject(rejection);
             }
+            else if(response.status === 403){
+              $location.path('/auth/notauth');
+              return $q.reject(rejection);
+            }
+
             return $q.reject(rejection);
           }
 

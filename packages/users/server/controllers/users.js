@@ -57,28 +57,28 @@ exports.session = function(req, res) {
 /**
  * Create user
  */
-exports.create = function(req, res) {
-
-    var user = db.User.build(req.body);
-
-    user.provider = 'local';
-    user.salt = user.makeSalt();
-    user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
-    console.log('New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }');
-
-    user.save().then(function(){
-      req.logIn(user, function(err){
-        if(err) {
-          console.log(err);
-          return res.status(400).json(err);
-        }
-        res.json(user);
-      });
-    }).catch(function(err){
-        console.log(err);
-        res.status(400).json(err);
-    });
-};
+//exports.create = function(req, res) {
+//
+//    var user = db.User.build(req.body);
+//
+//    user.provider = 'local';
+//    user.salt = user.makeSalt();
+//    user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
+//    console.log('New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }');
+//
+//    user.save().then(function(){
+//      req.logIn(user, function(err){
+//        if(err) {
+//          console.log(err);
+//          return res.status(400).json(err);
+//        }
+//        res.json(user);
+//      });
+//    }).catch(function(err){
+//        console.log(err);
+//        res.status(400).json(err);
+//    });
+//};
 
 /**
  * Send User

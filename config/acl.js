@@ -101,7 +101,7 @@ exports.isAllowed = function (req, res, next) {
         // Access granted! Invoke next middleware
         return next();
       } else {
-        return res.status(401).json({
+        return res.status(403).json({
           message: 'User is not authorized'
         });
       }
